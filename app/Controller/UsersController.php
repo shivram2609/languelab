@@ -19,7 +19,8 @@ class UsersController extends AppController {
  * @created on		: 10rd Jan 2013
  * @description		: NA
 */
-	function beforefilter() {
+	function beforefilter() {
+		
 		if($this->params['action'] == 'login') {
 			if ($this->Cookie->read('Auth.User') && !$this->Session->read("Auth.User.id")) {
 				$this->login();
@@ -637,7 +638,7 @@ class UsersController extends AppController {
  * @purpose			: to follow any other user
  * @arguments		: user_id
  * @return			: none
- * @created by		: Sandeep Kaur
+ * @created by		: shivam sharma
  * @created on		: 7 August 2013
  * @description		: NA
 */
@@ -677,7 +678,7 @@ class UsersController extends AppController {
  * @purpose			: to unfollow any other user who is followed already
  * @arguments		: user_id
  * @return			: none
- * @created by		: Sandeep Kaur
+ * @created by		: shivam sharma
  * @created on		: 7 August 2013
  * @description		: NA
 */

@@ -60,8 +60,9 @@ class AppController extends Controller {
  * @description		: NA
 */
 	function beforefilter(){
-
-		if(!defined('SITE_LINK')) {
+		//print_r($this->params);
+		//die;
+        if(!defined('SITE_LINK')) {
 			define("SITE_LINK", "http://".$_SERVER['SERVER_NAME'].$this->params->base."/");
 			define("FILE_LINK", "http://".$_SERVER['SERVER_NAME'].$this->params->base."/");
 		}		
@@ -552,11 +553,15 @@ class AppController extends Controller {
  * @created on		: 16th jan 2013
  * @description		: NA
 */
-	function uploadvideofly($file,$name="lecturevideo",$image=true,$destination=NULL,$flag = False) {
+	function uploadvideofly($file,$name="lecturevideo",$image=true,$destination=NULL,$flag = False,$quizId = NULL) {
 		ini_set('max_execution_time', 0);
-		ini_set('memory_limit','1024M');
+		ini_set('memory_limit','2024M');
 		$userid = $this->Session->read("Auth.User.id");
-		$destination = $userid."/Course".$this->Session->read("courseid")."/Section".$this->Session->read("sectionid")."/Lecture".$this->Session->read("lectureid");
+		if ($this->Session->read("courseid")) {
+			$destination = $userid."/Course".$this->Session->read("courseid")."/Section".$this->Session->read("sectionid")."/Lecture".$this->Session->read("lectureid");
+		} else {
+			$destination = $userid."/quiz".$quizId;
+		}
 		$deststr = '';
 		/* code to create file name to be uploaded */
 		$orgfile = explode(".",$file['name']);
@@ -570,14 +575,13 @@ class AppController extends Controller {
 		
 		/* code to create destination folder */
 		if (!is_dir(WWW_ROOT."/img/".$userid)) {
-			//exec("mkdir ".WWW_ROOT."img/".$userid);
-			//exec("chmod -R 777 ".WWW_ROOT."img/".$userid);
 			mkdir(WWW_ROOT."img/".$userid,0777,true);
 		}
 		if (!empty($destination) && !file_exists(WWW_ROOT."img/".$destination)) {
 			mkdir(WWW_ROOT."img/".$destination,0777,true);
 		}
 		/* code to create destination folder end here */
+		
 		$this->uploaddir = empty($destination)?WWW_ROOT."img/".$userid:WWW_ROOT."img/".$destination."/";
 		//if (move_uploaded_file($file['tmp_name'],$this->uploaddir.$this->imagename)) {
 		if (isset($file['tmp_name']) && !empty($file['tmp_name'])) {
@@ -603,22 +607,8 @@ class AppController extends Controller {
 					unlink($this->uploaddir.$this->imagename.".mp3.ogg");
 				}
 				exec("rm ".$this->uploaddir."*");
-				
-			//	exec("rm ".$this->uploaddir." *");
-			//echo rtrim(ltrim(strtolower($orgfile[count($orgfile)-1])));
-			
-				//if(rtrim(ltrim(strtolower($orgfile[count($orgfile)-1]))) != 'mp3') {
-					//echo FFMPEG_PATH." -itsoffset -1 -i ".escapeshellarg($file['tmp_name'])." -vcodec mjpeg -vframes 1 ".escapeshellarg($this->uploaddir.$this->imagename.".mp3")."";
-					exec(FFMPEG_PATH." -itsoffset -1 -i ".escapeshellarg($file['tmp_name'])." -vcodec mjpeg -vframes 1 ".escapeshellarg($this->uploaddir.$this->imagename.".mp3")." > /dev/null 2>/dev/null &"); //encode audio into mp3 format
-					$this->imagename = $this->imagename.".mp3";
-				/*} else {
-					if(move_uploaded_file($file['tmp_name'],$this->uploaddir.$this->imagename)) {
-						//die("succ");
-					} else {
-						//die("fail");
-					}
-				}*/
-				//echo "<br/>".FFMPEG_PATH." -i ".escapeshellarg($this->uploaddir.$this->imagename)." -acodec libvorbis ".escapeshellarg($this->uploaddir.$this->imagename.".ogg");
+				exec(FFMPEG_PATH." -itsoffset -1 -i ".escapeshellarg($file['tmp_name'])." -vcodec mjpeg -vframes 1 ".escapeshellarg($this->uploaddir.$this->imagename.".mp3")." > /dev/null 2>/dev/null &"); //encode audio into mp3 format
+				$this->imagename = $this->imagename.".mp3";
 				exec(FFMPEG_PATH." -i ".escapeshellarg($file['tmp_name'])." -acodec libvorbis ".escapeshellarg($this->uploaddir.$this->imagename.".ogg". " > /dev/null 2>/dev/null &")); //encode audio into ogg format
 			} else {
 				move_uploaded_file($file['tmp_name'],$this->uploaddir.$this->imagename);
@@ -1331,7 +1321,7 @@ class AppController extends Controller {
  * @arguments		: Following are the arguments to be passed:
 		* ids			: ids of backup table records
  * @return			: none
- * @created by		: sandeep kaur
+ * @created by		: shivam sharma
  * @created on		: 28th july 2013
  * @description		: NA
 */
@@ -1355,7 +1345,7 @@ class AppController extends Controller {
  * @arguments		: Following are the arguments to be passed:
 		* slugs			: slug content in cmspages database
  * @return			: none
- * @created by		: sandeep kaur
+ * @created by		: shivam sharma
  * @created on		: 28th july 2013
  * @description		: NA
 */
@@ -1416,7 +1406,7 @@ class AppController extends Controller {
 
 
 /*
- * @function name	: getquestion
+ * @function name	: getquestionss
  * @purpose			: to get question description
  * @arguments		: Following are the arguments to be passed:
 		* questionid	: id of a question default null

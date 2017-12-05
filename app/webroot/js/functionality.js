@@ -1,11 +1,59 @@
 $(document).ready(function(){
-	
+	//alert("hello");
 	var module = '';
 	var lecture = '';
 	var quiz = '';
 	var type = '';
 	var typeswap = '';
 	var courseidajax = '';
+	var multiChoiceTemplate = '<li id="_VAR1_"><input name="data[CourseQuizQuestionOption][_VAR_][answer]" value="1" id="CourseQuizQuestionOption_VAR_Answer" type="checkbox"><input name="data[CourseQuizQuestionOption][_VAR_][options]" class="optquestionval" placeholder="Enter option here" maxlength="150" id="CourseQuizQuestionOption_VAR_Options" type="text">  </li>';
+	
+	var matchTemplate = '<li id="_VAR1_"><input name="data[CourseQuizQuestionOption][_VAR_][options]" id="CourseQuizQuestionOption_VAR_Answer" placeholder="Enter option here" type="text"><input name="data[CourseQuizQuestionOption][_VAR_][opt_answer]" class="optanswer" placeholder="Enter option here" id="CourseQuizQuestionOption_VAR_Options" type="text">  </li>';
+	
+	$("#addnewopt").on("click",function(){
+		
+		var count = $("ul.newoptions").children("li").length-1;
+		var tmpId = count+1;
+		var type = $(this).attr("val").toLowerCase();
+		if (type == 'm') {
+			var content = multiChoiceTemplate;
+		} else if(type == 'match'){
+			var content = matchTemplate;
+		} else{
+			var content = '';
+		}
+		var tmp = content.replace(/_VAR_/g , count);
+		var tmp = tmp.replace(/_VAR1_/g , tmpId);
+		$("#"+count).after(tmp);
+	});
+	
+	$("#remnewopt").on("click",function(){
+		var count = $("ul.newoptions").children("li").length-1;
+		if ( count == 2 ) {
+			alert("there must be atleast two options for the question.");
+			return;
+		}
+		if ( confirm("do you really want to remove this option?") ) {
+			if ( $("#CourseQuizQuestionOption"+(count-1)+"Id") ) {
+				var val = $("#CourseQuizQuestionOption"+(count-1)+"Id").attr("value");
+				console.log(val);
+				$.ajax({
+					url: BASE_URL+"courses/delquestion",
+					type: 'post',
+					data  : "questionId="+val, 
+					success: function(data) {
+						
+					},
+					error : function(err, req) {
+						
+					}
+				});
+			}
+			//return;
+			$("#"+count).remove();
+		}
+	});
+	
 	
 	
 	$("#CourseViewquizForm").submit(function(e){
@@ -249,7 +297,9 @@ $(document).ready(function(){
 	});
 	/* code to delete quiz question end here */
 	
-	$(".editqst").live("click",function(e){
+	/*--code to edit quiz question starts here ----*/
+	
+	/*$(".editqst").live("click",function(e){
 		var id = $(this).attr("id").split("_");
 		$.ajax({
 			url: BASE_URL+"courses/editquizquestioninline",
@@ -264,12 +314,12 @@ $(document).ready(function(){
 			}
 		});
 		e.stopImmediatePropagation();
-	});
+	});*/
+	
+ /* code to edit quiz question end here */
 	
 	
 	/***** end here *************************************************/
-	
-	
 	
 	$(".add_click_new_module").live("click",function(){
 		$(".addnewmodule").show();
@@ -1584,7 +1634,7 @@ $(document).ready(function(){
 	
 	
 	/* code to add new quiz */
-	$(".addquizbtn").live("click",function(){
+	/*$(".addquizbtn").live("click",function(){
 		if($("#CourseQuizHeading").val() && removeSpaces($("#CourseQuizHeading").val()) != '') {
 			var cid = $(this).attr("id");
 			$.ajax({
@@ -1604,7 +1654,7 @@ $(document).ready(function(){
 		} else {
 			alert("Quiz heading can not be blank.");
 		}
-	});
+	});*/
 	/* code to add new quiz end here */
 	
 	/* code to add content for lectures */
@@ -2655,6 +2705,7 @@ $(document).ready(function(){
 			}
 		});
 	});
+
 	$(".askquestion").click(function(){
 		$(".notescont").hide();
 		$(".qstcont").show();
@@ -2750,6 +2801,7 @@ $(document).ready(function(){
 			}
 		}
     });
+    
 	
 });
 

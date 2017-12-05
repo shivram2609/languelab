@@ -1757,6 +1757,7 @@ class CoursesController extends AppController {
 	}
 
 
+
 /*
  * @function name	: uploadextfile
  * @purpose			: to upload content for lectures but as external links like youtube or vimeo
@@ -1874,7 +1875,207 @@ class CoursesController extends AppController {
 	}
 /* end of function */	
 
+	function delquestion() {
+		if( $this->request->is("ajax") ) {
+			$this->loadModel("CourseQuizQuestionOption");
+			$this->CourseQuizQuestionOption->id = $this->request->data["questionId"];
+			if ( $this->CourseQuizQuestionOption->delete() ) {
+				$result = array("res"=>true);
+			} else {
+				$result = array("res"=>false);
+			}
+			echo json_encode($result);
+			die;
+		}
+	}
 
+
+/* * @function name	:  add quiz question function
+ * @purpose			: to add new quiz questions
+ * @arguments		: Following are the arguments to be passed:
+	  * quizID			: id of question quiz default null
+ * @created by		: shivam sharma
+ * @created on		: 22nd November 2017
+ * @description		: NA
+ * */
+
+	public function addquizquestion($quizID = NULL, $questionType = NULL,$questionID = NULL){
+		$this->set("questionType",$questionType);
+		
+		if ( $this->request->is('post') || $this->request->is('put')) {
+			//pr($this->request->data);
+			//die;
+			$this->loadModel("CourseQuizQuestion");
+			$tmpValidation = array('question'=>array(
+				'notempty'=>array(
+					'rule'=>'notempty',
+					'message'=>'Please enter valid question here.',
+				)
+			));
+			$questionType = strtolower($questionType);
+	// code for only audio file//		
+			if ($questionType== 'a') {
+				$tmpValidation = array_merge($tmpValidation,array('media'=>array(
+						'notempty'=>array(
+							'rule'=>'notempty',
+							"message"=>"Please select an audio file"
+						),
+						'validExtension'=>array(
+							'rule' => array('extension',array('mp3')), 
+							'message' =>'only .mp3 files'
+						)
+					)
+				));
+	// code for video file//			
+			} elseif ($questionType== 'v') {
+				$tmpValidation = array_merge($tmpValidation,array('media'=>array(
+						'notempty'=>array(
+							'rule'=>'notempty',
+							"message"=>"Please select a video file"
+						),
+						'validExtension'=>array(
+							'rule' => array('extension',array('mp4')), 
+							'message' =>'only mp4 video files'
+						)
+					)
+				));
+		// code for documents file//			
+			} elseif ($questionType== 'd') {
+				$tmpValidation = array_merge($tmpValidation,array('media'=>array(
+						'notempty'=>array(
+							'rule'=>'notempty',
+							"message"=>"Please select a document "
+						),
+						'validExtension'=>array(
+							'rule' => array('extension',array('doc','docx')), 
+							'message' =>'only .doc, .docx, not.pdf files'
+						)
+					)
+				));
+			} 
+			$this->CourseQuizQuestion->validate = $tmpValidation;
+			if (isset($this->request->data['CourseQuizQuestionOption']) ) { 
+				$this->loadModel("CourseQuizQuestionOption");
+				$this->CourseQuizQuestionOption->validate = array();
+				$tmpData['CourseQuizQuestionOption'] = array();
+				$flag = true;
+				foreach( $this->request->data['CourseQuizQuestionOption'] as $key=>$val) {
+	// course_quiz_question table answer column value for multiple choice only//		
+					if (isset( $val['answer']) && $val['answer'] ){
+						$flag = false;
+					} 
+					$this->CourseQuizQuestionOption->validate['data[CourseQuizQuestionOption]['.$key.'][options]'] = array('rule'=>'notempty',
+					'message'=>'Please enter option'.($key+1).'.');
+					$tmpData['CourseQuizQuestionOption']['data[CourseQuizQuestionOption]['.$key.'][options]'] = $val['options'];
+	// opt_answer field value from database set to that we are entering for match the column//			
+					if ( isset($val['opt_answer']) && $val['opt_answer']) {
+						$this->CourseQuizQuestionOption->validate['data[CourseQuizQuestionOption]['.$key.'][opt_answer]'] = array('rule'=>'notempty',
+						'message'=>'Please enter option answer'.($key+1).'.');
+						$tmpData['CourseQuizQuestionOption']['data[CourseQuizQuestionOption]['.$key.'][opt_answer]'] = $val['opt_answer'];
+						$flag = false;
+					}
+				}
+				$this->CourseQuizQuestionOption->set($tmpData);
+		        $this->CourseQuizQuestion->set($this->request->data);
+	  // validation applied starts here//	
+				if ( $this->CourseQuizQuestion->validates() && $this->CourseQuizQuestionOption->validates() && !$flag) {
+					//die("here");
+					$data = $this->request->data;
+					$data['CourseQuizQuestion']['course_quiz_id'] = $quizID;
+					$data['CourseQuizQuestion']['type'] = strtoupper($questionType);
+					//pr($data);
+					//die;
+					$this->CourseQuizQuestion->create();
+					if (!empty($questionID)) {
+						$this->CourseQuizQuestion->id = $questionID;
+					}
+					$this->CourseQuizQuestion->saveAll($data);
+				} else {
+					$error = array();
+					//pr($this->CourseQuizQuestionOption->validationErrors);
+					//die("here1");
+					if ( isset($this->CourseQuizQuestionOption->validationErrors) ) {
+						foreach( $this->CourseQuizQuestionOption->validationErrors as $keyError=>$valError) {
+							//pr($valError);
+							//die;
+							$error[] = $valError[0];
+						}
+						//pr($error);
+						//die;
+						if ( !empty($error) ) {
+							$strError = implode("<br/>",$error);
+							$this->set("strError",$strError."<br/>");
+						} elseif ( $flag ) {
+							$this->set("strError","Please select an answer."."<br/>");
+						}
+					}
+				}
+	//only for audio and video and docs file on clicking on submit button data got saved//			
+			} else {
+				$this->loadModel("CourseQuizQuestion");
+				$tmp = $this->request->data;
+				
+				if (isset($tmp['CourseQuizQuestion']['media']) && isset($tmp['CourseQuizQuestion']['media']['tmp_name'])) {
+					$fileFlag = True;
+				} else {
+					$fileFlag = False;
+				}
+				if (isset($this->request->data['CourseQuizQuestion']['id']) && !empty($this->request->data['CourseQuizQuestion']['id']) && empty($this->request->data['CourseQuizQuestion']['media']['tmp_name'])) {
+					unset($this->request->data['CourseQuizQuestion']['media']);
+				} else {
+					$tmp['CourseQuizQuestion']['media'] = $this->request->data['CourseQuizQuestion']['media']['name'];
+				}
+				
+				
+				$this->CourseQuizQuestion->set($tmp);
+	//only after getting validated data upload the file started//
+				if ( $this->CourseQuizQuestion->validates()) {
+					$tmp = $this->request->data;
+					$data = $this->request->data;
+					$data['CourseQuizQuestion']['course_quiz_id'] = $quizID;
+					$data['CourseQuizQuestion']['type'] = strtoupper($questionType);//questionType is the typeof file either 'a' 'v' or'd'
+					$this->CourseQuizQuestion->create();
+					if (!empty($questionID)) {
+						$this->CourseQuizQuestion->id = $questionID;
+					}
+					if($fileFlag && $questionType == 'a') {
+						$file = $tmp['CourseQuizQuestion']['media'];
+						if($this->uploadvideofly($file,"quizmedia",null,"quizmedia",false,$quizID)){
+							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
+						} 
+					} elseif ($fileFlag && $questionType == 'v') {
+						  $file = $tmp['CourseQuizQuestion']['media'];
+							if($this->uploadvideofly($file,"quizvmedia",null,"quizvmedia",false,$quizID)){
+								$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
+								
+							}
+					} elseif ($fileFlag && $questionType == 'd') { 
+						$file = $tmp['CourseQuizQuestion']['media'];
+						 if($this->uploadvideofly($file,"quizdoc",null,"quizdoc",false,$quizID)){
+							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
+						}
+					}
+					//pr($data);
+					//die;
+					$this->CourseQuizQuestion->save($data);			
+				}
+			}
+		} elseif ($this->request->is("get")) {
+			//die("here");
+			$this->loadModel("CourseQuizQuestion");
+			$this->CourseQuizQuestion->hasMany = $this->CourseQuizQuestion->belongsTo = $this->CourseQuizQuestion->hasOne = array();
+			$this->CourseQuizQuestion->hasMany = array(
+				"CourseQuizQuestionOption"=>array(
+					"className"=>"CourseQuizQuestionOption",
+					"foreignKey"=>"course_quiz_question_id",
+				)
+			);
+			//pr($this->data);
+			$this->request->data = $this->CourseQuizQuestion->find("first",array("conditions"=>array("CourseQuizQuestion.id"=>$questionID)));
+			
+		}
+	}
+	
 /*
  * @function name	: addquestions
  * @purpose			: to add new question 
@@ -1884,6 +2085,8 @@ class CoursesController extends AppController {
  * @created on		: 15th july 2013
  * @description		: NA
 */	
+	
+	
 	function addquestions() {
 		if ($this->RequestHandler->isAjax()) {
 			if(!empty($this->request->data['CourseQuiz']['content'])) {
@@ -3389,27 +3592,26 @@ function viewquiz($quizid = NULL, $quizheading = NULL, $type='N'){
 					}
 					$this->CourseQuizQuestionOption->create();
 					$this->CourseQuizQuestionOption->saveAll($quizqstoption['CourseQuizQuestionOption']);
-				}
-				if(isset($this->request->data['CourseQuizQuestionOption']['options']) && !empty($this->request->data['CourseQuizQuestionOption']['options'])) {
-					foreach($this->request->data['CourseQuizQuestionOption']['options'] as $optionkey=>$optionval) {
-						$quizoptoption['CourseQuizQuestionOption'][$optionkey]['id'] = $optionkey;
-						$quizoptoption['CourseQuizQuestionOption'][$optionkey]['options'] = $optionval;
 					}
-					$this->CourseQuizQuestionOption->create();
-					$this->CourseQuizQuestionOption->saveAll($quizoptoption['CourseQuizQuestionOption']);
+						if(isset($this->request->data['CourseQuizQuestionOption']['options']) && !empty($this->request->data['CourseQuizQuestionOption']['options'])) {
+						foreach($this->request->data['CourseQuizQuestionOption']['options'] as $optionkey=>$optionval) {
+								$quizoptoption['CourseQuizQuestionOption'][$optionkey]['id'] = $optionkey;
+								$quizoptoption['CourseQuizQuestionOption'][$optionkey]['options'] = $optionval;
+							}
+							$this->CourseQuizQuestionOption->create();
+							$this->CourseQuizQuestionOption->saveAll($quizoptoption['CourseQuizQuestionOption']);
+						}
+				
+				  exit;
+					} else {
+						$questionid = $this->request->data['questionid'];
+						$currquestion = $this->CourseQuizQuestion->find("all",array("conditions"=>array("CourseQuizQuestion.id"=>$questionid),"fields"=>array("CourseQuizQuestion.*")));
+						$this->set("currquestion",$currquestion[0]);
+						$this->set("previd",$this->request->data['previd']);
+					}
+						$this->render("editquizquestion");
 				}
-				
-				exit;
-			} else {
-				$questionid = $this->request->data['questionid'];
-				$currquestion = $this->CourseQuizQuestion->find("all",array("conditions"=>array("CourseQuizQuestion.id"=>$questionid),"fields"=>array("CourseQuizQuestion.*")));
-				$this->set("currquestion",$currquestion[0]);
-				$this->set("previd",$this->request->data['previd']);
 			}
-				$this->render("editquizquestion");
-				
-		}
-	}
 /* end of function */
 /*
  * @function name	: editquizquestioninline
@@ -3422,9 +3624,9 @@ function viewquiz($quizid = NULL, $quizheading = NULL, $type='N'){
  * @description		: NA
 */	
 	function editquizquestioninline($questionid = NULL) {
-		$this->loadModel("CourseQuizQuestion");
-		$this->loadModel("CourseQuizQuestionOption");
-		if ($this->RequestHandler->isAjax()) {
+			$this->loadModel("CourseQuizQuestion");
+		    $this->loadModel("CourseQuizQuestionOption");
+		if ($this->Session->read("questions.".$questionid)) {    
 			if(isset($this->request->data['question']) && !empty($this->request->data['question'])) {
 				$key = array_keys($this->request->data['question']);
 				$courseqst['CourseQuizQuestion']['question'] = $this->request->data['question'][$key[0]];
@@ -3438,26 +3640,32 @@ function viewquiz($quizid = NULL, $quizheading = NULL, $type='N'){
 					$this->CourseQuizQuestionOption->create();
 					$this->CourseQuizQuestionOption->saveAll($quizqstoption['CourseQuizQuestionOption']);
 				}
-				if(isset($this->request->data['CourseQuizQuestionOption']['options']) && !empty($this->request->data['CourseQuizQuestionOption']['options'])) {
+			     if(isset($this->request->data['CourseQuizQuestionOption']['options']) && !empty($this->request->data['CourseQuizQuestionOption']['options'])) {
 					foreach($this->request->data['CourseQuizQuestionOption']['options'] as $optionkey=>$optionval) {
-						$quizoptoption['CourseQuizQuestionOption'][$optionkey]['id'] = $optionkey;
-						$quizoptoption['CourseQuizQuestionOption'][$optionkey]['options'] = $optionval;
+					$quizoptoption['CourseQuizQuestionOption'][$optionkey]['id'] = $optionkey;
+					$quizoptoption['CourseQuizQuestionOption'][$optionkey]['options'] = $optionval;
 					}
-					$this->CourseQuizQuestionOption->create();
-					$this->CourseQuizQuestionOption->saveAll($quizoptoption['CourseQuizQuestionOption']);
+					  $this->CourseQuizQuestionOption->create();
+					  $this->CourseQuizQuestionOption->saveAll($quizoptoption['CourseQuizQuestionOption']);
+					}
+				
+					exit;
+				} else {
+					$questionid = $this->Session->read("questions.".$this->request->data['questionid']);
+					$arrkey = array_keys($questionid);
+					if(isset($arrkey[$this->request->data['questionid']])) {
+						$currquestion	= $questionid[$arrkey[$this->request->data['questionid']]];
+						} else {
+						$currquestion = $this->CourseQuizQuestion->find("all",array("conditions"=>array("CourseQuizQuestion.course_quiz_id"=>$quizid,"CourseQuizQuestion.id"=>$currquestion),"fields"=>array("CourseQuizQuestion.*")));
+						}
+						//pr($currquestion);
+						//die;
+						$this->set("currquestion",$currquestion[0]);
+						//$this->set("previd",$this->request->data['previd']);
+					}
+						$this->render("editquizquestioninline");
 				}
-				
-				exit;
-			} else {
-				$questionid = $this->request->data['questionid'];
-				$currquestion = $this->CourseQuizQuestion->find("all",array("conditions"=>array("CourseQuizQuestion.id"=>$questionid),"fields"=>array("CourseQuizQuestion.*")));
-				$this->set("currquestion",$currquestion[0]);
-				//$this->set("previd",$this->request->data['previd']);
 			}
-				$this->render("editquizquestioninline");
-				
-		}
-	}
 /* end of function */
 
 

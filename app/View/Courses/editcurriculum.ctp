@@ -39,35 +39,33 @@
 							<li><a id="delete_<?php echo $val['CourseSection']['id']; ?>" class="delete del" val="<?php echo $val['CourseSection']['heading']; ?>" >Delete</a></li>
 						</ul>
 					</div>
-					<?php /* code to show quizzes in a module itself */
-					if(!empty($val['CourseQuiz'])) { 
-						$quizlecture = array();
-						$i = 0;
-						foreach($val['CourseQuiz'] as $quizkey=>$quizval) { 
-							if(empty($quizval['course_lecture_id'])) { ?>
-								<div class="row quizrow quizcont<?php echo $quizval['id']; ?>">
-									<div class="rt-sec">
-										<p>Quiz <?php echo ++$i; ?>:
-											<?php echo $this->Form->input("CourseQuiz.heading.".$quizval['id'],array("value"=>$quizval['heading'],"class"=>"controlChars coursequizval".$quizval['id'],"label"=>false,"div"=>false,"maxlength"=>"64")); ?>
-											<span class="counter"></span>
-										</p>
-									</div>
-									<div class="rt-sec">	
-										<span>Quiz Description(Max Length 200 Characterssss):
-										</span>
-										
-											<?php echo $this->Form->input("CourseQuiz.content.".$quizval['id'],array("type"=>"text","label"=>false,"class"=>"coursequizdesc","value"=>$quizval['content'],"maxlength"=>200,"div"=>false)); ?>
-											<label class="hide err-messg err<?php echo $quizlecval['id']; ?>">Please enter heading.</label>
+		<?php /* code to show quizzes in a module itself */
+			if(!empty($val['CourseQuiz'])) { 
+				$quizlecture = array();						$i = 0;
+					foreach($val['CourseQuiz'] as $quizkey=>$quizval) { 
+						if(empty($quizval['course_lecture_id'])) { ?>
+							<div class="row quizrow quizcont<?php echo $quizval['id']; ?>">
+								<div class="rt-sec">
+									<p>Quiz <?php echo ++$i; ?>:
+										<?php echo $this->Form->input("CourseQuiz.heading.".$quizval['id'],array("value"=>$quizval['heading'],"class"=>"controlChars coursequizval".$quizval['id'],"label"=>false,"div"=>false,"maxlength"=>"64")); ?>
+										<span class="counter"></span>
+									</p>
+								</div>
+								<div class="rt-sec">	
+						      		<span>Quiz Description(Max Length 200 Characterssss):
+									</span>
+										<?php echo $this->Form->input("CourseQuiz.content.".$quizval['id'],array("type"=>"text","label"=>false,"class"=>"coursequizdesc","value"=>$quizval['content'],"maxlength"=>200,"div"=>false)); ?>
+										<label class="hide err-messg err<?php echo $quizlecval['id']; ?>">Please enter heading.</label>
 
-										<?php 
-										if(isset($coursequestions[$quizval['id']])) { 
+								<?php 
+									if(isset($coursequestions[$quizval['id']])) { 
 										?>
 											<div class="qstcontainer">
 												<p>Questions</p>
 												<?php foreach($coursequestions[$quizval['id']] as $qstkey1=>$qstval1) { //pr($qstval); ?>
 													<span><?php echo $qstval1['question']; ?></span>
 													<ul id="ul_<?php echo $qstval1['id']; ?>">
-														<li><a class="sav editqst" id="editqst_<?php echo $qstval1['id']; ?>_<?php echo $quizval['id']; ?>">Edit</a></li>
+														<li><a href="<?php echo SITE_LINK."editquizquestioninline/".$qstval1['id']."/".$qstval1['type'];?>" class="sav editqst" id="editqst_<?php echo $qstval1['id']; ?>_<?php echo $quizval['id']; ?>">Edit</a></li>
 														<li><a class="del delqst" id="delqst_<?php echo $qstval1['id']; ?>">Delete</a></li>
 													</ul>
 												<?php } ?>
@@ -113,64 +111,63 @@
 					<?php
 						}
 					}
-					/* code to show quizzes in a module itself end here */
-					?>
-					<?php
-					$lect_id = 0;
-					if(!empty($val['CourseLecture'])) { 
-						foreach($val['CourseLecture'] as $key1=>$val1) {
-							$lect_id = $val1['id'];
-							if($val1['content_source'] != '' || ($val1['content_type'] == 'T' || $val1['content_type'] == 'M')) { 
-							/**** code to view lecture already having content ****/
+		/* code to show quizzes in a module itself end here */
+			?>
+			<?php
+				$lect_id = 0;
+				if(!empty($val['CourseLecture'])) { 
+					foreach($val['CourseLecture'] as $key1=>$val1) {
+						$lect_id = $val1['id'];
+						if($val1['content_source'] != '' || ($val1['content_type'] == 'T' || $val1['content_type'] == 'M')) { 
+		/**** code to view lecture already having content ****/
 							?>
-								<div class="row4">
-									<div class="module-row module-row2">
-										<div class="rt-sec">
-											<p>
-												<?php echo $this->Form->input("CourseLecture.".$val1['id'],array("value"=>$val1['heading'],"vale"=>$val1['heading'],"div"=>false,"label"=>false,"class"=>"controlChars lecture_".$val1['id'],"maxlength"=>"64","vale"=>$val1['heading'])); ?>
-												<span class="counter"></span>
-											</p>
-											<label class="hide succ-messg lecture_err<?php echo $val1['id']; ?>">Updating lesson, Please wait...</label>
-											<ul>
-												<input type="hidden" id="hiddenidlecture<?php echo $val1['id']; ?>" value="<?php echo $val1['lecture_index']; ?>" />
-												<input type="hidden" id="hiddencourseidlecture<?php echo $val1['id']; ?>" value="<?php echo $val1['course_id']; ?>" />
-												<li><a href="javascript:void(0);" id="btn_<?php echo $val1['id']; ?>" class="changelecture sav">Save</a></li>
-												<li><a href="javascript:void(0);" id="deletelecture_<?php echo $val1['id']; ?>" class="deletelecture del" val="<?php echo $val1['heading']; ?>">Delete</a></li>
-											</ul>
-											<div class="add-items">
-												<?php $titlearr = array("A"=>"Audio","V"=>"Video","P"=>"Presentation","D"=>"Document","M"=>"Mashup","T"=>"Text"); ?>
-												<div class="box-headding">
-													<p><?php echo $titlearr[$val1['content_type']]; ?> : </p> <span><?php echo $val1['content_title']; ?></span>
-												</div>
-												<div class="box-content">
-													<?php if($val1['content_type'] == 'V') { ?>
-														<a href="javascript:void(0);" class="addlecturevideocontent edit fb" id="addlecturevideocontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
-														<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
+						<div class="row4">
+							<div class="module-row module-row2">
+									<div class="rt-sec">
+										<p>											<?php echo $this->Form->input("CourseLecture.".$val1['id'],array("value"=>$val1['heading'],"vale"=>$val1['heading'],"div"=>false,"label"=>false,"class"=>"controlChars lecture_".$val1['id'],"maxlength"=>"64","vale"=>$val1['heading'])); ?>
+										<span class="counter"></span>
+										</p>
+										<label class="hide succ-messg lecture_err<?php echo $val1['id']; ?>">Updating lesson, Please wait...</label>
+									<ul>
+										<input type="hidden" id="hiddenidlecture<?php echo $val1['id']; ?>" value="<?php echo $val1['lecture_index']; ?>" />
+										<input type="hidden" id="hiddencourseidlecture<?php echo $val1['id']; ?>" value="<?php echo $val1['course_id']; ?>" />
+										<li><a href="javascript:void(0);" id="btn_<?php echo $val1['id']; ?>" class="changelecture sav">Save</a></li>
+										<li><a href="javascript:void(0);" id="deletelecture_<?php echo $val1['id']; ?>" class="deletelecture del" val="<?php echo $val1['heading']; ?>">Delete</a></li>
+									</ul>
+										<div class="add-items">
+											<?php $titlearr = array("A"=>"Audio","V"=>"Video","P"=>"Presentation","D"=>"Document","M"=>"Mashup","T"=>"Text"); ?>
+											<div class="box-headding">
+												<p><?php echo $titlearr[$val1['content_type']]; ?> : </p> <span><?php echo $val1['content_title']; ?></span>
+											</div>
+											<div class="box-content">
+												<?php if($val1['content_type'] == 'V') { ?>
+												<a href="javascript:void(0);" class="addlecturevideocontent edit fb" id="addlecturevideocontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
+												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>					<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
 													<?php } elseif($val1['content_type'] == 'A') { ?>
-														<a href="javascript:void(0);" class="addlectureaudiocontent edit fb" id="addlectureaudiocontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
-														<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
+												<a href="javascript:void(0);" class="addlectureaudiocontent edit fb" id="addlectureaudiocontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
+												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
 													<?php } elseif($val1['content_type'] == 'P') { ?>
-														<a href="javascript:void(0);" class="addlecturepresentcontent edit fb" id="addlecturepresentcontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
-														<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank"><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
+												<a href="javascript:void(0);" class="addlecturepresentcontent edit fb" id="addlecturepresentcontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
+												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank"><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
 													<?php } elseif($val1['content_type'] == 'D') { ?>
-														<a href="javascript:void(0);" class="addlecturedoccontent edit fb" id="addlecturedoccontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
-														<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank"><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
+												<a href="javascript:void(0);" class="addlecturedoccontent edit fb" id="addlecturedoccontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
+												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank"><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
 													<?php } elseif($val1['content_type'] == 'T') { ?>
-														<a href="javascript:void(0);" class="addlecturetextcontent edit fb" id="addlecturetextcontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
-														<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank"><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
+												<a href="javascript:void(0);" class="addlecturetextcontent edit fb" id="addlecturetextcontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
+												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank"><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
 													<?php } elseif($val1['content_type'] == 'M') { ?>
-														<a href="javascript:void(0);" class="addlecturemashupcontent edit fb" id="addlecturemashupcontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
-														<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank"><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
+												<a href="javascript:void(0);" class="addlecturemashupcontent edit fb" id="addlecturemashupcontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
+												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank"><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
 													<?php } ?>
-													<a href="javascript:void(0);" class="edit complimentary fb" id="<?php echo $val1['id']; ?>" ><img src="<?php echo $this->webroot; ?>img/add-icon-new.png" />Add Supplementary Stuff</a>
+												<a href="javascript:void(0);" class="edit complimentary fb" id="<?php echo $val1['id']; ?>" ><img src="<?php echo $this->webroot; ?>img/add-icon-new.png" />Add Supplementary Stuff</a>
 													
-													<div class="editlecturecontent<?php echo $val1['id']; ?> hide">
+												<div class="editlecturecontent<?php echo $val1['id']; ?> hide">
 													<span class="addvideocontainer<?php echo $val1['id']; ?> hide addcont addcont_new V">
-													<div class="file_<?php echo $val1['id']; ?>" >
-														<?php echo $this->Form->input("video",array("type"=>"file","class"=>"fileoupload","id"=>"video_".$val1['id']."_".$val1['course_section_id']."_".$val1['course_id'],"div"=>false,"label"=>false)); ?> 
-														<span class="btns">
-															<a href="javascript:void(0);" class="addlecturevideocontent" id="addlecturevideocontents_<?php echo $val1['id']; ?>">Cancel</a>
-														</span>
+												<div class="file_<?php echo $val1['id']; ?>" >
+													<?php echo $this->Form->input("video",array("type"=>"file","class"=>"fileoupload","id"=>"video_".$val1['id']."_".$val1['course_section_id']."_".$val1['course_id'],"div"=>false,"label"=>false)); ?> 
+													<span class="btns">
+													<a href="javascript:void(0);" class="addlecturevideocontent" id="addlecturevideocontents_<?php echo $val1['id']; ?>">Cancel</a>
+													</span>
 														<p class="videoresponse<?php echo $val1['id']; ?> hide" style="color: green;display: block;font-size: 14px;"></p>
 														<div>OR <a href="javascript:void(0);" id="addfromyoutube_<?php echo $val1['id'] ?>" class="addyoutube">Import From Youtube/Vimeo</a></div>
 														<br/><em>Use mp4, mov, wmv, flv, 3gp, quicktime, avi, mpeg or x-wav file no larger than 1.0 GiB.</em>
@@ -469,11 +466,11 @@
 							?>
 								<div class="qstcontainer">
 									<p>Questions</p>
-									<?php foreach($coursequestions[$quizlecval['id']] as $qstkey=>$qstval) { //pr($qstval); ?>
+									<?php foreach($coursequestions[$quizlecval['id']] as $qstkey=>$qstval) { //pr($qstval); die;  ?>
 										<span><?php echo $qstval['question']; ?></span>
 										<ul id="ul_<?php echo $qstval['id']; ?>">
 											<li><a class="del delqst" id="delqst_<?php echo $qstval['id']; ?>">Delete</a></li>
-											<li><a class="sav editqst" id="editqst_<?php echo $qstval['id']; ?>_<?php echo $quizlecval['id']; ?>">Edit</a></li>
+											<li><a href="<?php echo SITE_LINK."editquizquestioninline/".$qstval['id']."/".$qstval['type']; ?>" class="sav editqst" id="editqst_<?php echo $qstval['id']; ?>_<?php echo $quizlecval['id']; ?>">Edit</a></li>
 										</ul>
 									<?php } ?>
 								</div>

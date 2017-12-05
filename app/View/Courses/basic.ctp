@@ -20,7 +20,7 @@
 			<br><h2>Sub Title</h2><br><br>
 			</div>
 			<span class="lft">
-				<?php echo $this->Form->input('subtitle', array('class'=>'controlChars','rows'=>2,'type'=>'textarea','label'=>false, 'div'=>false,'placeholder'=>"e.g. Intro course to novice",'maxlength'=>120)); ?>
+				<?php echo $this->Form->input('subtitle', array('class'=>'controlChars','rows'=>2,'type'=>'textarea','label'=>false, 'div'=>false,'placeholder'=>"e.g. Intro course to novoice",'maxlength'=>120)); ?>
 				<span class="counter"></span>
 			</span>
 			<?php /*<span class="rt">
@@ -28,6 +28,46 @@
 			</span><?php */ ?>
 		</div>	
 		
+		<div class="row">
+			<div class="category-box-text">
+			<br><h2>Source</h2><br><br>
+			</div>
+			<span class="lft">
+				Source Title
+				<?php echo $this->Form->input('source', array('class'=>'controlChars','rows'=>2,'type'=>'text','label'=>false, 'div'=>false)); ?>
+				<span class="counter"></span>
+			</span>
+			<?php /*<span class="rt">
+				<a href="javascript:void(0);" id="subtitleQue" title="Help"><img src="<?php echo $this->webroot; ?>img/question.png" width="38" height="38" alt="Help" /></a>
+			</span><?php */ ?>
+		</div>	
+		
+		<div class="row">
+			<div class="category-box-text">
+			<br><h2>License</h2><br><br>
+			<em class="sml_txt_warn_msg">OpenCourseWare Only</em>
+			</div>
+			<span class="lft input-file-left">
+				
+				<?php echo $this->Form->input('LicenseLogo',array('type'=>'file')); ?>
+			<em class="sml_txt_warn">
+			For OpenCourseWare Only. You need not enter the details in case your course does not belong to OpenCourseWare
+			</em>	
+				<span class="counter"></span>
+			</span>
+			
+			<span class="rt">
+				License URL
+				<?php echo $this->Form->input('url', array('class'=>'input-file-url','type'=>'text','label'=>false, 'div'=>false)); ?>
+				<em class="sml_txt_warn">
+			For OpenCourseWare Only. You need not enter the details in case your course does not belong to OpenCourseWare
+			</em>	
+			</span>
+			<?php /*<span class="rt">
+				<a href="javascript:void(0);" id="subtitleQue" title="Help"><img src="<?php echo $this->webroot; ?>img/question.png" width="38" height="38" alt="Help" /></a>
+			</span><?php */ ?>
+		</div>	
+				
 		<div class="row">
 			<div class="category-box-text">
 				<h2>Keywords</h2>

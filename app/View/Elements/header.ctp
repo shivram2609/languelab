@@ -1,6 +1,6 @@
 <header>
 <div class="header">
-<div class="logo"><a href="<?php echo $this->Html->url("/"); ?>" title="LMS"><?php echo $this->Html->image("/img/logo.png",array("alt"=>"LMS","width"=>"557","height"=>"55")); ?></a></div>
+<div class="logo"><a href="<?php echo $this->Html->url("/"); ?>" title="LMS"><?php echo $this->Html->image("/img/logo.png",array("alt"=>"Languelab","width"=>"557","height"=>"55")); ?></a></div>
 <div class="right_header">
 <?php if($this->session->read("Auth.User.id")) { ?>
 	<div class="acc_drpdwn my-account ">
@@ -45,26 +45,32 @@
 				?>
 				
 			</span> 
-			<?php /*
+			
 			<span class="setting-icon">
-				<?php
+				<?php 
 				echo $this->Html->link(
 					$this->Html->image("/img/setting-icon.png", array("alt" => "Profile Settings","title"=>"Profile Settings","width"=>"18px","height"=>"20px")),
 					"/account",
 					array('escape' => false)
 				);
 				?>
-			</span> */ ?>
+			</span> 
 		</div>
 		
-			<div class="bdr-top">
-			
-			
-			<?php 
-				echo '<a href="'.$this->Html->url("/users/logout").'" title="Log Out" ><img src="'.$this->webroot.'img/logout-icon.png" alt="" width="16" height="15" >Log Out</a>';
+				<div class="bdr-top">
+					<a href="<?php echo $this->Html->url("/mycourses"); ?>">My Courses</a>
+						<br>
+					<a href="<?php echo $this->Html->url("/inbox"); ?>"> Messages</a>
+						<br>
+						<br>
+				</div>
+			   
+				<div class="bdr-top">
+				<?php 
+					echo '<a href="'.$this->Html->url("/users/logout").'" title="Log Out" ><img src="'.$this->webroot.'img/logout-icon.png" alt="" width="16" height="15" >Log Out</a>';
 				
-			 ?>
-			</div>
+				?>
+				</div>
 			
 		</div>
 	</div>

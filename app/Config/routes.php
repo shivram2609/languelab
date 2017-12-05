@@ -46,6 +46,8 @@
 	
 	Router::connect('/login/*', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/signup', array('controller' => 'users', 'action' => 'signup'));
+	Router::connect('/addquizquestion/*', array('controller' => 'courses', 'action' => 'addquizquestion'));
+	Router::connect('/editquizquestioninline/*', array('controller' => 'courses', 'action' => 'editquizquestioninline'));
 	Router::connect('/dashboard', array('controller' => 'users', 'action' => 'dashboard'));
 	Router::connect('/forgotpassword', array('controller' => 'users', 'action' => 'forgotpassword'));
 	Router::connect('/changepassword', array('controller' => 'users', 'action' => 'changepassword'));
@@ -86,6 +88,7 @@
 	Router::connect('/course-manage/delete-instructor/*', array('controller' => 'courses', 'action' => 'deleteinstructor'));
 	Router::connect('/course-manage/delete-courses/*', array('controller' => 'courses', 'action' => 'deletecourse'));
 	Router::connect('/course-manage/edit-curriculum/*', array('controller' => 'courses', 'action' => 'editcurriculum'));
+//	Router::connect('/course-manage/edit-curriculum/addquizzquestions', array('controller' => 'courses', 'action' => 'editcurriculum'));
 	Router::connect('/course-manage/syllabus/*', array('controller' => 'courses', 'action' => 'editcurriculum'));
 	Router::connect('/course-manage/guidelines/*', array('controller' => 'courses', 'action' => 'gettingstarted'));
 	Router::connect('/course-manage/price/*', array('controller' => 'courses', 'action' => 'pricecoupons'));

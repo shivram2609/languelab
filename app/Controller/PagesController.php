@@ -61,7 +61,7 @@ class PagesController extends AppController {
 		$this->loadModel("Course");
 		$this->Course->recursive = -1;
 		$this->set("countcourse",$this->Course->find("count",array("conditions"=>array("Course.status"=>1,"Course.publishstatus"=>"Publish","Course.visibility"=>'Public'))));
-		$this->set("title_for_layout","Welcome to LMS");
+		$this->set("title_for_layout","Welcome to Languelab");
 		
 	}
 	

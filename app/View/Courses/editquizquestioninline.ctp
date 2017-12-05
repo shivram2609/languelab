@@ -2,7 +2,7 @@
 <?php echo $this->Form->create('CourseQuizQuestion'); ?>
 <p class="question-heading">Edit Question</p>
 <div class="q-box1">
-	<?php echo $this->Form->input('question.'.$currquestion['CourseQuizQuestion']['id'],array("value"=>$currquestion['CourseQuizQuestion']['question'],"type"=>"textarea","div"=>false,"label"=>false,"cols"=>"135","row"=>"10")); ?>
+	  <?php echo $this->Form->input('questions.'.$currquestion['CourseQuizQuestion']['id'],array("value"=>$currquestion['CourseQuizQuestion']['question'],"type"=>"textarea","div"=>false,"label"=>false,"cols"=>"135","row"=>"10")); ?>
 </div>
 <?php if($currquestion['CourseQuizQuestion']['type'] == 'M' || $currquestion['CourseQuizQuestion']['type'] == 'B') { ?>
 	<?php foreach($currquestion['CourseQuizQuestionOption'] as $key=>$val) { ?>

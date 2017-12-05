@@ -1581,7 +1581,7 @@ div.showcontent p{float:left;}
 .viewPage{float: left; margin: 5px 0 0;}
 .mashup-upload-sec{position:relative; clear:both; float:left; width:480px; margin:0 0 30px; border-bottom:1px solid #ccc;}
 .addcont,.quizformcontainer{font-family:'proxima_novasemibold'; position:relative; clear:both; float:left; margin:25px 1%; width: 94%; background:#FFFFFF; padding:20px 2%; border: 1px solid #CCCCCC; border-radius:8px; text-align:left;}
-.addcont,.quizformcontainer li{font-family:'proxima_novasemibold'; display: inline; float:left;}
+.addcont,.quizformcontainer li{font-family:'proxima_novasemibold'; display: inline; float:left; width:100%;margin:10px 0;}
 .mashup-upload-sec .file{margin: 10px 6px 0 0; float:left;}
 .tip-txt{font-size:12px; color:#024B7D;line-height: 15px; margin: 20px 0 10px; float:left;}
 .tip-txt{font-size:12px; color:#024B7D;line-height: 15px; margin: 20px 0 10px; float:left;}
@@ -1943,9 +1943,10 @@ form#CourseAddquestionsForm a:hover{color:#000000 !important;}
 form#CourseAddquestionsForm li{float:left;display:block;width:100%;}
 form#CourseAddquestionsForm li input.optquestionval{width: 235px;}
 form#CourseAddquestionsForm #questionerr{color: red; float: left; margin: 0 0 0 32px;width:100%;}
-div#fillquestion{font-size: 86% !important;margin: -13px 0 0 12px !important; width: 95% !important;}
-
-.newoptions{width:88%; float:left; margin:-2px 0 0;}
+div#fillquestion{font-size: 86% !important;margin: -13px 0 0 12px !important; width: 95% !important;float:left;}
+div.addquestionnew{float:left;width:100%;margin-bottom:35px;}
+.newoptions{width:100%;  margin:-2px 0 0; float:left;}
+.optquestionval{width:90%;}a
 .progres-bar-new {background: url("../img/progress-bar-blk-bg.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);  border-radius:6px;  float: left;  height: 11px;  margin: 10px 0;  width: 100%;}
 .progres-bar-new .upper-new {background: none repeat scroll 0 0 #FFFFFF;  border-radius:6px; float: left;  height: 9px;  margin: 1px 0 0 1px;  width: 0%;}
 div.qstcontainer{background: none repeat scroll 0 0 #F5F5F5;  border-radius: 10px;  float: left;  margin: 10px 0 10px 5px;  max-height: 200px;  overflow:auto;  padding: 10px; width: 94%;
@@ -3162,4 +3163,5 @@ div.rt-txt input.action[type="submit"]{ margin:15px auto 10px;}
 .review-list h1{font-size:20px;}
 .account-cont .row{width:96%; padding:7px 2%;}
 .jwplayer{width:100% !important; max-height:100% !important; height:120px !important; }
+ 
 }

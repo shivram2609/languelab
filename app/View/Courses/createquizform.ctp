@@ -115,9 +115,15 @@
 <?php echo $this->Form->submit("Submit",array("id"=>"addquizbtn","label"=>false,"div"=>false)); ?>
 <?php } else { ?>
 <ul style="width:100%;float:left;margin:20px 0;" id="qstoption_<?php echo $id; ?>">
-	<li style="width:30%;float:left;"><a href="javascript:void(0);" class="createquestion" id="mul_<?php echo $id ?>">Multiple Choice</a></li>
-	<li style="width:30%;float:left;"><a href="javascript:void(0);" class="createquestion" id="truefalse_<?php echo $id ?>">True/False</a></li>
-	<li style="width:30%;float:left;"><a href="javascript:void(0);" class="createquestion" id="fill_<?php echo $id ?>">Fill in the Blanks</a></li>
+	<li style="width:30%;float:left;"><a href="<?php echo SITE_LINK."addquizquestion/".$id."/m"; ?>" class="createquestion_" id="mul_<?php echo $id ?>">Multiple Choice</a></li>
+	<li style="width:30%;float:left;"><a href="<?php echo SITE_LINK."addquizquestion/".$id."/t"; ?>" class="createquestion_" id="truefalse_<?php echo $id ?>">True/False</a></li>
+	<li style="width:30%;float:left;"><a href="<?php echo SITE_LINK."addquizquestion/".$id."/f"; ?>" class="createquestion_" id="fill_<?php echo $id ?>">Fill in the Blanks</a></li>
+	<li style="width:30%;float:left;"><a href="<?php echo SITE_LINK."addquizquestion/".$id."/a"; ?>" class="createquestion_" id="audio_<?php echo $id ?>">Audio</a></li>
+	<li style="width:30%;float:left;"><a href="<?php echo SITE_LINK."addquizquestion/".$id."/v"; ?>" class="createquestion_" id="video_<?php echo $id ?>">Video</a></li>
+	<li style="width:30%;float:left;"><a href="<?php echo SITE_LINK."addquizquestion/".$id."/d"; ?>" class="createquestion_" id="docs_<?php echo $id ?>">Documents</a></li>
+	<li style="width:30%;float:left;"><a href="<?php echo SITE_LINK."addquizquestion/".$id."/match"; ?>" class="createquestion_" id="match_<?php echo $id ?>">Match columns</a></li>
+	
+	
 </ul>
 <?php } ?>
 <?php echo $this->Form->end(); ?>
