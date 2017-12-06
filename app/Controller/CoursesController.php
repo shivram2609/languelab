@@ -2040,12 +2040,12 @@ class CoursesController extends AppController {
 					}
 					if($fileFlag && $questionType == 'a') {
 						$file = $tmp['CourseQuizQuestion']['media'];
-						if($this->uploadvideofly($file,"quizmedia",null,"quizmedia",false,$quizID)){
+						if($this->uploadvideofly($file,"quizmedia",false,"quizmedia",true,$quizID)){
 							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
 						} 
 					} elseif ($fileFlag && $questionType == 'v') {
 						  $file = $tmp['CourseQuizQuestion']['media'];
-							if($this->uploadvideofly($file,"quizvmedia",null,"quizvmedia",false,$quizID)){
+							if($this->uploadvideofly($file,"quizvmedia",true,"quizvmedia",false,$quizID)){
 								$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
 								
 							}
