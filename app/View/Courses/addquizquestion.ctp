@@ -123,7 +123,7 @@
 	      <div  class="box">
 	          <?php echo $this->Form->input('media',array("type"=>"file")); ?>
           </div>
-          <?php if (isset($this->request->data['CourseQuizQuestion']['media']) && !empty($this->request->data['CourseQuizQuestion']['media'])) { pr($this->request->data['CourseQuizQuestion']['media']); ?>
+          <?php if (isset($this->request->data['CourseQuizQuestion']['media']) && !empty($this->request->data['CourseQuizQuestion']['media'])) { //pr($this->request->data['CourseQuizQuestion']['media']); ?>
 				<div class="box">
 					<video id="vid" width="320" height="240" controls>
 					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media']; ?>" type="audio/mp3">
