@@ -1903,8 +1903,8 @@ class CoursesController extends AppController {
 		$this->set("questionType",$questionType);
 		
 		if ( $this->request->is('post') || $this->request->is('put')) {
-			//pr($this->request->data);
-			//die;
+			pr($this->request->data);
+			die;
 			$this->loadModel("CourseQuizQuestion");
 			$tmpValidation = array('question'=>array(
 				'notempty'=>array(
