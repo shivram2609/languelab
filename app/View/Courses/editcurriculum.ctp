@@ -65,7 +65,7 @@
 												<?php foreach($coursequestions[$quizval['id']] as $qstkey1=>$qstval1) {// pr($qstval1); ?>
 													<span><?php echo $qstval1['question']; ?></span>
 													<ul id="ul_<?php echo $qstval1['id']; ?>">
-														<li><a href="<?php echo SITE_LINK."addquizquestion/".$qstval1['course_quiz_id']."/".$qstval1['type']."/".$qstval1['id'];?>" class="sav editqst" id="editqst_<?php echo $qstval1['id']; ?>_<?php echo $quizval['id']; ?>">Edit</a></li>
+														<li><a href="<?php echo SITE_LINK."addquizquestion/".$qstval1['course_quiz_id']."/".$qstval1['type']."/".$qstval1['id'];?>" class="sav editqst" id="editqst_<?php echo $qstval1['id']; ?>_<?php echo $quizval['id']; ?>" target="_blank">Edit</a></li>
 														<li><a class="del delqst" id="delqst_<?php echo $qstval1['id']; ?>">Delete</a></li>
 													</ul>
 												<?php } ?>
@@ -470,7 +470,7 @@
 										<span><?php echo $qstval['question']; ?></span>
 										<ul id="ul_<?php echo $qstval['id']; ?>">
 											<li><a class="del delqst" id="delqst_<?php echo $qstval['id']; ?>">Delete</a></li>
-											<li><a href="<?php echo SITE_LINK."addquizquestion/".$qstval['course_quiz_id']."/".$qstval['type']."/".$qstval['id']; ?>" class="sav editqst" id="editqst_<?php echo $qstval['id']; ?>_<?php echo $quizlecval['id']; ?>">Edit</a></li>
+											<li><a href="<?php echo SITE_LINK."addquizquestion/".$qstval['course_quiz_id']."/".$qstval['type']."/".$qstval['id']; ?>" class="sav editqst" id="editqst_<?php echo $qstval['id']; ?>_<?php echo $quizlecval['id']; ?>" target="_blank">Edit</a></li>
 										</ul>
 									<?php } ?>
 								</div>
