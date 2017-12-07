@@ -194,9 +194,10 @@
 						For Documents Only we use .docs, .pdf in OpenCourseWare
 					</em>	
 			</div>
-			<?php if (isset($this->request->data['CourseQuizQuestion']['media']) && !empty($this->request->data['CourseQuizQuestion']['media'])) { pr($this->request->data['CourseQuizQuestion']['media']); ?>
+			<?php if (isset($this->request->data['CourseQuizQuestion']['media']) && !empty($this->request->data['CourseQuizQuestion']['media'])) {//pr($this->request->data['CourseQuizQuestion']['media']); ?>
 				<div class="box">
-					
+					<iframe src="http://docs.google.com/gview?url=<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media']; ?>&embedded=true" style="width:100%; height:530px;" frameborder="0" id="viewer_frame">
+					</iframe>
 				</div>
 			<?php } ?>
 	</div>
