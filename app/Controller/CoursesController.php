@@ -4051,4 +4051,3 @@ function viewquiz($quizid = NULL, $quizheading = NULL, $type='N'){
 	}
 	
 }
->>>>>>> 3cb5ebcc0b5bf2cb92bc768b3fd5e46565114f49
