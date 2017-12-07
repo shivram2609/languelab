@@ -553,7 +553,7 @@ class AppController extends Controller {
  * @created on		: 16th jan 2013
  * @description		: NA
 */
-	function uploadvideofly($file,$name="lecturevideo",$image=true,$destination=NULL,$flag = False,$quizId = NULL) {
+	function uploadvideofly($file,$name="lecturevideo",$image=true,$destination=NULL,$flag = False,$quizId = NULL,$remFlag=true) {
 		ini_set('max_execution_time', 0);
 		ini_set('memory_limit','2024M');
 		$userid = $this->Session->read("Auth.User.id");
@@ -594,11 +594,19 @@ class AppController extends Controller {
 					unlink($this->uploaddir.$this->imagename.".mp4");
 					unlink($this->uploaddir.$this->imagename.".mp4.webm");
 				}
-				exec("rm ".$this->uploaddir."*");
-				exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -b 500k -vcodec libx264 -g 30 " . escapeshellarg($this->uploaddir . $this->imagename . ".mp4") . " > /dev/null 2>/dev/null &"); //encode video into mp4 format
-				//unlink($this->uploaddir.$this->imagename);
-				$this->imagename = $this->imagename . ".mp4";
-				exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -acodec libvorbis -b:a 64k -ac 2 -vcodec libvpx -b:v 200k -f webm -s 384x216 " . escapeshellarg($this->uploaddir . $this->imagename) . ".webm > /dev/null 2>/dev/null &"); //encode video into webm format
+				if ($remFlag) {
+					exec("rm ".$this->uploaddir."*");
+					
+					exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -b 500k -vcodec libx264 -g 30 " . escapeshellarg($this->uploaddir . $this->imagename . ".mp4") . " > /dev/null 2>/dev/null &"); //encode video into mp4 format
+					//unlink($this->uploaddir.$this->imagename);
+					$this->imagename = $this->imagename . ".mp4";
+					exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -acodec libvorbis -b:a 64k -ac 2 -vcodec libvpx -b:v 200k -f webm -s 384x216 " . escapeshellarg($this->uploaddir . $this->imagename) . ".webm > /dev/null 2>/dev/null &"); //encode video into webm format
+				} else {
+					exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -b 500k -vcodec libx264 -g 30 " . escapeshellarg($this->uploaddir . $this->imagename . ".mp4") . ""); //encode video into mp4 format
+					//unlink($this->uploaddir.$this->imagename);
+					$this->imagename = $this->imagename . ".mp4";
+					exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -acodec libvorbis -b:a 64k -ac 2 -vcodec libvpx -b:v 200k -f webm -s 384x216 " . escapeshellarg($this->uploaddir . $this->imagename) . ".webm");
+				}
 				$target1 = WWW_ROOT."/img/".$destination."/".$this->imagename.".jpg"; 
 				exec("/usr/bin/ffmpeg -i ".$file['tmp_name']." -an -ss " . $time . " -an -r 1 -s qcif -vframes 1 -y -s 1000x1000 ".$target1."");
 			} elseif($flag) {
@@ -606,10 +614,16 @@ class AppController extends Controller {
 					unlink($this->uploaddir.$this->imagename.".mp3");
 					unlink($this->uploaddir.$this->imagename.".mp3.ogg");
 				}
-				exec("rm ".$this->uploaddir."*");
-				exec(FFMPEG_PATH." -itsoffset -1 -i ".escapeshellarg($file['tmp_name'])." -vcodec mjpeg -vframes 1 ".escapeshellarg($this->uploaddir.$this->imagename.".mp3")." > /dev/null 2>/dev/null &"); //encode audio into mp3 format
-				$this->imagename = $this->imagename.".mp3";
-				exec(FFMPEG_PATH." -i ".escapeshellarg($file['tmp_name'])." -acodec libvorbis ".escapeshellarg($this->uploaddir.$this->imagename.".ogg". " > /dev/null 2>/dev/null &")); //encode audio into ogg format
+				if ($remFlag) {
+					exec("rm ".$this->uploaddir."*");
+					exec(FFMPEG_PATH." -itsoffset -1 -i ".escapeshellarg($file['tmp_name'])." -vcodec mjpeg -vframes 1 ".escapeshellarg($this->uploaddir.$this->imagename.".mp3")." > /dev/null 2>/dev/null &"); //encode audio into mp3 format
+					$this->imagename = $this->imagename.".mp3";
+					exec(FFMPEG_PATH." -i ".escapeshellarg($file['tmp_name'])." -acodec libvorbis ".escapeshellarg($this->uploaddir.$this->imagename.".ogg". " > /dev/null 2>/dev/null &")); //encode audio into ogg format
+				} else {
+					exec(FFMPEG_PATH." -itsoffset -1 -i ".escapeshellarg($file['tmp_name'])." -vcodec mjpeg -vframes 1 ".escapeshellarg($this->uploaddir.$this->imagename.".mp3").""); //encode audio into mp3 format
+					$this->imagename = $this->imagename.".mp3";
+					exec(FFMPEG_PATH." -i ".escapeshellarg($file['tmp_name'])." -acodec libvorbis ".escapeshellarg($this->uploaddir.$this->imagename.".ogg". "")); //encode audio into ogg format
+				}
 			} else {
 				move_uploaded_file($file['tmp_name'],$this->uploaddir.$this->imagename);
 			}

@@ -128,7 +128,7 @@
 
 					<audio id="audiio" width="320" height="240" controls>
 					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media']; ?>" type="audio/mp3">
-					  <source src="<?php echo SITE_LINK."img/audio.ogg"; ?>" type="audio/ogg">
+					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media'].".ogg"; ?>" type="audio/ogg">
 					  Your browser does not support the audio tag.
 
 					</audio>
