@@ -1901,11 +1901,11 @@ class CoursesController extends AppController {
 
 	public function addquizquestion($quizID = NULL, $questionType = NULL,$questionID = NULL){
 		$this->set("questionType",$questionType);
+		
 		if ( $this->request->is('post') || $this->request->is('put')) {
-			//pr($this->request->data);
-			//die;
-		    $this->loadModel("CourseQuizQuestion");
-			
+			pr($this->request->data);
+			die;
+			$this->loadModel("CourseQuizQuestion");
 			$tmpValidation = array('question'=>array(
 				'notempty'=>array(
 					'rule'=>'notempty',
@@ -1960,7 +1960,6 @@ class CoursesController extends AppController {
 				$tmpData['CourseQuizQuestionOption'] = array();
 				$flag = true;
 				foreach( $this->request->data['CourseQuizQuestionOption'] as $key=>$val) {
-					
 	// course_quiz_question table answer column value for multiple choice only//		
 					if (isset( $val['answer']) && $val['answer'] ){
 						$flag = false;
@@ -1968,7 +1967,6 @@ class CoursesController extends AppController {
 					$this->CourseQuizQuestionOption->validate['data[CourseQuizQuestionOption]['.$key.'][options]'] = array('rule'=>'notempty',
 					'message'=>'Please enter option'.($key+1).'.');
 					$tmpData['CourseQuizQuestionOption']['data[CourseQuizQuestionOption]['.$key.'][options]'] = $val['options'];
-					
 	// opt_answer field value from database set to that we are entering for match the column//			
 					if ( isset($val['opt_answer']) && $val['opt_answer']) {
 						$this->CourseQuizQuestionOption->validate['data[CourseQuizQuestionOption]['.$key.'][opt_answer]'] = array('rule'=>'notempty',
@@ -1979,8 +1977,7 @@ class CoursesController extends AppController {
 				}
 				$this->CourseQuizQuestionOption->set($tmpData);
 		        $this->CourseQuizQuestion->set($this->request->data);
-		        
-	  // validation starts here//	
+	  // validation applied starts here//	
 				if ( $this->CourseQuizQuestion->validates() && $this->CourseQuizQuestionOption->validates() && !$flag) {
 					//die("here");
 					$data = $this->request->data;
@@ -1993,7 +1990,7 @@ class CoursesController extends AppController {
 						$this->CourseQuizQuestion->id = $questionID;
 					}
 					$this->CourseQuizQuestion->saveAll($data);
-				 } else {
+				} else {
 					$error = array();
 					//pr($this->CourseQuizQuestionOption->validationErrors);
 					//die("here1");
@@ -2017,11 +2014,8 @@ class CoursesController extends AppController {
 			} else {
 				$this->loadModel("CourseQuizQuestion");
 				$tmp = $this->request->data;
-				//pr($tmp);
-				//die;
+				
 				if (isset($tmp['CourseQuizQuestion']['media']) && isset($tmp['CourseQuizQuestion']['media']['tmp_name'])) {
-					//pr($tmp['CourseQuizQuestion']['media']['tmp_name']);
-					//die;
 					$fileFlag = True;
 				} else {
 					$fileFlag = False;
@@ -4057,3 +4051,4 @@ function viewquiz($quizid = NULL, $quizheading = NULL, $type='N'){
 	}
 	
 }
+>>>>>>> 3cb5ebcc0b5bf2cb92bc768b3fd5e46565114f49
