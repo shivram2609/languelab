@@ -1,7 +1,7 @@
 <h1> Questions</h1>
 <div class = "quizformcontainer" >
 <?php //pr($data); ?>
-<?php echo $this->Form->create("CourseQuizQuestion",array("type"=>"file")); ?>
+<?php echo $this->Form->create("CourseQuizQuestion",array("type"=>"file","enctype" => "multipart/form-data")); ?>
 <?php //pr($this->request->data); ?>
 <!--form for multiple choice-->
 <?php echo $this->Form->input("CourseQuizQuestion.id",array("type"=>"hidden")); ?>
@@ -123,13 +123,13 @@
 	      <div  class="box">
 	          <?php echo $this->Form->input('media',array("type"=>"file")); ?>
           </div>
-          <?php if (isset($this->request->data['CourseQuizQuestion']['media']) && !empty($this->request->data['CourseQuizQuestion']['media'])) { pr($this->request->data['CourseQuizQuestion']['media']); ?>
+          <?php if (isset($this->request->data['CourseQuizQuestion']['media']) && !empty($this->request->data['CourseQuizQuestion']['media'])) { //pr($this->request->data['CourseQuizQuestion']['media']); ?>
 				<div class="box">
-					<video id="vid" width="320" height="240" controls>
-					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media']; ?>" type="audio/mp3">
-					  <source src="<?php echo SITE_LINK."img/audio.ogg"; ?>" type="audio/ogg">
-					  Your browser does not support the audio tag.
-					</video>
+					<audio id="aud" width="320" height="240" controls>
+					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media'];  ?>" type="audio/mp3">
+					  <source src="<?php echo SITE_LINK."img/audio.ogg"  ?>" type="audio/ogg">
+						  Your browser does not support the audio tag.
+					</audio>
 					
 				
 					
@@ -156,11 +156,12 @@
 			<div  class="box">
 	           <?php echo $this->Form->input('media',array("type"=>"file")); ?>
 			</div>
-			<?php if (isset($this->request->data['CourseQuizQuestion']['media']) && !empty($this->request->data['CourseQuizQuestion']['media'])) { pr($this->request->data['CourseQuizQuestion']['media']); ?>
+			
+				<?php if (isset($this->request->data['CourseQuizQuestion']['media']) && !empty($this->request->data['CourseQuizQuestion']['media'])) { pr($this->request->data['CourseQuizQuestion']['media']); ?>
 				<div class="box">
 					<video id="vid" width="320" height="240" controls>
-					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media']; ?>" type="video/mp4">
-					  <source src="<?php echo SITE_LINK."img/cartoon.webm"; ?>" type="video/webm">
+					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media'];?>" type="video/mp4">
+					  <source src="<?php echo SITE_LINK."img/cartoon.webm"?> " type="video/webm">
 					  Your browser does not support the video tag.
 					</video>
 					
