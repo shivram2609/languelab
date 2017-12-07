@@ -1906,6 +1906,8 @@ class CoursesController extends AppController {
 			//pr($this->request->data);
 			//die;
 			$this->loadModel("CourseQuizQuestion");
+			//pr($this->request->data);
+			//die;
 			$tmpValidation = array('question'=>array(
 				'notempty'=>array(
 					'rule'=>'notempty',
@@ -1947,7 +1949,7 @@ class CoursesController extends AppController {
 							"message"=>"Please select a document "
 						),
 						'validExtension'=>array(
-							'rule' => array('extension',array('doc','docx')), 
+							'rule' => array('extension',array('doc','docx','pdf')), 
 							'message' =>'only .doc, .docx, not.pdf files'
 						)
 					)
@@ -1989,7 +1991,19 @@ class CoursesController extends AppController {
 					if (!empty($questionID)) {
 						$this->CourseQuizQuestion->id = $questionID;
 					}
-					$this->CourseQuizQuestion->saveAll($data);
+							if ($this->CourseQuizQuestion->saveAll($data)) {
+								if ( !empty($questionID) ) {
+									$quistId = $questionID;
+								} else {
+									$quistId = $this->CourseQuizQuestion->getLastInsertID();
+								}
+									$this->redirect("/addquizquestion/".$quizID."/".$questionType."/".$quistId);
+								$this->redirect("/addquizquestion/".$quizID."/".$questionType."/".$quisttId);
+							} else {
+								$this->request->data = $data;
+							}
+					
+					
 				} else {
 					$error = array();
 					//pr($this->CourseQuizQuestionOption->validationErrors);
@@ -2051,15 +2065,19 @@ class CoursesController extends AppController {
 							}
 					} elseif ($fileFlag && $questionType == 'd') { 
 						$file = $tmp['CourseQuizQuestion']['media'];
-						 if($this->uploadvideofly($file,"quizdoc",null,"quizdoc",false,$quizID)){
+						 if($this->uploadvideofly($file,"quizdoc",false,"quizdoc",false,$quizID)){
 							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
 						}
 					}
 					//pr($data);
-					//die;
-					if ( $this->CourseQuizQuestion->save($data)) {
-						$quistId = $this->CourseQuizQuestion->lastInsertedId;
-						$this->redirect("/addquizquestion/".$quizID."/".$questionType."/".$quistId);
+                   // die;
+					if ($this->CourseQuizQuestion->save($data)) {
+						if ( !empty($questionID) ) {
+							$quistId = $questionID;
+						} else {
+							$quistId = $this->CourseQuizQuestion->getLastInsertID();
+						}
+							$this->redirect("/addquizquestion/".$quizID."/".$questionType."/".$quistId);
 					} else {
 						$this->request->data = $data;
 					}
