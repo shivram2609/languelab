@@ -1961,8 +1961,9 @@ class CoursesController extends AppController {
 				$this->CourseQuizQuestionOption->validate = array();
 				$tmpData['CourseQuizQuestionOption'] = array();
 				$flag = true;
+				
 				foreach( $this->request->data['CourseQuizQuestionOption'] as $key=>$val) {
-	// course_quiz_question table answer column value for multiple choice only//		
+	// course_quiz_question table answer column value for multiple choice, true/False only//		
 					if (isset( $val['answer']) && $val['answer'] ){
 						$flag = false;
 					} 

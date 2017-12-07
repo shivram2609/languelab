@@ -67,13 +67,22 @@
 	       <br/>
 	         <?php echo $this->Form->input('question',array("type"=>"text","placeholder"=>"Enter question here","label"=>false,"div"=>false,"cols"=>"135","row"=>"10","class"=>"question")); ?>
         </div>
-          
-			  <label> Options </label>
+          <?php echo isset($strError)?$strError:''; ?>
+			  <label>  </label>
 			      <ul class="newoptions" style="margin-top:10px;">
-				      <li style="float: left;width: 100%;"><?php echo $this->Form->input("CourseQuizQuestionOption.options",array("type"=>"checkbox","label"=>"TRUE","div"=>false)); ?> </li>
+					  
+				     <li id="1" style="float: left;width: 100%;">
+						  <?php echo $this->Form->input("CourseQuizQuestionOption.0.answer",array("class"=>"optquestion","type"=>"checkbox","label"=>"TRUE","div"=>false)); ?>
+						  <?php echo $this->Form->input("CourseQuizQuestionOption.0.options",array("class"=>"optquestionval","type"=>"hidden", "value"=>"true","div"=>false,"maxlength"=>"150")); ?> 
+						  <?php echo $this->Form->input("CourseQuizQuestionOption.0.id",array("type"=>"hidden")); ?>
+					 </li>
 		
-			    	  <li style="float: left;width: 100%;"><?php echo $this->Form->input("CourseQuizQuestionOption.options",array("type"=>"checkbox","label"=>"FALSE","div"=>false)); ?> </li>
-		
+			    	  <li id="2" style="float: left;width: 100%;">
+						  <?php echo $this->Form->input("CourseQuizQuestionOption.1.answer",array("class"=>"optquestion","type"=>"checkbox","label"=>"FALSE","div"=>false)); ?> 
+						  <?php echo $this->Form->input("CourseQuizQuestionOption.1.options",array("class"=>"optquestionval","type"=>"hidden", "value"=>"false","div"=>false,"maxlength"=>"150")); ?>
+						   <?php echo $this->Form->input("CourseQuizQuestionOption.1.id",array("type"=>"hidden")); ?>
+					 </li>
+		<?php  ?>
 				  </ul>
 	 </div>     
          
