@@ -2057,7 +2057,12 @@ class CoursesController extends AppController {
 					}
 					//pr($data);
 					//die;
-					$this->CourseQuizQuestion->save($data);			
+					if ( $this->CourseQuizQuestion->save($data)) {
+						$quistId = $this->CourseQuizQuestion->lastInsertedId;
+						$this->redirect("/addquizquestion/".$quizID."/".$questionType."/".$quistId);
+					} else {
+						$this->request->data = $data;
+					}
 				}
 			}
 		} elseif ($this->request->is("get")) {

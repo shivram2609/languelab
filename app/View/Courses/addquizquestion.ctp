@@ -162,7 +162,7 @@
 				<div class="box">
 					<video id="vid" width="320" height="240" controls>
 					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media'];?>" type="video/mp4">
-					  <source src="<?php echo SITE_LINK."img/cartoon.webm"?> " type="video/webm">
+					  <source src="<?php echo SITE_LINK.$this->request->data['CourseQuizQuestion']['media'].".webm";?>" type="video/webm">
 					  Your browser does not support the video tag.
 					</video>
 					
