@@ -68,8 +68,7 @@
 	         <?php echo $this->Form->input('question',array("type"=>"text","placeholder"=>"Enter question here","label"=>false,"div"=>false,"cols"=>"135","row"=>"10","class"=>"question")); ?>
         </div>
           <?php echo isset($strError)?$strError:''; ?>
-			  <label>  </label>
-			      <ul class="newoptions" style="margin-top:10px;">
+			    <ul class="newoptions" style="margin-top:10px;">
 					  
 				     <li id="1" style="float: left;width: 100%;">
 						  <?php echo $this->Form->input("CourseQuizQuestionOption.0.answer",array("class"=>"optquestion","type"=>"checkbox","label"=>"TRUE","div"=>false)); ?>
@@ -113,6 +112,12 @@
              </em>
              
 	       </div>
+	       
+	       <ul class="newoptions" style="margin-top:10px;">
+			  
+			  
+		   </ul>
+			   
 	       
       </div>      
 <?php } ?>		

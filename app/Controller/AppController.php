@@ -618,10 +618,11 @@ class AppController extends Controller {
 					exec("rm ".$this->uploaddir."*");
 					exec(FFMPEG_PATH." -itsoffset -1 -i ".escapeshellarg($file['tmp_name'])." -vcodec mjpeg -vframes 1 ".escapeshellarg($this->uploaddir.$this->imagename.".mp3")." > /dev/null 2>/dev/null &"); //encode audio into mp3 format
 					$this->imagename = $this->imagename.".mp3";
+					sleep(2);
 					exec(FFMPEG_PATH." -i ".escapeshellarg($file['tmp_name'])." -acodec libvorbis ".escapeshellarg($this->uploaddir.$this->imagename.".ogg". " > /dev/null 2>/dev/null &")); //encode audio into ogg format
 				} else {
 					exec(FFMPEG_PATH." -itsoffset -1 -i ".escapeshellarg($file['tmp_name'])." -vcodec mjpeg -vframes 1 ".escapeshellarg($this->uploaddir.$this->imagename.".mp3").""); //encode audio into mp3 format
-					$this->imagename = $this->imagename.".mp3";
+					$this->imagename = $this->imagename.".mp3 ";
 					exec(FFMPEG_PATH." -i ".escapeshellarg($file['tmp_name'])." -acodec libvorbis ".escapeshellarg($this->uploaddir.$this->imagename.".ogg". "")); //encode audio into ogg format
 				}
 			} else {

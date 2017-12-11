@@ -37,7 +37,7 @@ class CourseLecture extends AppModel {
 		'CourseQuiz' => array(
 			'className' => 'CourseQuiz',
 			'foreignKey' => 'course_lecture_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
