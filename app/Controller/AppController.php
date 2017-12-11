@@ -609,7 +609,7 @@ class AppController extends Controller {
 					exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -acodec libvorbis -b:a 64k -ac 2 -vcodec libvpx -b:v 200k -f webm -s 384x216 " . escapeshellarg($this->uploaddir . $this->imagename) . ".webm");
 				}
 				$target1 = $this->uploaddir.$this->imagename.".jpg"; 
-				exec("/usr/bin/ffmpeg -i ".$file['tmp_name']." -an -ss " . $time . " -an -r 1 -s qcif -vframes 1 -y -s 1000x1000 ".$target1."");
+				exec(FFMPEG_PATH." -i ".$file['tmp_name']." -an -ss " . $time . " -an -r 1 -s qcif -vframes 1 -y -s 1000x1000 ".$target1."");
 			} elseif($flag) {
 				if(file_exists($this->uploaddir.$this->imagename.".mp3")) {
 					unlink($this->uploaddir.$this->imagename.".mp3");
