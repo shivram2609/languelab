@@ -598,6 +598,7 @@ class AppController extends Controller {
 					exec("rm ".$this->uploaddir."*");
 					
 					exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -b 500k -vcodec libx264 -g 30 " . escapeshellarg($this->uploaddir . $this->imagename . ".mp4") . " > /dev/null 2>/dev/null &"); //encode video into mp4 format
+					exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -b 500k -vcodec libx264 -g 30 " . escapeshellarg($this->uploaddir . $this->imagename . ".mp4") . " > tmp.txt"); //encode video into mp4 format
 					//unlink($this->uploaddir.$this->imagename);
 					$this->imagename = $this->imagename . ".mp4";
 					exec(FFMPEG_PATH . " -i " . escapeshellarg($file['tmp_name']) . " -acodec libvorbis -b:a 64k -ac 2 -vcodec libvpx -b:v 200k -f webm -s 384x216 " . escapeshellarg($this->uploaddir . $this->imagename) . ".webm > /dev/null 2>/dev/null &"); //encode video into webm format
