@@ -142,7 +142,7 @@
 											<div class="box-content">
 												<?php if($val1['content_type'] == 'V') { ?>
 												<a href="javascript:void(0);" class="addlecturevideocontent edit fb" id="addlecturevideocontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
-												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>					<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
+												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>					
 													<?php } elseif($val1['content_type'] == 'A') { ?>
 												<a href="javascript:void(0);" class="addlectureaudiocontent edit fb" id="addlectureaudiocontent_<?php echo $val1['id']; ?>"><img src="<?php echo $this->webroot; ?>img/edit-icon-new.png" alt="Edit" />Edit</a>
 												<a href="<?php echo $this->Html->url("/v/".$val1['id']."/".$this->Common->makeurl($val1['heading'])); ?>" class="edit fb" target="_blank" ><img src="<?php echo $this->webroot; ?>img/view-icon-new.png" alt="Preview" />Preview</a>
