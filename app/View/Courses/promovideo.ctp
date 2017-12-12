@@ -52,21 +52,17 @@
 			<div class="video-frame1">
 				<?php if(!empty($this->data['Course']['promovideo'])){ ?>
 				<div id="video-frame" class="video-frame1">
-					<?php echo $this->data['Course']['promovideo']; ?>
+					<video id="vid" width="320" height="240" controls>
+					  <source src="<?php echo SITE_LINK.$this->request->data['Course']['promovideo'];?>" type="video/mp4">
+					  <source src="<?php echo SITE_LINK.$this->request->data['Course']['promovideo'].".webm";?>" type="video/webm">
+					  Your browser does not support the video tag.
+					</video>
 				</div>
 				<?php } else{
 						echo $this->Html->image('/img/promo-video-dummy.png');	
 				}?>
 			</div>
-				<script type="text/javascript">
-					jwplayer("video-frame").setup({
-						file: '<?php echo SITE_LINK.$this->data['Course']['promovideo']; ?>',
-						image: '<?php echo SITE_LINK.$this->data['Course']['promovideo'].".jpg"; ?>',
-						primary: primaryCookie,
-						skin: skinURL,
-						width: 675
-					});
-				</script>
+				
 				
 			<?php } ?>
 			</div>
