@@ -41,8 +41,8 @@
 					<span id="minimum">
 					</span>
 					<video id="vid" width="320" height="240" controls>
-					  <source src="<?php echo SITE_LINK.$this->request->data['Course']['promovideo'];?>" type="video/mp4">
-					  <source src="<?php echo SITE_LINK.$this->request->data['Course']['promovideo'].".webm";?>" type="video/webm">
+					  <source src="<?php echo SITE_LINK.$coursedetail['Course']['promovideo'];?>" type="video/mp4">
+					  <source src="<?php echo SITE_LINK.$coursedetail['Course']['promovideo'].".webm";?>" type="video/webm">
 					  Your browser does not support the video tag.
 					</video>
 				<?php } else { 
