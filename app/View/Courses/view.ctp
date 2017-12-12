@@ -40,16 +40,11 @@
 				<?php if(!empty($coursedetail['Course']['promovideo'])) { ?>
 					<span id="minimum">
 					</span>
-					<script type="text/javascript">
-						jwplayer("minimum").setup({
-							file: '<?php echo SITE_LINK.$coursedetail['Course']['promovideo']; ?>',
-							image:'<?php echo SITE_LINK.$coursedetail['Course']['promovideo'].".jpg"; ?>',
-							primary: primaryCookie,
-							skin: skinURL,
-							width: 511,
-							height:333
-						});
-					</script>
+					<video id="vid" width="320" height="240" controls>
+					  <source src="<?php echo SITE_LINK.$this->request->data['Course']['promovideo'];?>" type="video/mp4">
+					  <source src="<?php echo SITE_LINK.$this->request->data['Course']['promovideo'].".webm";?>" type="video/webm">
+					  Your browser does not support the video tag.
+					</video>
 				<?php } else { 
 						$CourseImgPathThumb1 = ((!empty($coursedetail['Course']['coverimage']) && file_exists(WWW_ROOT.$coursedetail['Course']['coverimage']))?$coursedetail['Course']['coverimage']: "/img/no-img.png");
 							$ProfileImgThumb1 = $this->Common->getImageName($CourseImgPathThumb1, LargeCourseImagePrefix);
