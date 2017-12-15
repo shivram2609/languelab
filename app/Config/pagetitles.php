@@ -1,7 +1,7 @@
 <?php
 /* title extension for all pages in admin panel */
-	define("TITLE_EXT"," | LMS");
-	define("MAIL_TITLE_EXT"," LMS");
+	define("TITLE_EXT"," - Languelab");
+	define("MAIL_TITLE_EXT"," Languelab");
 	define("ADMINLOGIN","Admin Login");
 	define("FORGOTPASSWORD","Forgot Password");
 	define("DASHBOARD","Dashboard");
