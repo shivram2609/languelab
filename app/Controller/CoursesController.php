@@ -905,7 +905,7 @@ function policies($id) {
 		$this->Course->unBindModel(array("belongsTo"=>array("Category", "Language", "InstructionLevel"), "hasMany"=>array("CourseAudience", "CourseGoal", "CourseInstructor", "CourseInvitee", "CoursePassword", "CourseRequirement", "CourseSection", "CourseLecture", "UserLearningCourse", "UserWishlistCourse", "UserViewCourse", "CourseReview")));
 		$this->Course->virtualFields = array("name"=>"select CONCAT(Userdetail.first_name,' ',Userdetail.last_name) from userdetails Userdetail where Userdetail.user_id = Course.user_id","designation"=>"select designation from userdetails Userdetail where Userdetail.user_id = Course.user_id");
 		$userdetails = $this->Course->find('first',array('fields'=>array("Course.id","Course.title","Course.user_id","Course.name","Course.publishstatus","Course.designation"),'conditions'=>array("Course.id"=>$id)));
-		$this->set("title_for_layout","Course Policies - ");
+		$this->set("title_for_layout","Course Policies - ".$userdetails['Course']['title']);
 		$this->set(compact('userdetails','instlevel'));
 }
 
