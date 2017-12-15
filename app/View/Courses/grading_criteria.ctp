@@ -10,7 +10,7 @@
 			</div>
 			
 			<span class="lft">
-				<?php echo $this->Form->input('grading criteria',array('class'=>'controlChars','label'=>false, 'div'=>false,'type'=>"textarea")); ?>
+				<?php echo $this->Form->input('grading',array('class'=>'controlChars','label'=>false, 'div'=>false,'type'=>"textarea")); ?>
 			</span> 
 			
 		</div>

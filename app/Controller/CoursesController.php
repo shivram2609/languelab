@@ -889,7 +889,14 @@ class CoursesController extends AppController {
 
 function policies($id) {
 	$this->layout = "frontend";
-		if (isset($this->data) && !empty($this->data['Course']['coverimage']['name'])) {
+		if (isset($this->data) && !empty($this->data['Course']['policies'])) {
+			$coursedata['Course']['policies'] = $this->data['Course']['policies'];
+			$this->Course->create();
+					$this->Course->id = $id;
+					if ($this->Course->save($coursedata, array('validate' => false))) {
+						$this->Session->setFlash(__('Policies have been updated.'), 'default', array("class"=>"success_message"));
+						$this->redirect('/course-manage/policies/'.$id);
+					}
 			
 		}
 		$this->validatecourse($id,-1);
@@ -3678,7 +3685,14 @@ function viewquiz($quizid = NULL, $quizheading = NULL, $type='N'){
 
 function grading_criteria($id) {
 	$this->layout = "frontend";
-		if (isset($this->data) && !empty($this->data['Course']['coverimage']['name'])) {
+		if (isset($this->data) && !empty($this->data['Course']['grading'])) {
+			$coursedata['Course']['grading'] = $this->data['Course']['grading'];
+			$this->Course->create();
+					$this->Course->id = $id;
+					if ($this->Course->save($coursedata, array('validate' => false))) {
+						$this->Session->setFlash(__('Course grading have been updated.'), 'default', array("class"=>"success_message"));
+						$this->redirect('/course-manage/grading_criteria/'.$id);
+					}
 			
 		}
 		$this->validatecourse($id,-1);

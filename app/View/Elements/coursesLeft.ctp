@@ -56,7 +56,7 @@
 		<li  class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'gettingstarted') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/guidelines/'.$courseId);?>" title="Getting Started">Course Guidelines</a>
 			  <ul style="margin: 0 0 0 15px;">
 				  <li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'policies') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/policies/'.$courseId);?>" title="Course policies" target="_blank">Course Policies</a></li>
-				  <li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'grading-criteria') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/grading_criteria/'.$courseId);?>" title="Grading Criteria" target="_blank">Grading Criteria</a></li>
+				  <li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'grading_criteria') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/grading_criteria/'.$courseId);?>" title="Grading Criteria" target="_blank">Grading Criteria</a></li>
 			  </ul>
 		</li>
                           
