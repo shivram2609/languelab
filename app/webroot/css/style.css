@@ -393,7 +393,7 @@ div.options_box{background: none repeat scroll 0 0 #f4f4f4;
 .left-bar h2:first-child{border-top:none;}
 .left-bar ul{color:#1b9ed5; text-decoration:none;}
 .left-bar ul li{font-family:'proxima_nova_rgregular'; font-size:16px; font-weight:normal; list-style:none; margin:2px 0; float:left; width:100%;}
-.left-bar ul li a{font-family:'proxima_novasemibold'; font-weight:normal; color:#1b9ed5;  padding:5px 15px;  text-decoration:none; display:block;}
+.left-bar ul li a{font-family:'proxima_novasemibold'; font-weight:normal; color:#f40202;  padding:5px 15px;  text-decoration:none; display:block;}
 .left-bar ul li a:hover{color:#393939;}
 .left-bar ul li.selected{background:#fff; list-style:none;  padding:0px;}
 .left-bar ul li.selected a{font-family:'proxima_novasemibold'; font-weight:normal; color:#393939;  padding:5px 15px;  text-decoration:none; display:block;}

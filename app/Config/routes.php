@@ -90,6 +90,9 @@
 	Router::connect('/course-manage/edit-curriculum/*', array('controller' => 'courses', 'action' => 'editcurriculum'));
 //	Router::connect('/course-manage/edit-curriculum/addquizzquestions', array('controller' => 'courses', 'action' => 'editcurriculum'));
 	Router::connect('/course-manage/syllabus/*', array('controller' => 'courses', 'action' => 'editcurriculum'));
+	Router::connect('/course-manage/policies/*', array('controller' => 'courses', 'action' => 'policies'));
+	Router::connect('/course-manage/grading_criteria/*', array('controller' => 'courses', 'action' => 'grading_criteria'));
+	Router::connect('/course-manage/components/*', array('controller' => 'courses', 'action' => 'gettingstarted'));
 	Router::connect('/course-manage/guidelines/*', array('controller' => 'courses', 'action' => 'gettingstarted'));
 	Router::connect('/course-manage/price/*', array('controller' => 'courses', 'action' => 'pricecoupons'));
 	Router::connect('/course-manage/session/*', array('controller' => 'courses', 'action' => 'livesession'));

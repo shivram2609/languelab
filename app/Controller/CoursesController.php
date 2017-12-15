@@ -877,6 +877,32 @@ class CoursesController extends AppController {
 
 
 /*
+ * @function name	: policies
+ * @purpose			: polocies for course
+ * @arguments		: Following are the arguments to be passed:
+		* id			: id of course
+ * @return			: none
+ * @created by		: shivam sharma
+ * @created on		: 14th December 2017
+ * @description		: NA
+*/	
+
+function policies($id) {
+	$this->layout = "frontend";
+		if (isset($this->data) && !empty($this->data['Course']['coverimage']['name'])) {
+			
+		}
+		$this->validatecourse($id,-1);
+		// for Coursesleft element
+		
+		$this->Course->unBindModel(array("belongsTo"=>array("Category", "Language", "InstructionLevel"), "hasMany"=>array("CourseAudience", "CourseGoal", "CourseInstructor", "CourseInvitee", "CoursePassword", "CourseRequirement", "CourseSection", "CourseLecture", "UserLearningCourse", "UserWishlistCourse", "UserViewCourse", "CourseReview")));
+		$this->Course->virtualFields = array("name"=>"select CONCAT(Userdetail.first_name,' ',Userdetail.last_name) from userdetails Userdetail where Userdetail.user_id = Course.user_id","designation"=>"select designation from userdetails Userdetail where Userdetail.user_id = Course.user_id");
+		$userdetails = $this->Course->find('first',array('fields'=>array("Course.id","Course.title","Course.user_id","Course.name","Course.publishstatus","Course.designation"),'conditions'=>array("Course.id"=>$id)));
+		$this->set("title_for_layout","Cover Image - ".$userdetails['Course']['title']);
+		$this->set(compact('userdetails','instlevel'));
+}
+
+/*
  * @function name	: price
  * @purpose			: add,edit,update price settings for course
  * @arguments		: Following are the arguments to be passed:
@@ -1573,6 +1599,7 @@ class CoursesController extends AppController {
 			$coursesection['CourseLecture']['course_id']		= $this->request->data['courseid'];
 			$coursesection['CourseLecture']['course_section_id']= $max1;
 			$coursesection['CourseLecture']['heading'] 			= $this->request->data['heading'];
+			$coursesection['CourseLecture']['course_description'] = isset($this->request->data['course_description'])?$this->request->data['course_description']:'';
 			$coursesection['CourseLecture']['lecture_index']	= ($max+1);
 			
 			if ($this->CourseLecture->save($coursesection)) {
@@ -3637,6 +3664,35 @@ function viewquiz($quizid = NULL, $quizheading = NULL, $type='N'){
 				}
 			}
 /* end of function */
+
+/*
+ * @function name	: grading_criteria
+ * @purpose			: edit grading criteria for course
+ * @arguments		: Following are the arguments to be passed:
+		* id			: id of course
+ * @return			: none
+ * @created by		: shivam sharma
+ * @created on		: 14th December 2017
+ * @description		: NA
+*/	
+
+function grading_criteria($id) {
+	$this->layout = "frontend";
+		if (isset($this->data) && !empty($this->data['Course']['coverimage']['name'])) {
+			
+		}
+		$this->validatecourse($id,-1);
+		// for Coursesleft element
+		
+		$this->Course->unBindModel(array("belongsTo"=>array("Category", "Language", "InstructionLevel"), "hasMany"=>array("CourseAudience", "CourseGoal", "CourseInstructor", "CourseInvitee", "CoursePassword", "CourseRequirement", "CourseSection", "CourseLecture", "UserLearningCourse", "UserWishlistCourse", "UserViewCourse", "CourseReview")));
+		$this->Course->virtualFields = array("name"=>"select CONCAT(Userdetail.first_name,' ',Userdetail.last_name) from userdetails Userdetail where Userdetail.user_id = Course.user_id","designation"=>"select designation from userdetails Userdetail where Userdetail.user_id = Course.user_id");
+		$userdetails = $this->Course->find('first',array('fields'=>array("Course.id","Course.title","Course.user_id","Course.name","Course.publishstatus","Course.designation"),'conditions'=>array("Course.id"=>$id)));
+		$this->set("title_for_layout","Cover Image - ".$userdetails['Course']['title']);
+		$this->set(compact('userdetails','instlevel'));
+}
+
+
+
 /*
  * @function name	: editquizquestioninline
  * @purpose			: function to edit quiz question

@@ -305,6 +305,7 @@
 												<a href="javascript:void(0);" class="sel_lects" title="Add Content">Add Content</a>
 											</span>
 											<ul>
+												<input type="hidden" id="hiddencoursedescriptionlecture<?php echo $val1['id']; ?>" value="<?php echo $val1['course_description']; ?>" />
 												<input type="hidden" id="hiddenidlecture<?php echo $val1['id']; ?>" value="<?php echo $val1['lecture_index']; ?>" />
 												<input type="hidden" id="hiddencourseidlecture<?php echo $val1['id']; ?>" value="<?php echo $val1['course_id']; ?>" />
 												<li><a href="javascript:void(0);" id="btn_<?php echo $val1['id']; ?>" class="changelecture sav">Save</a></li>

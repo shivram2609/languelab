@@ -14,6 +14,10 @@ class FckHelper extends Helper {
 			$('.".$class."').each(function(e){
 				var id = $(this).attr('id');
 				if (CKEDITOR.instances[id]) { CKEDITOR.instances[id].destroy(true); }
+			CKEDITOR.config.height  = 400;
+				CKEDITOR.config.resize_minWidth  = 1000;
+				CKEDITOR.config.resize_maxWidth = 1130;
+				CKEDITOR.config.resize_enabled = true;
 			CKEDITOR.replace( id,{toolbar : 'Basic' } )}); });");
 	}
 	

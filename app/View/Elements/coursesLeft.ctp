@@ -53,7 +53,13 @@
 	<h2>Course Info</h2>
 	<ul>
 		<li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'basic') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/introduction/'.$courseId);?>" title="Inroduction">Introduction</a></li>
-		<li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'details') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/course-summary/'.$courseId);?>" title="Course Summary">Course Summary</a></li>
+		<li  class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'gettingstarted') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/guidelines/'.$courseId);?>" title="Getting Started">Course Guidelines</a>
+			  <ul style="margin: 0 0 0 15px;">
+				  <li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'policies') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/policies/'.$courseId);?>" title="Course policies" target="_blank">Course Policies</a></li>
+				  <li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'grading-criteria') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/grading_criteria/'.$courseId);?>" title="Grading Criteria" target="_blank">Grading Criteria</a></li>
+			  </ul>
+		</li>
+                          
 		<li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'coverimage') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/cover-image/'.$courseId);?>" title="Cover Image">Cover Image</a></li>
 		<li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'promovideo') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/promo-video/'.$courseId);?>" title="Promo Video">Promo Video</a></li>
 	</ul>
@@ -62,9 +68,10 @@
 		
 		<li class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'dangerzone') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/delete-course/'.$courseId);?>" title="Danger Zone">Delete Course</a></li>
 	</ul>
-	<h2></h2>
 	<ul>
-		<li  class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'gettingstarted') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/guidelines/'.$courseId);?>" title="Getting Started">Course Guidelines</a></li>
+		
+		<li  class="<?php if($this->params['controller'] == 'courses' && $this->params['action'] == 'gettingstarted') echo  'selected'?>"><a href="<?php echo $this->HTML->url('/course-manage/components/'.$courseId);?>" title="Getting Started">Course Components</a></li>
+		
 		
 	</ul>
 </div>
