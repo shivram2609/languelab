@@ -1,7 +1,7 @@
 <?php $courseId = $this->data['Course']['id'];?>
 <div class="container">
 			<div class="course-guideline">
-				<h1>Course Guidelines<br /><br/> <span>Welcome, <span class="txt-bold"><?php echo ucfirst($this->Session->read("Auth.User.Userdetail.first_name")).' '.ucwords($this->Session->read("Auth.User.Userdetail.last_name")); ?></span>!<br />Congratulations on your decision to create an online course at LMS.<br />These are just some helpful guidelines to help your course creation be as smooth as possible.</span></h1>
+				<h1>Course Guidelines<br /><br/> <span>Welcome, <span class="txt-bold"><?php echo ucfirst($this->Session->read("Auth.User.Userdetail.first_name")).' '.ucwords($this->Session->read("Auth.User.Userdetail.last_name")); ?></span>!<br />Congratulations on your decision to create an online course at Languelab.<br />These are just some helpful guidelines to help your course creation be as smooth as possible.</span></h1>
 				<div class="contnt-box">
 					<a href="<?php echo $this->HTML->url('/course-manage/edit-curriculum/'.$courseId);?>" title="Course Content">
 						<strong class="categ-box">

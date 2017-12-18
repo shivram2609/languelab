@@ -15,7 +15,7 @@
 					<span class="lft">
 					<div id="tabs-1" class="tabs-1">
 						
-							<?php echo $this->Form->input('privacy_type', array('div'=>false,'type'=>'radio','legend'=>false,'options'=>array("3"=>"Course is available for anyone to take on LMS."),'value'=>empty($this->data['Course']['privacy_type'])?3:$this->data['Course']['privacy_type'],'id'=>'rdo_1','class'=>'optradio')); ?>
+							<?php echo $this->Form->input('privacy_type', array('div'=>false,'type'=>'radio','legend'=>false,'options'=>array("3"=>"Course is available for anyone to take on Languelab."),'value'=>empty($this->data['Course']['privacy_type'])?3:$this->data['Course']['privacy_type'],'id'=>'rdo_1','class'=>'optradio')); ?>
 					</div>
 					<p class="crs_note">&nbsp;</p>
 					</span>
