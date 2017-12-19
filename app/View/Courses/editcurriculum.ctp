@@ -124,7 +124,7 @@
 						<div class="row4">
 							<div class="module-row module-row2">
 									<div class="rt-sec">
-										<p>											<?php echo $this->Form->input("CourseLecture.".$val1['id'],array("value"=>$val1['heading'],"vale"=>$val1['heading'],"div"=>false,"label"=>false,"class"=>"controlChars lecture_".$val1['id'],"maxlength"=>"64","vale"=>$val1['heading'])); ?>
+										<p>	<?php echo $this->Form->input("CourseLecture.".$val1['id'],array("value"=>$val1['heading'],"vale"=>$val1['heading'],"div"=>false,"label"=>false,"class"=>"controlChars lecture_".$val1['id'],"maxlength"=>"64","vale"=>$val1['heading'])); ?>
 										<span class="counter"></span>
 										</p>
 										<label class="hide succ-messg lecture_err<?php echo $val1['id']; ?>">Updating lesson, Please wait...</label>

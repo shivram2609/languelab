@@ -1,3 +1,5 @@
+<?php // pr($coursedetail); ?>
+
 <div class="container">
 		<div class="pub-pre-box">
 			<span class="comp-img ">
@@ -33,6 +35,19 @@
 <!--======Right panel=====-->
 		<div class="course-dbord-rt">
 					<h2 class="heading"><span class="left">AVERAGE RATING :</span> <?php echo $this->element("ratingstars",array("rating"=>isset($coursereview[0]['CourseReview']['avgrating'])?$coursereview[0]['CourseReview']['avgrating']:0)); ?></h2>
+					<div id="tabs" class="gry-box-1">
+					  <ul>
+						<li><a href="#tabs-1">Course Policy</a></li>
+						<li><a href="#tabs-2">Grading Criteria</a></li>
+					  </ul>
+					  <div id="tabs-1">
+						<p><?php echo strip_tags($coursedetail['Course']['policies'],"<strong>,<br>,<br/>,<a>"); ?></p>
+					  </div>
+					  <div id="tabs-2">
+						<p><?php echo strip_tags($coursedetail['Course']['grading'],"<strong>,<br>,<br/>,<a>"); ?></p>
+					  </div>
+					  
+				</div>
 				<br/>
 			<div class="gry-box-1">
 				
@@ -210,3 +225,8 @@
 <?php echo $this->Html->script("jquery.colorbox"); ?>
 <?php echo $this->Html->css("colorbox"); ?>
 <?php echo $this->Colorbox->openexternalpopups ("openquestionpop","600px","1000px"); ?>
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>

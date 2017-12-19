@@ -307,7 +307,7 @@ class AppController extends Controller {
 
 
 /*
- * @function name	: bulkactions
+ * @function name	: frontendbulkactions
  * @purpose			: to perform multiple change status and delete in admin panel
  * @arguments		: flag which will indicate some special cases like users controller in which conditions we need to send confimation emails to users
  * @return			: will return array containing user ids but only when flag will be set true
@@ -453,7 +453,7 @@ class AppController extends Controller {
 
 
 /*
- * @function name	: uploadvideo
+ * @function name	: uploadvideos
  * @purpose			: to upload video files for various functionalities 
  * @arguments		: Following are the arguments to be passed:
 		* file			: File array to be uploaded
@@ -638,8 +638,10 @@ class AppController extends Controller {
 		}
 	}
 /* end of function */
+
+
 /*
- * @function name	: uploadvideofly
+ * @function name	: uploadvideofly_bak
  * @purpose			: to upload video files for lectures only 
  * @arguments		: Following are the arguments to be passed:
 		* file			: File array to be uploaded
@@ -938,7 +940,7 @@ class AppController extends Controller {
 /* end of function */
 
 /*
- * @function name	: username
+ * @function name	: course
  * @purpose			: to get name of logged in user
  * @arguments		: Following are the arguments to be passed:
 		* id			: id of logged in user
@@ -1150,8 +1152,8 @@ class AppController extends Controller {
 
 
 /*
- * @function name	: captureviewcourse
- * @purpose			: to capture user view for a particular course
+ * @function name	: getpaypalemail
+ * @purpose			: to get paypal details in email
  * @arguments		: Following are the arguments to be passed:
 		* courseid			: id of course default null
  * @return			: none
