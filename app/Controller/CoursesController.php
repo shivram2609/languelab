@@ -2114,7 +2114,7 @@ function policies($id) {
 					//pr($data);
                    //die;
 					if ($this->CourseQuizQuestion->save($data)) {
-					die("here");
+					//die("here");
 						if ( !empty($questionID) ) {
 							$quistId = $questionID;
 						} else {
@@ -2122,7 +2122,8 @@ function policies($id) {
 						}
 							$this->redirect("/addquizquestion/".$quizID."/".$questionType."/".$quistId);
 					} else {
-						$this->request->data = $data;
+						pr($this->request->data = $data);
+						die;
 					}
 				}
 			}
