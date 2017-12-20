@@ -1957,8 +1957,8 @@ function policies($id) {
 							"message"=>"Please select an audio file"
 						),
 						'validExtension'=>array(
-							'rule' => array('extension',array('mp3')), 
-							'message' =>'only .mp3 files'
+							'rule' => array('extension',array('mp3','mp4','wav')), 
+							'message' =>' only media files'
 						)
 					)
 				));
@@ -2063,7 +2063,8 @@ function policies($id) {
 			} else {
 				$this->loadModel("CourseQuizQuestion");
 				$tmp = $this->request->data;
-				
+				pr($tmp);
+				die;
 				if (isset($tmp['CourseQuizQuestion']['media']) && isset($tmp['CourseQuizQuestion']['media']['tmp_name'])) {
 					$fileFlag = True;
 				} else {
@@ -2075,6 +2076,8 @@ function policies($id) {
 					$tmp['CourseQuizQuestion']['media'] = $this->request->data['CourseQuizQuestion']['media']['name'];
 				}
 				
+				//pr($tmp['CourseQuizQuestion']['media']);
+				//die;
 				
 				$this->CourseQuizQuestion->set($tmp);
 	//only after getting validated data upload the file started//
@@ -2089,6 +2092,8 @@ function policies($id) {
 					}
 					if($fileFlag && $questionType == 'a') {
 						$file = $tmp['CourseQuizQuestion']['media'];
+				//pr($file);
+				//die;
 						if($this->uploadvideofly($file,"quizmedia",false,"quizmedia",true,$quizID,false)){
 							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
 						} 
