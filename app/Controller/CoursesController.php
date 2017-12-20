@@ -2064,8 +2064,7 @@ function policies($id) {
 			} else {
 				$this->loadModel("CourseQuizQuestion");
 				$tmp = $this->request->data;
-				pr($tmp);
-				die;
+				
 				if (isset($tmp['CourseQuizQuestion']['media']) && isset($tmp['CourseQuizQuestion']['media']['tmp_name'])) {
 					$fileFlag = True;
 				} else {
@@ -2091,6 +2090,9 @@ function policies($id) {
 					if (!empty($questionID)) {
 						$this->CourseQuizQuestion->id = $questionID;
 					}
+					echo $fileFlag;
+					echo $questionType;
+					die;
 					if($fileFlag && $questionType == 'a') {
 						$file = $tmp['CourseQuizQuestion']['media'];
 				//pr($file);
