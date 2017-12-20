@@ -1937,6 +1937,8 @@ function policies($id) {
 		$this->set("questionType",$questionType);
 		
 		if ( $this->request->is('post') || $this->request->is('put')) {
+			echo $questionType;
+			die;
 			//pr($this->request->data);
 			//die;
 			$this->loadModel("CourseQuizQuestion");
