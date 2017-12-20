@@ -2092,12 +2092,12 @@ function policies($id) {
 					}
 					if($fileFlag && $questionType == 'a') {
 						$file = $tmp['CourseQuizQuestion']['media'];
-				pr($file);
-				die;
+				//pr($file);
+				//die;
 						if($this->uploadvideofly($file,"quizmedia",false,"quizmedia",true,$quizID,false)){
 							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
-							//pr($data['CourseQuizQuestion']['media']);
-				//die;
+							pr($data['CourseQuizQuestion']['media']);
+				die;
 						} 
 					} elseif ($fileFlag && $questionType == 'v') {
 						  $file = $tmp['CourseQuizQuestion']['media'];
