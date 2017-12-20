@@ -2111,8 +2111,8 @@ function policies($id) {
 							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
 						}
 					}
-					pr($data);
-                   die;
+					//pr($data);
+                   //die;
 					if ($this->CourseQuizQuestion->save($data)) {
 						if ( !empty($questionID) ) {
 							$quistId = $questionID;
