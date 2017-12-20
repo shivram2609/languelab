@@ -2063,8 +2063,8 @@ function policies($id) {
 			} else {
 				$this->loadModel("CourseQuizQuestion");
 				$tmp = $this->request->data;
-				//pr($tmp);
-				//die;
+				pr($tmp);
+				die;
 				if (isset($tmp['CourseQuizQuestion']['media']) && isset($tmp['CourseQuizQuestion']['media']['tmp_name'])) {
 					$fileFlag = True;
 				} else {
@@ -2096,7 +2096,7 @@ function policies($id) {
 				//die;
 						if($this->uploadvideofly($file,"quizmedia",false,"quizmedia",true,$quizID,false)){
 							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
-							pr($data['CourseQuizQuestion']['media']);
+							//pr($data['CourseQuizQuestion']['media']);
 				//die;
 						} 
 					} elseif ($fileFlag && $questionType == 'v') {
@@ -2114,6 +2114,7 @@ function policies($id) {
 					//pr($data);
                    //die;
 					if ($this->CourseQuizQuestion->save($data)) {
+					//	die("here");
 						if ( !empty($questionID) ) {
 							$quistId = $questionID;
 						} else {
