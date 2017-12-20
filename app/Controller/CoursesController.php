@@ -2115,7 +2115,7 @@ function policies($id) {
 					//pr($data);
                    //die;
 					if ($this->CourseQuizQuestion->save($data)) {
-					die("here");
+					//die("here");
 						if ( !empty($questionID) ) {
 							$quistId = $questionID;
 						} else {
