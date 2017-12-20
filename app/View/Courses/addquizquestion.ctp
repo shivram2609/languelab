@@ -158,7 +158,7 @@
 
 <!--form for video file-->
 
-<?php if($questionType == 'v') { ?>
+<?php if(($questionType == 'v')||($questionType == 'V')) { ?>
 	
 	<div class="addquestionnew">
 		
@@ -192,7 +192,7 @@
 
  <!--form for documents file-->
 
-<?php if($questionType == 'd') { ?>
+<?php if(($questionType == 'd')||($questionType == 'D')) { ?>
 	
 	<div class="addquestionnew">
 		
