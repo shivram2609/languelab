@@ -124,7 +124,8 @@
 
 <!--form for audio file-->
 
-<?php if($questionType == 'a') { ?>
+<?php if(($questionType == 'a')||($questionType == 'A')) {  //pr("hello");
+	//die;?>
 	
 	<div class="addquestionnew">
 		
