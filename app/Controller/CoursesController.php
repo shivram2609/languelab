@@ -2097,7 +2097,7 @@ function policies($id) {
 						if($this->uploadvideofly($file,"quizmedia",false,"quizmedia",true,$quizID,false)){
 							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
 							pr($data['CourseQuizQuestion']['media']);
-				die;
+				//die;
 						} 
 					} elseif ($fileFlag && $questionType == 'v') {
 						  $file = $tmp['CourseQuizQuestion']['media'];
