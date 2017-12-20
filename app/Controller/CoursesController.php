@@ -1948,7 +1948,7 @@ function policies($id) {
 					'message'=>'Please enter valid question here.',
 				)
 			));
-			$questionType = strtolower($questionType);
+			$questionType = strtoupper($questionType);
 	// code for only audio file//		
 			if ($questionType== 'a') {
 				$tmpValidation = array_merge($tmpValidation,array('media'=>array(
