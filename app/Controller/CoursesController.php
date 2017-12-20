@@ -1937,8 +1937,7 @@ function policies($id) {
 		$this->set("questionType",$questionType);
 		
 		if ( $this->request->is('post') || $this->request->is('put')) {
-			echo $questionType;
-			die;
+			
 			//pr($this->request->data);
 			//die;
 			$this->loadModel("CourseQuizQuestion");
@@ -1959,7 +1958,7 @@ function policies($id) {
 							"message"=>"Please select an audio file"
 						),
 						'validExtension'=>array(
-							'rule' => array('extension',array('mp3','mp4','wav')), 
+							'rule' => array('extension',array('mp3','wav')), 
 							'message' =>' only media files'
 						)
 					)
@@ -2065,8 +2064,8 @@ function policies($id) {
 			} else {
 				$this->loadModel("CourseQuizQuestion");
 				$tmp = $this->request->data;
-				//pr($tmp);
-				//die;
+				pr($tmp);
+				die;
 				if (isset($tmp['CourseQuizQuestion']['media']) && isset($tmp['CourseQuizQuestion']['media']['tmp_name'])) {
 					$fileFlag = True;
 				} else {
