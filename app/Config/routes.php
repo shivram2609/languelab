@@ -101,6 +101,8 @@
 	Router::connect('/mycourses/*', array('controller' => 'courses', 'action' => 'relatedcourses','t'));
 	Router::connect('/view-courses/*', array('controller' => 'courses', 'action' => 'search'));
 	Router::connect('/takecourse/*', array('controller' => 'courses', 'action' => 'takecourse'));
+	Router::connect('/quizwork/*', array('controller' => 'courses', 'action' => 'quizwork'));
+	Router::connect('/startquiz/*', array('controller' => 'courses', 'action' => 'startquiz'));
 	Router::connect('/c/*', array('controller' => 'courses', 'action' => 'view'));
 	Router::connect('/g/*', array('controller' => 'courses', 'action' => 'redirecttoview','g'));
 	Router::connect('/i/*', array('controller' => 'courses', 'action' => 'redirecttoview','i'));

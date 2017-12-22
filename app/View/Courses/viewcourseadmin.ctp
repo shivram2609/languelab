@@ -1,4 +1,5 @@
 <?php // pr($coursedetail); ?>
+<?php //pr($quizval); ?>
 
 <div class="container">
 		<div class="pub-pre-box">
@@ -66,15 +67,17 @@
 								$i = 0;
 								foreach($val['CourseQuiz'] as $quizkey=>$quizval) { 
 									if(empty($quizval['course_lecture_id'])) {  ?>
+										<?php //pr($quizval['heading']);
+										//die;?>
 										<li>
 											<div class="lctre">Quiz <?php echo ++$i; ?>:</div>
 											<div class="circle "></div>
 											<h6>
-												<a href="<?php echo $this->Html->url("/q/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>"> <?=$quizval['heading']; ?> </a>
+												<a href="<?php echo $this->Html->url("/quizwork/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>"> <?=$quizval['heading']; ?> </a>
 											</h6>
 											<span class="video"></span>
-											<time></time>
-											<a href="<?php echo $this->Html->url("/q/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])."/".$typeofview); ?>" class="start" title="Start Quiz" >Start Quiz</a>
+											<a href="<?php echo $this->Html->url("/quizwork/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>"> </a>
+											
 										</li>
 									<?php } else {
 										$quizlecture[$quizval['course_lecture_id']][] = $quizval;

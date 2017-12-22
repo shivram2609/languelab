@@ -1949,47 +1949,47 @@ function policies($id) {
 					'message'=>'Please enter valid question here.',
 				)
 			));
-			$questionType = strtoupper($questionType);
-	// code for only audio file//		
-			if ($questionType== 'a') {
-				$tmpValidation = array_merge($tmpValidation,array('media'=>array(
-						'notempty'=>array(
-							'rule'=>'notempty',
-							"message"=>"Please select an audio file"
-						),
-						'validExtension'=>array(
-							'rule' => array('extension',array('mp3','wav')), 
-							'message' =>' only media files'
-						)
-					)
-				));
-	// code for video file//			
-			} elseif ($questionType== 'v') {
-				$tmpValidation = array_merge($tmpValidation,array('media'=>array(
-						'notempty'=>array(
-							'rule'=>'notempty',
-							"message"=>"Please select a video file"
-						),
-						'validExtension'=>array(
-							'rule' => array('extension',array('mp4')), 
-							'message' =>'only mp4 video files'
-						)
-					)
-				));
-		// code for documents file//			
-			} elseif ($questionType== 'd') {
-				$tmpValidation = array_merge($tmpValidation,array('media'=>array(
-						'notempty'=>array(
-							'rule'=>'notempty',
-							"message"=>"Please select a document "
-						),
-						'validExtension'=>array(
-							'rule' => array('extension',array('doc','docx','pdf')), 
-							'message' =>'only .doc, .docx, not.pdf files'
-						)
-					)
-				));
-			} 
+					$questionType = strtoupper($questionType);
+			// code for only audio file//		
+					if ($questionType== 'a') {
+						$tmpValidation = array_merge($tmpValidation,array('media'=>array(
+								'notempty'=>array(
+									'rule'=>'notempty',
+									"message"=>"Please select an audio file"
+								),
+								'validExtension'=>array(
+									'rule' => array('extension',array('mp3','wav')), 
+									'message' =>' only media files'
+								)
+							)
+						));
+			// code for video file//			
+					} elseif ($questionType== 'v') {
+						$tmpValidation = array_merge($tmpValidation,array('media'=>array(
+								'notempty'=>array(
+									'rule'=>'notempty',
+									"message"=>"Please select a video file"
+								),
+								'validExtension'=>array(
+									'rule' => array('extension',array('mp4')), 
+									'message' =>'only mp4 video files'
+								)
+							)
+						));
+				// code for documents file//			
+					} elseif ($questionType== 'd') {
+						$tmpValidation = array_merge($tmpValidation,array('media'=>array(
+								'notempty'=>array(
+									'rule'=>'notempty',
+									"message"=>"Please select a document "
+								),
+								'validExtension'=>array(
+									'rule' => array('extension',array('doc','docx','pdf')), 
+									'message' =>'only .doc, .docx, not.pdf files'
+								)
+							)
+						));
+					} 
 			$this->CourseQuizQuestion->validate = $tmpValidation;
 			if (isset($this->request->data['CourseQuizQuestionOption']) ) { 
 				$this->loadModel("CourseQuizQuestionOption");
@@ -2013,8 +2013,8 @@ function policies($id) {
 						$flag = false;
 					}
 				}
-				$this->CourseQuizQuestionOption->set($tmpData);
-		        $this->CourseQuizQuestion->set($this->request->data);
+		$this->CourseQuizQuestionOption->set($tmpData);
+		$this->CourseQuizQuestion->set($this->request->data);
 	  // validation applied starts here//	
 				if ( $this->CourseQuizQuestion->validates() && $this->CourseQuizQuestionOption->validates() && !$flag) {
 					//die("here");
@@ -2091,30 +2091,28 @@ function policies($id) {
 						$this->CourseQuizQuestion->id = $questionID;
 					}
 					
-					if($fileFlag && strtolower($questionType) == 'a') {
-						$file = $tmp['CourseQuizQuestion']['media'];
-				//pr($file);
-				//die;
-						if($this->uploadvideofly($file,"quizmedia",false,"quizmedia",true,$quizID,false)){
-							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
-							
-						} 
-						
-					} elseif ($fileFlag && strtolower($questionType) == 'v') {
-						  $file = $tmp['CourseQuizQuestion']['media'];
-							if($this->uploadvideofly($file,"quizvmedia",true,"quizvmedia",false,$quizID,false)){
-								$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
+							if($fileFlag && strtolower($questionType) == 'a') {
+								$file = $tmp['CourseQuizQuestion']['media'];
+								if($this->uploadvideofly($file,"quizmedia",false,"quizmedia",true,$quizID,false)){
+									$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
+									
+								} 
 								
+							} elseif ($fileFlag && strtolower($questionType) == 'v') {
+								  $file = $tmp['CourseQuizQuestion']['media'];
+									if($this->uploadvideofly($file,"quizvmedia",true,"quizvmedia",false,$quizID,false)){
+										$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
+										
+									}
+							} elseif ($fileFlag && strtolower($questionType) == 'd') { 
+								$file = $tmp['CourseQuizQuestion']['media'];
+								 if($this->uploadvideofly($file,"quizdoc",false,"quizdoc",false,$quizID)){
+									$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
+								}
 							}
-					} elseif ($fileFlag && strtolower($questionType) == 'd') { 
-						$file = $tmp['CourseQuizQuestion']['media'];
-						 if($this->uploadvideofly($file,"quizdoc",false,"quizdoc",false,$quizID)){
-							$data['CourseQuizQuestion']['media'] =  $this->uploaddir.$this->imagename;
-						}
-					}
 					//pr($data);
                    //die;
-					if ($this->CourseQuizQuestion->save($data)) {
+				if ($this->CourseQuizQuestion->save($data)) {
 					//die("here");
 						if ( !empty($questionID) ) {
 							$quistId = $questionID;
@@ -2124,10 +2122,10 @@ function policies($id) {
 							$this->redirect("/addquizquestion/".$quizID."/".$questionType."/".$quistId);
 					} else {
 						$this->request->data = $data;
-					}
-				}
-			}
-		} elseif ($this->request->is("get")) {
+				    }
+			    }
+		}
+	} elseif ($this->request->is("get")) {
 			//die("here");
 			$this->loadModel("CourseQuizQuestion");
 			$this->CourseQuizQuestion->hasMany = $this->CourseQuizQuestion->belongsTo = $this->CourseQuizQuestion->hasOne = array();
@@ -2140,8 +2138,8 @@ function policies($id) {
 			//pr($this->data);
 			$this->request->data = $this->CourseQuizQuestion->find("first",array("conditions"=>array("CourseQuizQuestion.id"=>$questionID)));
 			
-		}
 	}
+}
 	
 /*
  * @function name	: addquestions
@@ -2423,6 +2421,46 @@ function policies($id) {
 	}
 /* end of function */
 
+
+/*
+ * @function name	: quizwork
+ * @purpose			: attempt to quiz module by students
+ * @arguments		: Following are the arguments to be passed:
+		* id			: id that is used for coursequiz
+ * @return			: none
+ * @created by		: shivam sharma
+ * @created on		: 20th December 2017
+ * @description		: NA
+*/	
+	 public function quizwork($id = null,$heading = NULL) {
+		 //echo ("hello");
+		// die;
+		 $this->loadModel('CourseQuiz');
+		 $this->CourseQuiz->recursive = -1;
+		 $quizdetail= $this->CourseQuiz->find('first',array("conditions"=>array("CourseQuiz.id"=>$id)),array('fields'=>array("CourseQuiz.id","CourseQuiz.heading","CourseQuiz.content")),array("recursive"=>-1));//$quizdetail is taken to as a new variable to get the value like heading, content and id from CourseQuiz table with  condition for spedific id
+		 
+		 $this->set("coursequizs",$quizdetail);// here 'coursequizs' whose value is set from $quizdetail.
+		 	
+	}
+
+/* end of function */
+
+/*
+ * @function name	: startquiz
+ * @purpose			: attempt to start quiz  by students
+ * @arguments		: Following are the arguments to be passed:
+		* id			: 
+ * @return			: none
+ * @created by		: shivam sharma
+ * @created on		: 21st December 2017
+ * @description		: NA
+*/	
+
+public function startquiz() {
+	
+}
+
+/* end of function */
 
 /**
  * admin_index method
