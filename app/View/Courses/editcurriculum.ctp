@@ -13,7 +13,8 @@
 	<!-- step 1 start -->
 	<div class="module" id="editcoursecon">
 		<?php //pr($coursesection);
-		die;$secno = 0 ; foreach($coursesection as $key=>$val) { 
+		//die;
+		$secno = 0 ; foreach($coursesection as $key=>$val) { 
 			$lect_id = 0;
 			if($secno == 0) {
 				$secno++;
