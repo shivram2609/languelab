@@ -1514,7 +1514,7 @@ function policies($id) {
 */	
 	function deletelecture($coursesection = NULL,$index= NULL,$courseid =NULL) {
 		if ($this->RequestHandler->isAjax()) {
-			pr($this->request->data);
+			//($this->request->data);
 			
 			$this->loadModel("CourseLecture");
 			$this->loadModel("CourseSection");				
@@ -3624,7 +3624,7 @@ public function assignment($lectureid=null,$assignmentid = NULL){
 			}
 		} else {
 			$questions = $this->CourseQuizQuestion->find("list",array("conditions"=>array("CourseQuizQuestion.course_quiz_id"=>$quizid),"order"=>"rand()","fields"=>array("CourseQuizQuestion.id")));
-			pr($questions);
+			//pr($questions);
 			die;
 			$this->Session->write("quizquestions.".$quizid,$questions);
 			$this->Session->delete("result.".$quizid);
