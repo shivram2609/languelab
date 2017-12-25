@@ -1064,6 +1064,8 @@ function policies($id) {
 		$this->Course->unBindModel(array("belongsTo"=>array("Category", "Language", "InstructionLevel"), "hasMany"=>array("CourseAudience", "CourseGoal", "CourseInstructor", "CourseInvitee", "CoursePassword", "CourseRequirement", "CourseSection", "CourseLecture", "UserLearningCourse", "UserWishlistCourse", "UserViewCourse", "CourseReview")));
 		$this->Course->virtualFields = array("name"=>"select CONCAT(Userdetail.first_name,' ',Userdetail.last_name) from userdetails Userdetail where Userdetail.user_id = Course.user_id", "designation"=>"select designation from userdetails Userdetail where Userdetail.user_id = Course.user_id");
 		$userdetails = $this->Course->find('first',array('fields'=>array("Course.id","Course.user_id","Course.title","Course.name","Course.publishstatus","Course.designation"),'conditions'=>array("Course.user_id"=>$this->Session->read("Auth.User.id"), "Course.id"=>$id)));
+		//pr($courselec);
+		// die;
 		$this->set("title_for_layout","Syllabus - ".$userdetails['Course']['title']);
 		$this->set(compact('userdetails'));
 		$this->set("courselec",$courselec);
@@ -2607,6 +2609,39 @@ public function startquiz() {
 		$this->Session->setFlash(__('Course was not deleted.'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+
+/*
+ * @function name	:  assignment module
+ * @purpose			: to get all the listing of the quizzes in the course, media links like Youtube and the pdf and text file.  we also get a option to upload and download/print the files that we have taken.
+ * @arguments		: Following are the arguments to be passed:
+		* lectureid			: id of lecture from course_lecture table
+		* assignmentid      :  id of assignment id from course_lecture_assignments table
+ * @created by		: shivam sharma
+ * @created on		: 22nd December 2017
+ 
+*/	
+
+public function assignment($lectureid=null,$assignmentid = NULL){
+   if ($this->request->is("post") || $this->request->is('put')) {
+	  $courseAssignData = $this->data;
+	  $this->loadModel("CourseLectureAssignment");
+	  $courseAssignData = $this->data;
+	  $courseAssignData['CourseLectureAssignment']['course_lecture_id'] = $lectureid;
+	  if (!empty($assignmentid)) { //update the saved the data
+		  $this->CourseLectureAssignment->create();
+		  $this->CourseLectureAssignment->id = $assignmentid;
+	  }
+	  if ($this->CourseLectureAssignment->save($courseAssignData, array('validate' => false))) {
+		$this->Session->setFlash(__('Course assignment data have been updated.'), 'default', array("class"=>"success_message"));
+	  }
+   } elseif (!empty($assignmentid) ) {  // to edit the data
+	   $this->loadModel("CourseLectureAssignment");
+	   $data = $this->CourseLectureAssignment->find("first",array("conditions"=>array("id"=>$assignmentid),"recursive"=>-1));
+	   $this->request->data["CourseLectureAssignment"]  = $data['CourseLectureAssignment'];
+   }
+}
+/* end of function */
 
 
 /*

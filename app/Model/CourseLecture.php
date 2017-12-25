@@ -72,7 +72,20 @@ class CourseLecture extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+		'CourseLectureAssignment' => array(
+			'className' => 'CourseLactureAssignment',
+			'foreignKey' => 'course_lecture_id',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 	);
 	
 	function updatelectureindex($index,$courseid) {

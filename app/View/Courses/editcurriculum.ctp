@@ -12,7 +12,8 @@
 	</h1>
 	<!-- step 1 start -->
 	<div class="module" id="editcoursecon">
-		<?php $secno = 0 ; foreach($coursesection as $key=>$val) { 
+		<?php pr($coursesection);
+		die;$secno = 0 ; foreach($coursesection as $key=>$val) { 
 			$lect_id = 0;
 			if($secno == 0) {
 				$secno++;
@@ -506,7 +507,8 @@
 							</div>
 							
 						</div>
-						<?php if(!empty($quizlecval['heading'])) { ?>
+						<?php if(!empty($quizlecval['heading'])) { //pr($quizlecval['heading']);
+							//die;?>
 						<div class="seprator"></div>
 						<?php } ?>
 				<?php
@@ -519,7 +521,10 @@
 					
 				</div>
 				<div class="add-module-btn1">
-					<label class="hide add_new_lec_quiz succ-messg msg<?php echo $val['CourseSection']['id']; ?>">Loading, Please wait...</label><br/>
+					<label class="hide add_new_lec_quiz succ-messg msg<?php echo $val['CourseSection']['id'];  ?>" >Loading, Please wait...</label><br/>
+					<?php //pr($val);
+					//die; ?>
+					<a href="<?php echo $this->Html->url("/assignment/".$val['CourseSection']['id']."/"); ?>"><input type="button" value="Add Assignment" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_assign" /></a>
 					<input type="button" value="Add Lesson" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_lec" />
 					<input type="button" value="Add Quiz" class="module-btn1 add_new_sec_quiz" id="add_new_quiz_<?php echo $val['CourseSection']['id']."_".$lect_id; ?>" />
 				</div>

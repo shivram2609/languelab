@@ -47,6 +47,7 @@
 	Router::connect('/login/*', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/signup', array('controller' => 'users', 'action' => 'signup'));
 	Router::connect('/addquizquestion/*', array('controller' => 'courses', 'action' => 'addquizquestion'));
+	Router::connect('/assignment/*', array('controller' => 'courses', 'action' => 'assignment'));
 	Router::connect('/editquizquestioninline/*', array('controller' => 'courses', 'action' => 'editquizquestioninline'));
 	Router::connect('/dashboard', array('controller' => 'users', 'action' => 'dashboard'));
 	Router::connect('/forgotpassword', array('controller' => 'users', 'action' => 'forgotpassword'));

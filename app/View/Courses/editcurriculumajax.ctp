@@ -508,6 +508,7 @@
 				</div>
 				<div class="add-module-btn1">
 					<label class="hide add_new_lec_quiz succ-messg msg<?php echo $val['CourseSection']['id']; ?>">Loading, Please wait...</label><br/>
+					<a href="<?php echo $this->Html->url("/assignment/".$val['CourseSection']['id']."/"); ?>"><input type="button" value="Add Assignment" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_assign" /></a>
 					<input type="button" value="Add Lesson" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_lec" />
 					<input type="button" value="Add Quiz" class="module-btn1 add_new_sec_quiz" id="add_new_quiz_<?php echo $val['CourseSection']['id']."_".$lect_id; ?>" />
 				</div>
