@@ -8,6 +8,14 @@ App::uses('AppModel', 'Model');
 class CourseLectureAssignment extends AppModel {
 
 
+    var $validate = array(
+		'id'=>array(
+			'notempty'=>array(
+				'rule'=>'notempty',
+				'message'=>'This cannot be empty'
+			)
+		)
+	);
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**

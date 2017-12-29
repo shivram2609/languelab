@@ -1,16 +1,16 @@
-<h1> Questions</h1>
+
 <div class = "quizformcontainer" >
 <?php //pr($data); ?>
 <?php echo $this->Form->create("CourseQuizQuestion",array("type"=>"file","enctype" => "multipart/form-data")); ?>
 <?php //pr($this->request->data); ?>
 <!--form for multiple choice-->
 <?php echo $this->Form->input("CourseQuizQuestion.id",array("type"=>"hidden")); ?>
-<?php if (strtolower($questionType) == 'm') {  ?>
+<?php if (($questionType == 'm') ||($questionType == 'M')){  ?>
 	
   <div class="addquestionnew">
 	  
 	    <div  class="textarea" style="margin-bottom:20px;">
-	       <label for = "CourseQuizQuestionQuestion"> Question</label>
+	       <label for = "CourseQuizQuestionQuestion"> Questions</label>
 	       <br/>
 	         <?php echo $this->Form->input('question',array("type"=>"text","placeholder"=>"Enter question here","label"=>false,"div"=>false,"cols"=>"135","row"=>"10","class"=>"question")); ?>
 	         
@@ -58,7 +58,7 @@
 
 <!--form for true/false -->
 
-<?php if($questionType == 't') { ?>
+<?php if(($questionType == 't')||($questionType == 'T') ){ ?>
 	
 	<div class="addquestionnew">
 	   
@@ -89,7 +89,7 @@
 
  <!--form for fill in the blanks -->
  
-<?php if($questionType == 'f') { ?>
+<?php if(($questionType == 'f')||($questionType == 'F')) { ?>
 	
 	 <div class="addquestionnew">
 		 

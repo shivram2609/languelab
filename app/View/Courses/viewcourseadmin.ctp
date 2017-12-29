@@ -1,10 +1,12 @@
-<?php // pr($coursedetail); ?>
+<?php //pr($courses); // get full couse details from the preview as a student?>
 <?php //pr($quizval); ?>
+<?php  //pr($quizlecture);  die; ?>
+
 
 <div class="container">
 		<div class="pub-pre-box">
 			<span class="comp-img ">
-				<?php  //pr($coursedetail); die;
+				<?php  //pr($coursedetail); die;// get the deatils of the course from as a student view
 				// use thumb path from helper
 					$courseImgPathThumb1 = ((!empty($coursedetail['Course']['coverimage']) && (file_exists(WWW_ROOT.$coursedetail['Course']['coverimage'])))?$coursedetail['Course']['coverimage']: "/img/no-img.png");
 					$courseImgThumb1 = $this->Common->getImageName($courseImgPathThumb1, SmallCourseImagePrefix);

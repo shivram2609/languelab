@@ -5,9 +5,9 @@
 </script>
 	<!--====Top header banner====-->
 
-<?php //pr($coursedetail); ?>
+<?php //pr($coursedetail); die; ?>
 <div id="view-course-hdr">
-	<?php pr($this->Session->flash()); ?>
+	<?php echo($this->Session->flash()); ?>
 	<div class="inner">
 		
 		<?php if($coursedetail['Course']['visibility'] == 'Private' && $coursedetail['Course']['privacy_type'] == 2 && !$this->Session->read("CoursePassword.".$this->Session->read("Auth.User.id").".".$coursedetail['Course']['id'])) { 

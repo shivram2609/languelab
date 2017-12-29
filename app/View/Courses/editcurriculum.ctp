@@ -1,3 +1,7 @@
+<?php //pr($coursequestions); die;// to get details of all the course_quiz?>
+<?php //pr($quizlecture ); die; ?>
+
+
 <?php echo $this->Html->css(array('pretty_messages/showMessage')); ?>
 <?php echo $this->Html->script(array('mashup','jquery.form','pretty_messages/jquery.showMessage.min')); ?>
 <script type="text/javascript" src="<?php echo $this->webroot;?>files/bin-debug/swfobject.js"></script>
@@ -15,6 +19,8 @@
 		<?php //pr($coursesection);
 		//die;
 		$secno = 0 ; foreach($coursesection as $key=>$val) { 
+			//pr($val['CourseLecture']);
+			//die;
 			$lect_id = 0;
 			if($secno == 0) {
 				$secno++;
@@ -43,7 +49,10 @@
 					</div>
 		<?php /* code to show quizzes in a module itself */
 			if(!empty($val['CourseQuiz'])) { 
-				$quizlecture = array();						$i = 0;
+				$quizlecture = array();		
+				//pr($quizlecture); die; 
+
+								$i = 0;
 					foreach($val['CourseQuiz'] as $quizkey=>$quizval) { 
 						if(empty($quizval['course_lecture_id'])) { ?>
 							<div class="row quizrow quizcont<?php echo $quizval['id']; ?>">
@@ -58,7 +67,17 @@
 									</span>
 										<?php echo $this->Form->input("CourseQuiz.content.".$quizval['id'],array("type"=>"text","label"=>false,"class"=>"coursequizdesc","value"=>$quizval['content'],"maxlength"=>200,"div"=>false)); ?>
 										<label class="hide err-messg err<?php echo $quizlecval['id']; ?>">Please enter heading.</label>
-
+									<label class="hide succ-messg succ<?php echo $quizval['id']; ?>">Updating content, Please wait...</label>
+										<div id="quz_add_mnu_<?php echo $quizval['id']; ?>" class="hide addquizcontent"></div>
+										<span>
+											<ul>
+												<li><a class="view" href="<?php echo $this->Html->url("/q/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>" title="View Quiz" target="_blank">View Quiz</a></li>
+												<li><a class="sav savequiz" id="savequiz_<?php echo $quizval['id']; ?>" href="javascript:void(0);" title="Save">Save</a></li>
+												<li><a class="del delquiz" id="delquiz_<?php echo $quizval['id']; ?>" href="javascript:void(0);" title="Delete" val="<?php echo $quizval['heading']; ?>">Delete</a></li>
+											</ul>
+											
+											
+											
 								<?php 
 									if(isset($coursequestions[$quizval['id']])) { 
 										?>
@@ -78,14 +97,7 @@
 										?>
 											
 										<?php } ?>
-										<label class="hide succ-messg succ<?php echo $quizval['id']; ?>">Updating content, Please wait...</label>
-										<div id="quz_add_mnu_<?php echo $quizval['id']; ?>" class="hide addquizcontent"></div>
-										<span>
-											<ul>
-												<li><a class="view" href="<?php echo $this->Html->url("/q/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>" title="View Quiz" target="_blank">View Quiz</a></li>
-												<li><a class="sav savequiz" id="savequiz_<?php echo $quizval['id']; ?>" href="javascript:void(0);" title="Save">Save</a></li>
-												<li><a class="del delquiz" id="delquiz_<?php echo $quizval['id']; ?>" href="javascript:void(0);" title="Delete" val="<?php echo $quizval['heading']; ?>">Delete</a></li>
-											</ul>
+										
 											<?php 
 											if(isset($coursequestions[$quizval['id']])) { 
 											?>
@@ -107,6 +119,7 @@
 					<?php 
 							} else {
 								$quizlecture[$quizval['course_lecture_id']][] = $quizval;
+								
 							}
 					?>
 					
@@ -115,14 +128,51 @@
 					}
 		/* code to show quizzes in a module itself end here */
 			?>
-			<?php
-				$lect_id = 0;
-				if(!empty($val['CourseLecture'])) { 
-					foreach($val['CourseLecture'] as $key1=>$val1) {
-						$lect_id = $val1['id'];
-						if($val1['content_source'] != '' || ($val1['content_type'] == 'T' || $val1['content_type'] == 'M')) { 
+			<?php  /*if(!empty($val['CourseLectureAssignment'])) { ?>  
+					<div class="row4">
+							<div class="module-row module-row2">
+									<div class="rt-sec">
+										here
+									</div>
+							</div>
+					</div>
+			<?php } */ ?>
+			
+					
+	<?php
+	//pr($val['CourseLecture']);
+		//die;
+		$lect_id = 0;
+		if(!empty($val['CourseLecture'])) { 
+			foreach($val['CourseLecture'] as $key1=>$val1) {
+			if ( isset($tmpAssignment[$val1['id']]) ) {
+					?>
+			 <div class="rt-sec">
+				<div class="qstcontainer">
+					<p>Assignments</p>
+						<?php //here in below two lines we are use to get the list of all the assignments for a particular lecture. we have set key value see carefully.
+						$i = 1;// this is for showing assignments in loop starts from 1 to "Assignment".$i++ in span tag below.
+						   foreach($tmpAssignment[$val1['id']] as $assignKey=>$assignVal){
+							?> 
+							<span> <?php echo "Assignment".$i++;;//print all the lists of the assignments
+								   ?>
+							</span>
+								<ul>
+									<li><a href =<?php echo $this->Html->url("/assignment/".$assignVal['CourseLectureAssignment']['course_lecture_id']."/".$coursesection[0]['CourseSection']['course_id']."/".$assignVal['CourseLectureAssignment']['id']); ?> class="sav editqst" id="editqst_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>" target="_blank">Edit</a> </li>
+									<li><a class="del delassign" id="delassign_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>">Delete</a> </li><?php//here to delete we first create a delassign function in the functionality.js page then in the controller we create delasssignment function as we create . ?>
+								</ul>
+			<?php	} ?>
+			
+			   </div>
+			</div>
+			<?php }	?>
+					
+			<?php 
+				$lect_id = $val1['id'];
+				if($val1['content_source'] != '' || ($val1['content_type'] == 'T' || $val1['content_type'] == 'M')) { 
 		/**** code to view lecture already having content ****/
-							?>
+			?>
+					
 						<div class="row4">
 							<div class="module-row module-row2">
 									<div class="rt-sec">
@@ -525,7 +575,9 @@
 					<label class="hide add_new_lec_quiz succ-messg msg<?php echo $val['CourseSection']['id'];  ?>" >Loading, Please wait...</label><br/>
 					<?php //pr($val);
 					//die; ?>
-					<a href="<?php echo $this->Html->url("/assignment/".$val['CourseSection']['id']."/"); ?>"><input type="button" value="Add Assignment" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_assign" /></a>
+					<?php if (!empty($lect_id)) { ?>
+						<a href="<?php echo $this->Html->url("/assignment/".$lect_id."/".$coursesection[0]['CourseSection']['course_id']); ?>"><input type="button" value="Add Assignment" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_assign" /></a>
+					<?php } ?>
 					<input type="button" value="Add Lesson" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_lec" />
 					<input type="button" value="Add Quiz" class="module-btn1 add_new_sec_quiz" id="add_new_quiz_<?php echo $val['CourseSection']['id']."_".$lect_id; ?>" />
 				</div>

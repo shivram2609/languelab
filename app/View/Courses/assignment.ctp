@@ -1,7 +1,6 @@
 
 <div class="container">
-	<?php //pr($listquiz);//here this $coursequizs is the variable that is used from the function quizwork which is present in the CourseController 
-?>
+
 
 <section class="right-panel">
 	<h2>ASSIGNMENT</h2>
@@ -23,6 +22,7 @@
 	
 	<p class="txt-center btn-padding">
 		<?php echo $this->Form->submit("Save",array('label'=>false,'div'=>false,'class'=>'save-btn')); ?>
+		<a href="<?php echo $this->Html->url("/course-manage/edit-curriculum/".$courseid); //$courseid we get from assignment function in coursecontroller where we set it in the last?>"><input type="button" value="Cancel" id="cancel"/></a>
 	</p>
 	<?php echo $this->Form->end();?>
 	</section>

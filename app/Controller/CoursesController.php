@@ -104,7 +104,7 @@ class CoursesController extends AppController {
 			/* code to get course data like sections and lectures */
 			$this->loadModel("CourseSection");
 			$this->CourseSection->unbindModel(array("belongsTo"=>array("Course")));
-			$courses = $this->CourseSection->find("all",array("conditions"=>array("CourseSection.course_id"=>$id)));
+			$courses = $this->CourseSection->find("all",array("conditions"=>array("CourseSection.course_id"=>$id),"recursive"=>2));
 			$this->set("courses",$courses);
 			/* code to get course data like sections and lectures end here */
 			
@@ -1031,7 +1031,7 @@ function policies($id) {
  * @created on		: 10th july 2013
  * @description		: NA
 */
-	function editcurriculum($id = NULL) {
+	public function editcurriculum($id = NULL) {
 		//Configure::write('debug',0);
 		$this->layout = "frontend";
 		//if ($this->RequestHandler->isAjax()) { 
@@ -1058,7 +1058,7 @@ function policies($id) {
 		$courselec = $this->CourseLecture->find("first",array("conditions"=>array("CourseLecture.course_id"=>$id),"fields"=>array("CourseLecture.total_lec","CourseLecture.incomplete_lec")));
 		$this->loadModel("CourseSection");
 		$this->CourseSection->unbindModel(array("belongsTo"=>array("Course")));
-		$coursesection = $this->CourseSection->find("all",array("conditions"=>array("CourseSection.course_id"=>$id)));
+		$coursesection = $this->CourseSection->find("all",array("conditions"=>array("CourseSection.course_id"=>$id),"recursive"=>1));
 		$this->set("coursesection",$coursesection);
 		$this->Session->write("editCourseId", $id);
 		$this->Course->unBindModel(array("belongsTo"=>array("Category", "Language", "InstructionLevel"), "hasMany"=>array("CourseAudience", "CourseGoal", "CourseInstructor", "CourseInvitee", "CoursePassword", "CourseRequirement", "CourseSection", "CourseLecture", "UserLearningCourse", "UserWishlistCourse", "UserViewCourse", "CourseReview")));
@@ -1066,9 +1066,34 @@ function policies($id) {
 		$userdetails = $this->Course->find('first',array('fields'=>array("Course.id","Course.user_id","Course.title","Course.name","Course.publishstatus","Course.designation"),'conditions'=>array("Course.user_id"=>$this->Session->read("Auth.User.id"), "Course.id"=>$id)));
 		//pr($courselec);
 		// die;
+		$this->loadModel("CourseLectureAssignment");
+		$this->CourseLectureAssignment->hasMany = $this->CourseLectureAssignment->belongsTo = $this->CourseLectureAssignment->hasOne = array();
+		$this->CourseLectureAssignment->belongsTo = array(
+			'CourseLecture' => array(
+				'className' => 'CourseLecture',
+				'foreignKey' => 'course_lecture_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			)
+		);
+		$courseLectureAssignment = $this->CourseLectureAssignment->find("all",array("conditions"=>array("CourseLecture.course_id"=>$id),"fields"=>array("CourseLectureAssignment.*")));
+		$tmpAssignment = array();
+		foreach( $courseLectureAssignment as $courseLectureAssignmentKey => $courseLectureAssignmentVal ) {
+			$tmpAssignment[$courseLectureAssignmentVal['CourseLectureAssignment']['course_lecture_id']][] = $courseLectureAssignmentVal;
+		}
+		//pr($tmpAssignment);
+		//die;
 		$this->set("title_for_layout","Syllabus - ".$userdetails['Course']['title']);
 		$this->set(compact('userdetails'));
 		$this->set("courselec",$courselec);
+		$this->set("tmpAssignment",$tmpAssignment);
 		$this->set("coursequestions",$this->Course->getquizquestions($id));
 	}
 /* end of function */
@@ -2622,24 +2647,31 @@ public function startquiz() {
  
 */	
 
-public function assignment($lectureid=null,$assignmentid = NULL){
-   if ($this->request->is("post") || $this->request->is('put')) {
-	  $courseAssignData = $this->data;
-	  $this->loadModel("CourseLectureAssignment");
-	  $courseAssignData = $this->data;
-	  $courseAssignData['CourseLectureAssignment']['course_lecture_id'] = $lectureid;
-	  if (!empty($assignmentid)) { //update the saved the data
-		  $this->CourseLectureAssignment->create();
-		  $this->CourseLectureAssignment->id = $assignmentid;
-	  }
-	  if ($this->CourseLectureAssignment->save($courseAssignData, array('validate' => false))) {
-		$this->Session->setFlash(__('Course assignment data have been updated.'), 'default', array("class"=>"success_message"));
-	  }
-   } elseif (!empty($assignmentid) ) {  // to edit the data
+ 
+public function assignment($lectureid=null,$courseid=null,$assignmentid = NULL){
+	 if ($this->request->is("post") || $this->request->is('put')) {
+	     $courseAssignData = $this->data;  
+	     $this->loadModel("CourseLectureAssignment");
+	     $courseAssignData['CourseLectureAssignment']['course_lecture_id'] = $lectureid;
+	      if (!empty($assignmentid)) { //update the saved  data
+			   $this->CourseLectureAssignment->create();
+			   $this->CourseLectureAssignment->id = $assignmentid;
+		  }
+	       if ($this->CourseLectureAssignment->save($courseAssignData)) {//save the data that we are entering
+		      $this->Session->setFlash(__('Course assignment data have been saved.'), 'default', array("class"=>"success_message"));
+		      }
+		      else{
+				  $this->Session->setFlash(__('The course assignment could not be saved. Please, try again.'));
+			  }
+		 
+	   } elseif (!empty($assignmentid) ) { // to edit the data
 	   $this->loadModel("CourseLectureAssignment");
-	   $data = $this->CourseLectureAssignment->find("first",array("conditions"=>array("id"=>$assignmentid),"recursive"=>-1));
+	   $data = $this->CourseLectureAssignment->find("first",array("conditions"=>array("CourseLectureAssignment.id"=>$assignmentid),"recursive"=>-1));
 	   $this->request->data["CourseLectureAssignment"]  = $data['CourseLectureAssignment'];
-   }
+	   
+   } 
+   
+   $this->set(compact("courseid"));
 }
 /* end of function */
 
@@ -3860,7 +3892,11 @@ function grading_criteria($id) {
 		$this->loadModel("CourseQuizQuestion");
 		if ($this->RequestHandler->isAjax()) {
 			$questionid = explode("^",$this->request->data['quizqstid']);
+			//pr($questionid);
+			//die;
 			$this->CourseQuizQuestion->id = $questionid[0];
+			//pr($this->CourseQuizQuestion->id);
+			//die;
 			if ($this->CourseQuizQuestion->delete()) {
 				if(isset($questionid[1])) {
 					$this->Session->delete('quizquestions.'.$this->request->data['quizid'].'.'.$questionid[0]);
@@ -3878,6 +3914,38 @@ function grading_criteria($id) {
 		$this->render(false);
 	}
 /* end of function */
+
+
+/*
+ * @function name	: deleteassignment
+ * @purpose			: function to delete assignment
+ * @arguments		: Following are the arguments to be passed:
+		* questionid	: id of assignment to be deleted
+ * @return			: none
+ * @created by		: shivam sharma
+ * @created on		: 27th december 2017
+ * @description		: NA
+*/	
+	function deleteassignment($lectassignmentid = NULL) {
+		
+		$this->loadModel("CourseLectureAssignment");
+		if ($this->request->data) {
+		     $lectassignmentid =$this->request->data['Lecassignid'];
+		     //pr($lectassignmentid);
+		     //die;
+			 $this->CourseLectureAssignment->id = $lectassignmentid;
+			if ($this->CourseLectureAssignment->delete()) {
+			    }
+			     echo 1;
+			     } else {
+				  echo 2;
+			     }
+			$this->render(false);
+		}
+	
+	
+/* end of function */
+
 
 
 /*

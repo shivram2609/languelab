@@ -74,7 +74,7 @@ class CourseLecture extends AppModel {
 			'counterQuery' => ''
 		),
 		'CourseLectureAssignment' => array(
-			'className' => 'CourseLactureAssignment',
+			'className' => 'CourseLectureAssignment',
 			'foreignKey' => 'course_lecture_id',
 			'dependent' => true,
 			'conditions' => '',
