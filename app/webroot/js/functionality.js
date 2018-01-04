@@ -276,7 +276,7 @@ $(document).ready(function(){
 	/* code to add quiz question end here */
 	
 	/* code to delete quiz question */
-	$(".delqst").live("click",function(e){
+	$(".delqst").on("click",function(e){
 		if(confirm("Do you really want to delete this question?")) {
 			var qstid = $(this).attr("id").split("_");
 			$.ajax({
@@ -296,6 +296,29 @@ $(document).ready(function(){
 		e.stopImmediatePropagation();
 	});
 	/* code to delete quiz question end here */
+	
+	/*  code to delete assignment starts here*/
+	$(".delassign").on("click",function(e){
+		if(confirm("Do you really want to delete this assignment?")) {
+	     var assignid = $(this).attr("id").split("_");
+	     //alert(assignid);
+			$.ajax({
+				url: BASE_URL+"courses/deleteassignment",// deleteassignment this function is in courses controller.
+				type: 'post',
+				data  : "Lecassignid="+assignid[1], 
+             	success: function(data) {
+					if(parseInt(data) == 1) {
+						refreshcurriculum();
+					}
+				},
+				error : function(err, req) {
+					alert("Your browser broke!");
+				}
+			});
+		}
+		e.stopImmediatePropagation();
+	});
+	/* code to delete assignment end here */
 	
 	/*--code to edit quiz question starts here ----*/
 	
