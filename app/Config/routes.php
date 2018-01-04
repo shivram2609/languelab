@@ -89,6 +89,7 @@
 	Router::connect('/course-manage/delete-instructor/*', array('controller' => 'courses', 'action' => 'deleteinstructor'));
 	Router::connect('/course-manage/delete-courses/*', array('controller' => 'courses', 'action' => 'deletecourse'));
 	Router::connect('/course-manage/edit-curriculum/*', array('controller' => 'courses', 'action' => 'editcurriculum'));
+	Router::connect('/assignment_preview/*', array('controller' => 'courses', 'action' => 'assignmentpreview'));
 //	Router::connect('/course-manage/edit-curriculum/addquizzquestions', array('controller' => 'courses', 'action' => 'editcurriculum'));
 	Router::connect('/course-manage/syllabus/*', array('controller' => 'courses', 'action' => 'editcurriculum'));
 	Router::connect('/course-manage/policies/*', array('controller' => 'courses', 'action' => 'policies'));
