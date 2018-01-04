@@ -145,27 +145,7 @@
 		$lect_id = 0;
 		if(!empty($val['CourseLecture'])) { 
 			foreach($val['CourseLecture'] as $key1=>$val1) {
-			if ( isset($tmpAssignment[$val1['id']]) ) {
-					?>
-			 <div class="rt-sec">
-				<div class="qstcontainer">
-					<p>Assignments</p>
-						<?php //here in below two lines we are use to get the list of all the assignments for a particular lecture. we have set key value see carefully.
-						$i = 1;// this is for showing assignments in loop starts from 1 to "Assignment".$i++ in span tag below.
-						   foreach($tmpAssignment[$val1['id']] as $assignKey=>$assignVal){
-							?> 
-							<span> <?php echo "Assignment".$i++;;//print all the lists of the assignments
-								   ?>
-							</span>
-								<ul>
-									<li><a href =<?php echo $this->Html->url("/assignment/".$assignVal['CourseLectureAssignment']['course_lecture_id']."/".$coursesection[0]['CourseSection']['course_id']."/".$assignVal['CourseLectureAssignment']['id']); ?> class="sav editqst" id="editqst_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>" target="_blank">Edit</a> </li>
-									<li><a class="del delassign" id="delassign_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>">Delete</a> </li><?php//here to delete we first create a delassign function in the functionality.js page then in the controller we create delasssignment function as we create . ?>
-								</ul>
-			<?php	} ?>
-			
-			   </div>
-			</div>
-			<?php }	?>
+			?>
 					
 			<?php 
 				$lect_id = $val1['id'];
@@ -497,6 +477,30 @@
 							<?php	
 							}
 					?>
+					<?php
+					if ( isset($tmpAssignment[$val1['id']]) ) {
+					?>
+			 <div class="rt-sec">
+				<div class="qstcontainer">
+					<p>Assignments</p>
+						<?php //here in below two lines we are use to get the list of all the assignments for a particular lecture. we have set key value see carefully.
+						$i = 1;// this is for showing assignments in loop starts from 1 to "Assignment".$i++ in span tag below.
+						   foreach($tmpAssignment[$val1['id']] as $assignKey=>$assignVal){
+							?> 
+							<span> <?php echo "Assignment".$i++;;//print all the lists of the assignments
+								   ?>
+							</span>
+								<ul>
+									<li><a href =<?php echo $this->Html->url("/assignment/".$assignVal['CourseLectureAssignment']['course_lecture_id']."/".$coursesection[0]['CourseSection']['course_id']."/".$assignVal['CourseLectureAssignment']['id']); ?> class="sav editqst" id="editqst_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>" target="_blank">Edit</a> </li>
+									<li><a href="<?php echo $this->Html->url("/assignment_preview/"); ?><?php echo $assignVal['CourseLectureAssignment']['id']; ?>" class="view " target="_blank">Preview</a></li>
+									<li><a class="del delassign" id="delassign_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>">Delete</a> </li><?php//here to delete we first create a delassign function in the functionality.js page then in the controller we create delasssignment function as we create . ?>
+								</ul>
+			<?php	} ?>
+			
+			   </div>
+			</div>
+			<?php }	?>
+					
 					<div class="seprator"></div>
 					<?php 
 				if (isset($quizlecture[$val1['id']])) { 
@@ -576,10 +580,10 @@
 					<?php //pr($val);
 					//die; ?>
 					<?php if (!empty($lect_id)) { ?>
-						<a href="<?php echo $this->Html->url("/assignment/".$lect_id."/".$coursesection[0]['CourseSection']['course_id']); ?>"><input type="button" value="Add Assignment" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_assign" /></a>
+						<a href="<?php echo $this->Html->url("/assignment/".$lect_id."/".$coursesection[0]['CourseSection']['course_id']); ?>"><input type="button"  value="Add Assignment" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_assign" /></a>
 					<?php } ?>
-					<input type="button" value="Add Lesson" id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_lec" />
-					<input type="button" value="Add Quiz" class="module-btn1 add_new_sec_quiz" id="add_new_quiz_<?php echo $val['CourseSection']['id']."_".$lect_id; ?>" />
+					<input type="button" value="Add Lesson"  id="add_new_sec_<?php echo $val['CourseSection']['id']; ?>" class="module-btn1 add_new_sec_lec" target="_blank" />
+					<input type="button" value="Add Quiz"  class="module-btn1 add_new_sec_quiz" id="add_new_quiz_<?php echo $val['CourseSection']['id']."_".$lect_id; ?>"/>
 				</div>
 			</div>
 		<?php } ?>
