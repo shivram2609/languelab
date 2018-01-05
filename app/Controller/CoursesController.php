@@ -1135,8 +1135,32 @@ function policies($id) {
 			$this->Course->unBindModel(array("belongsTo"=>array("Category", "Language", "InstructionLevel"), "hasMany"=>array("CourseAudience", "CourseGoal", "CourseInstructor", "CourseInvitee", "CoursePassword", "CourseRequirement", "CourseSection", "CourseLecture", "UserLearningCourse", "UserWishlistCourse", "UserViewCourse", "CourseReview")));
 			$this->Course->virtualFields = array("name"=>"select CONCAT(Userdetail.first_name,' ',Userdetail.last_name) from userdetails Userdetail where Userdetail.user_id = Course.user_id", "designation"=>"select designation from userdetails Userdetail where Userdetail.user_id = Course.user_id");
 			$userdetails = $this->Course->find('first',array('fields'=>array("Course.id","Course.user_id","Course.title","Course.name","Course.publishstatus","Course.designation"),'conditions'=>array("Course.user_id"=>$this->Session->read("Auth.User.id"), "Course.id"=>$id)));
+			$this->loadModel("CourseLectureAssignment");
+			$this->CourseLectureAssignment->hasMany = $this->CourseLectureAssignment->belongsTo = $this->CourseLectureAssignment->hasOne = array();
+			$this->CourseLectureAssignment->belongsTo = array(
+				'CourseLecture' => array(
+					'className' => 'CourseLecture',
+					'foreignKey' => 'course_lecture_id',
+					'dependent' => true,
+					'conditions' => '',
+					'fields' => '',
+					'order' => '',
+					'limit' => '',
+					'offset' => '',
+					'exclusive' => '',
+					'finderQuery' => '',
+					'counterQuery' => ''
+				)
+			);
+			$courseLectureAssignment = $this->CourseLectureAssignment->find("all",array("conditions"=>array("CourseLecture.course_id"=>$id),"fields"=>array("CourseLectureAssignment.*")));
+			$tmpAssignment = array();
+			foreach( $courseLectureAssignment as $courseLectureAssignmentKey => $courseLectureAssignmentVal ) {
+				$tmpAssignment[$courseLectureAssignmentVal['CourseLectureAssignment']['course_lecture_id']][] = $courseLectureAssignmentVal;
+			}
+			$this->set("title_for_layout","Syllabus - ".$userdetails['Course']['title']);
 			$this->set(compact('userdetails'));
 			$this->set("courselec",$courselec);
+			$this->set("tmpAssignment",$tmpAssignment);
 			$this->set("coursequestions",$this->Course->getquizquestions($id));
 		}
 	}
@@ -2657,6 +2681,18 @@ public function assignment($lectureid=null,$courseid=null,$assignmentid = NULL){
 			   $this->CourseLectureAssignment->create();
 			   $this->CourseLectureAssignment->id = $assignmentid;
 		  }
+		  $tmpAssignment = $courseAssignData['CourseLectureAssignment']['assignment'];
+		  $strinArr = explode("https://www.youtube.com/watch?v",$courseAssignData['CourseLectureAssignment']['assignment']);
+		  foreach ($strinArr as $key=>$val) {
+			  $tmpVal = trim($val);
+			  $firstChar = substr($tmpVal,0,1);
+			  if ($firstChar == "=") {
+				  $videoKey = substr($tmpVal,1,11);
+				  $tmpAssignment = str_replace("https://www.youtube.com/watch?v=".$videoKey,'<iframe src="http://www.youtube.com/embed/'.$videoKey.'" width="560" height="315" frameborder="0" allowfullscreen></iframe>',$tmpAssignment);
+			  }
+		  }
+		  $courseAssignData['CourseLectureAssignment']['assignment'] = $tmpAssignment;
+		  
 	       if ($this->CourseLectureAssignment->save($courseAssignData)) {//save the data that we are entering
 		      $this->Session->setFlash(__('Course assignment data have been saved.'), 'default', array("class"=>"success_message"));
 		      }
@@ -2674,7 +2710,15 @@ public function assignment($lectureid=null,$courseid=null,$assignmentid = NULL){
    $this->set(compact("courseid"));
 }
 /* end of function */
-
+	public function assignmentpreview($id=null){
+	$this->layout='frontend';
+	$this->loadModel("CourseLectureAssignment");
+	$data = $this->CourseLectureAssignment->find("first",array("conditions"=>array("CourseLectureAssignment.id"=>$id)));
+	
+	$this->set(compact("data"));
+	//pr($data);
+	//die;
+	}
 
 /*
  * @function name	: validatecourse
