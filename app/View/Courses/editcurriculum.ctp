@@ -143,8 +143,10 @@
 	//pr($val['CourseLecture']);
 		//die;
 		$lect_id = 0;
+		
 		if(!empty($val['CourseLecture'])) { 
 			foreach($val['CourseLecture'] as $key1=>$val1) {
+				
 			?>
 					
 			<?php 
@@ -492,7 +494,7 @@
 							</span>
 								<ul>
 									<li><a href =<?php echo $this->Html->url("/assignment/".$assignVal['CourseLectureAssignment']['course_lecture_id']."/".$coursesection[0]['CourseSection']['course_id']."/".$assignVal['CourseLectureAssignment']['id']); ?> class="sav editqst" id="editqst_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>" target="_blank">Edit</a> </li>
-									<li><a href="<?php echo $this->Html->url("/assignment_preview/"); ?><?php echo $assignVal['CourseLectureAssignment']['id']; ?>" class="view " target="_blank">Preview</a></li>
+									<li><a href="<?php echo $this->Html->url("/assignment_preview/".$assignVal['CourseLectureAssignment']['id']."/".$coursesection[0]['CourseSection']['course_id']."/".$assignVal['CourseLectureAssignment']['course_lecture_id']); ?>" class="view " target="_blank">Preview</a></li>
 									<li><a class="del delassign" id="delassign_<?php echo $assignVal['CourseLectureAssignment']['id']; ?>">Delete</a> </li><?php//here to delete we first create a delassign function in the functionality.js page then in the controller we create delasssignment function as we create . ?>
 								</ul>
 			<?php	} ?>

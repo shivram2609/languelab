@@ -2674,15 +2674,22 @@ public function startquiz() {
  
 public function assignment($lectureid=null,$courseid=null,$assignmentid = NULL){
 	 if ($this->request->is("post") || $this->request->is('put')) {
+		
 	     $courseAssignData = $this->data;  
+	     
 	     $this->loadModel("CourseLectureAssignment");
 	     $courseAssignData['CourseLectureAssignment']['course_lecture_id'] = $lectureid;
 	      if (!empty($assignmentid)) { //update the saved  data
 			   $this->CourseLectureAssignment->create();
 			   $this->CourseLectureAssignment->id = $assignmentid;
 		  }
+		  
 		  $tmpAssignment = $courseAssignData['CourseLectureAssignment']['assignment'];
+		  //pr($tmpAssignment);
+		  //die;
 		  $strinArr = explode("https://www.youtube.com/watch?v",$courseAssignData['CourseLectureAssignment']['assignment']);
+		  //pr($strinArr);
+		  //die;
 		  foreach ($strinArr as $key=>$val) {
 			  $tmpVal = trim($val);
 			  $firstChar = substr($tmpVal,0,1);
@@ -2710,12 +2717,17 @@ public function assignment($lectureid=null,$courseid=null,$assignmentid = NULL){
    $this->set(compact("courseid"));
 }
 /* end of function */
-	public function assignmentpreview($id=null){
+	public function assignmentpreview($id=null,$courseid=null,$lectureid=null){
+		
 	$this->layout='frontend';
 	$this->loadModel("CourseLectureAssignment");
-	$data = $this->CourseLectureAssignment->find("first",array("conditions"=>array("CourseLectureAssignment.id"=>$id)));
 	
-	$this->set(compact("data"));
+	$data = $this->CourseLectureAssignment->find("first",array("conditions"=>array("CourseLectureAssignment.id"=>$id)));
+	 //~ pr($data);
+	 //~ die;
+   
+	$this->set(compact("data", "courseid","lectureid","id"));
+	
 	//pr($data);
 	//die;
 	}
