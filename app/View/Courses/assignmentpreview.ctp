@@ -11,7 +11,7 @@
 		
 	</div>
 	<a href ="<?php echo $this->Html->url("/assignment/".$lectureid."/".$courseid."/".$id);?>"><input type="button" value="Edit" id="edit"/></a>
-	<br/>
+
 	<a href="<?php echo $this->Html->url("/course-manage/edit-curriculum/".$courseid); ?>"><input type="button" value="Back" id="cancel"/></a>
 	</div>
 	

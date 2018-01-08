@@ -1565,7 +1565,7 @@ border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;}
 .quiz-cont p input[type="checkbox"]{margin:2px 8px 0 0px;float:left;}
 .quiz-cont label{font-family:'proxima_novasemibold'; font-size:16px; color:#393939; font-weight:normal; margin: -3px 0 10px 5px; width: 97%; float:left;}
 .quiz-cont h1{font-family:'proxima_novasemibold'; font-size: 22px; color:#0c79bf; font-weight:normal; margin:0 0 25px;}
-.quiz-cont input{border: 1px solid #A5A2A2; border-radius:5px; color:#393939; font-family: 'proxima_novasemibold'; font-size: 14px; font-weight: normal;  padding: 5px;  position: relative;  width:96%;}
+.quiz-cont input{border: 1px solid #A5A2A2; border-radius:5px; color:#393939; font-family: 'proxima_novasemibold'; font-size: 14px; font-weight: normal;  padding: 5px;  position: relative;  width:96%; margin:4px}
 .q-box{float:left;width:95.5%;padding: 2%;background: #f4f4f4;border: #b8b8b8 solid 1px;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;font-family:'proxima_novasemibold'; font-size: 18px; color:#0c79bf; margin:0 0 25px; word-wrap:break-word;}
 .q-box:after{content: "";position: absolute;bottom: -10px;left: 33px;border-style: solid;border-width: 10px 10px 0;border-color: #f4f4f4 transparent;display: block;width: 0;z-index: 1;}
 .q-box:before{content: "";position: absolute;bottom: -11px;left: 33px;border-style: solid;border-width: 10px 10px 0;border-color: #b8b8b8 transparent;display: block;width: 0;z-index: 0;}
