@@ -101,9 +101,7 @@
 											<?php 
 											if(isset($coursequestions[$quizval['id']])) { 
 											?>
-												<span class="btns sel_quiz" id="sel_quiz_<?php echo $quizval['id']; ?>">
-													<a id="cancel_1" class="sel_quizs moreqst" href="javascript:void(0);" title="Add More Questions">Add More Questions</a>
-												</span>
+												
 											<?php	
 											} else {	
 											?>

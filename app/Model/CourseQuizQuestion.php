@@ -30,6 +30,12 @@ class CourseQuizQuestion extends AppModel {
 			'className'=>'CourseQuizQuestionOption',
 			'foreignKey'=>'course_quiz_question_id',
 			'dependent'=>true
+		),
+	
+		'UserQuizQuestion'=>array(
+			'className'=>'UserQuizQuestion',
+			'foreignKey'=>'course_quiz_id',
+			'dependent'=>true
 		)
 	);
 }

@@ -75,10 +75,10 @@
 											<div class="lctre">Quiz <?php echo ++$i; ?>:</div>
 											<div class="circle "></div>
 											<h6>
-												<a href="<?php echo $this->Html->url("/quizwork/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>"> <?=$quizval['heading']; ?> </a>
+												<a href="<?php echo $this->Html->url("/userquiz/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>"> <?=$quizval['heading']; ?> </a>
 											</h6>
 											<span class="video"></span>
-											<a href="<?php echo $this->Html->url("/quizwork/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>"> </a>
+											<a href="<?php echo $this->Html->url("/userquiz/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>"> </a>
 											
 										</li>
 									<?php } else {
@@ -115,11 +115,11 @@
 												<div class="lctre">Quiz <?php echo ++$i; ?>:</div>
 												<div class="circle "></div>
 												<h6>
-													<a href="<?php echo $this->Html->url("/q/".$quizlecval['id']."/".$this->Common->makeurl($quizlecval['heading'])); ?>"> <?=$quizlecval['heading']; ?> </a>
+													<a href="<?php echo $this->Html->url("/userquiz/".$quizval['id']."/".$this->Common->makeurl($quizval['heading'])); ?>"> <?=$quizval['heading']; ?> </a>
 												</h6>
 												<span class="video"></span>
 												<time></time>
-												<a href="<?php echo $this->Html->url("/q/".$quizlecval['id']."/".$this->Common->makeurl($quizlecval['heading'])."/".$typeofview); ?>" class="start" title="Start Quiz" >Start Quiz</a>
+												<a href="<?php echo $this->Html->url("/userquiz/".$quizval['id']."/"); ?>" class="start" title="Start Quiz" >Start Quiz</a>
 											</li>
 										<?php }
 									} ?>

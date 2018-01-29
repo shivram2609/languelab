@@ -47,6 +47,7 @@
 	Router::connect('/login/*', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/signup', array('controller' => 'users', 'action' => 'signup'));
 	Router::connect('/addquizquestion/*', array('controller' => 'courses', 'action' => 'addquizquestion'));
+	Router::connect('/userquiz/*', array('controller' => 'courses', 'action' => 'userquiz'));
 	Router::connect('/assignment/*', array('controller' => 'courses', 'action' => 'assignment'));
 	Router::connect('/editquizquestioninline/*', array('controller' => 'courses', 'action' => 'editquizquestioninline'));
 	Router::connect('/dashboard', array('controller' => 'users', 'action' => 'dashboard'));
@@ -105,6 +106,8 @@
 	Router::connect('/takecourse/*', array('controller' => 'courses', 'action' => 'takecourse'));
 	Router::connect('/quizwork/*', array('controller' => 'courses', 'action' => 'quizwork'));
 	Router::connect('/startquiz/*', array('controller' => 'courses', 'action' => 'startquiz'));
+	Router::connect('/takequiz/*', array('controller' => 'courses', 'action' => 'takequiz'));
+	Router::connect('/result/*', array('controller' => 'courses', 'action' => 'result'));
 	Router::connect('/c/*', array('controller' => 'courses', 'action' => 'view'));
 	Router::connect('/g/*', array('controller' => 'courses', 'action' => 'redirecttoview','g'));
 	Router::connect('/i/*', array('controller' => 'courses', 'action' => 'redirecttoview','i'));

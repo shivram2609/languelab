@@ -223,6 +223,7 @@ class CoursesController extends AppController {
 	function redirecttoview($type= NULL, $id = NULL, $desc = NULL) {
 		$this->Session->delete("typeofview");
 		$this->Session->write("typeofview",$type);
+		
 		$this->redirect("/c/".$id."/".$desc);
 	}
 
@@ -1985,6 +1986,7 @@ function policies($id) {
  * */
 
 	public function addquizquestion($quizID = NULL, $questionType = NULL,$questionID = NULL){
+		
 		$this->set("questionType",$questionType);
 		
 		if ( $this->request->is('post') || $this->request->is('put')) {
@@ -2191,7 +2193,188 @@ function policies($id) {
 			
 	}
 }
+
+	function userquiz( $quizId=null,$action='v') {
+		$this->layout = "frontend";
+		if ( $action == 'v' ) {
+			$this->loadModel("CourseQuiz");
+			$quizData = $this->CourseQuiz->find("first",array("conditions"=>array("id"=>$quizId),"recursive"=>-1));
+			$this->set(compact("quizData"));
+		} else {
+			$this->loadModel("CourseQuiz");
+			$this->loadModel("CourseQuizQuestion");
+			//$this->loadModel("CourseQuizQuestion");
+			$this->CourseQuiz->hasMany = $this->CourseQuiz->hasOne = $this->CourseQuiz->belongsTo = array();
+			$this->CourseQuizQuestion->hasMany = $this->CourseQuizQuestion->hasOne = $this->CourseQuizQuestion->belongsTo = array();
+			$this->CourseQuiz->hasMany = array(
+				'CourseQuizQuestion' => array(
+					'className' => 'CourseQuizQuestion',
+					'foreignKey' => 'course_quiz_id',
+					'dependent' => true,
+					'conditions' => '',
+					'fields' => '',
+					'order' => '',
+					'limit' => '',
+					'offset' => '',
+					'exclusive' => '',
+					'finderQuery' => '',
+					'counterQuery' => ''
+				)
+			);
+			$this->CourseQuizQuestion->hasMany = array(
+				'CourseQuizQuestionOption' => array(
+					'className' => 'CourseQuizQuestionOption',
+					'foreignKey' => 'course_quiz_question_id',
+					'dependent' => true,
+					'conditions' => '',
+					'fields' => '',
+					'order' => '',
+					'limit' => '',
+					'offset' => '',
+					'exclusive' => '',
+					'finderQuery' => '',
+					'counterQuery' => ''
+				)
+			);
+			$quizData = $this->CourseQuiz->find("first",array("conditions"=>array("id"=>$quizId),"recursive"=>2));
+			$userQuizData['UserCourseQuiz']['user_id'] = $this->Session->read("Auth.User.id");
+			$userQuizData['UserCourseQuiz']['course_quiz_id'] = $quizData['CourseQuiz']['id'];
+			$userQuizData['UserCourseQuiz']['course_section_id'] = $quizData['CourseQuiz']['course_section_id'];
+			$userQuizData['UserCourseQuiz']['course_lecture_id'] = $quizData['CourseQuiz']['course_lecture_id'];
+			$userQuizData['UserCourseQuiz']['heading'] = $quizData['CourseQuiz']['heading'];
+			$userQuizData['UserCourseQuiz']['content'] = $quizData['CourseQuiz']['content'];
+			$this->loadModel("UserCourseQuiz");
+			
+			if ( $this->UserCourseQuiz->save($userQuizData) ) {
+				$this->loadModel("UserCourseQuizQuestion");
+				$this->loadModel("UserCourseQuizQuestionOption");
+				$userQuizId = $this->UserCourseQuiz->getLastInsertId();
+				$this->UserCourseQuizQuestion->hasMany = array(
+					"UserCourseQuizQuestionOption" => array (
+						"className"=> "UserCourseQuizQuestionOption",
+						"foreignKey" => "user_course_quiz_question_id",
+						"dependent" => true
+					)
+				);
+				$userQuizQuestionData = array();
+				foreach ($quizData['CourseQuizQuestion'] as $key=>$val) {
+					$userQuizQuestionData = array();
+					$userQuizQuestionData['UserCourseQuizQuestion']['user_course_quiz_id'] = $userQuizId;
+					$userQuizQuestionData['UserCourseQuizQuestion']['question'] = $val['question'];
+					$userQuizQuestionData['UserCourseQuizQuestion']['type'] = $val['type'];
+					$userQuizQuestionData['UserCourseQuizQuestion']['media'] = $val['media'];
+					if ( !empty($val['CourseQuizQuestionOption']) ) {
+						foreach($val['CourseQuizQuestionOption'] as $optKey=>$optVal) {
+							$tmp['options'] = $optVal['options'];
+							$tmp['answer'] = $optVal['answer'];
+							$tmp['opt_answer'] = $optVal['opt_answer'];
+							$userQuizQuestionData['UserCourseQuizQuestionOption'][] = $tmp;
+						}
+					}
+					$this->UserCourseQuizQuestion->create();
+					$this->UserCourseQuizQuestion->saveAll($userQuizQuestionData,array("validate"=>false));
+				}
+				$this->redirect("/takequiz/".$userQuizId);
+			}
+		}
+	}
 	
+	
+	
+	public function takequiz($id=null){
+		$this->loadModel("UserCourseQuizQuestion");
+		$this->loadModel("UserCourseQuizQuestionOption");
+		if ( $this->request->is("post") ) {
+			//pr($this->request->data);
+			//die;
+				 //pr($this->request->data['UserCourseQuizQuestionOption']);
+					//die;
+				if ( isset($this->request->data['UserCourseQuizQuestionOption']) ) {
+				 foreach ($this->request->data['UserCourseQuizQuestionOption'] as $key=>$val) {
+					 if ($this->request->data['UserCourseQuizQuestion']['type'] == 'MATCH'){
+						$optionData['UserCourseQuizQuestionOption'][$key] = array("id"=>$key,"user_answer"=>$val['user_answer']);
+					} else {
+						$optionData['UserCourseQuizQuestionOption'][$val] = array("id"=>$val,"user_answer"=>1);
+					}
+				}
+			}	
+			$userQuiz=$this->request->data['UserCourseQuizQuestion'];
+			$userQuiz['answer'];
+			$userQuiz['is_attempted'] = 1;
+			if(!empty($userQuiz)) {
+				$this->UserCourseQuizQuestion->create();
+				$this->UserCourseQuizQuestion->id = $userQuiz['id'];
+				if($this->UserCourseQuizQuestion->save($userQuiz)) {
+					if ( isset($optionData['UserCourseQuizQuestionOption']) ) {
+						$this->loadModel('UserCourseQuizQuestionOption');
+						$this->UserCourseQuizQuestionOption->create();
+						$this->UserCourseQuizQuestionOption->saveAll($optionData['UserCourseQuizQuestionOption'],array("validate"=>false));
+					}
+					$this->redirect("/takequiz/".$id);
+				}
+			}		
+		}
+		$this->UserCourseQuizQuestion->hasMany = array(
+					"UserCourseQuizQuestionOption" => array (
+						"className"=> "UserCourseQuizQuestionOption",
+						"foreignKey" => "user_course_quiz_question_id",
+						"dependent" => true
+					)
+				);
+		$data = $this->UserCourseQuizQuestion->find("first",array("conditions"=>array("user_course_quiz_id"=>$id,"is_attempted"=>0),"order"=>"rand()","recursive"=>2));
+		if ( empty($data) ) {
+			$this->redirect("/result/".$id);
+		}
+		//pr($data);
+			//die;
+		if (strtolower($data['UserCourseQuizQuestion']['type']) == 'match' ) {
+			$data1 = $this->UserCourseQuizQuestionOption->find("all",array("conditions"=>array("user_course_quiz_question_id"=>$data['UserCourseQuizQuestion']['id']),"order"=>"rand()","recursive"=>-1));
+			$this->set(compact('data1'));
+			
+		}
+		$this->set(compact('data'));
+	}
+
+	public function result($id=null) {
+		$this->loadModel("UserCourseQuiz");
+		$this->loadModel("UserCourseQuizQuestion");
+		$this->loadModel("UserCourseQuizQuestionOption");
+		$this->UserCourseQuiz->hasMany = $this->UserCourseQuiz->hasOne = $this->UserCourseQuiz->belongsTo = array();
+			$this->UserCourseQuizQuestion->hasMany = $this->UserCourseQuizQuestion->hasOne = $this->UserCourseQuizQuestion->belongsTo = array();
+			$this->UserCourseQuiz->hasMany = array(
+				'UserCourseQuizQuestion' => array(
+					'className' => 'UserCourseQuizQuestion',
+					'foreignKey' => 'user_course_quiz_id',
+					'dependent' => true,
+					'conditions' => '',
+					'fields' => '',
+					'order' => '',
+					'limit' => '',
+					'offset' => '',
+					'exclusive' => '',
+					'finderQuery' => '',
+					'counterQuery' => ''
+				)
+			);
+			$this->UserCourseQuizQuestion->hasMany = array(
+				'UserCourseQuizQuestionOption' => array(
+					'className' => 'UserCourseQuizQuestionOption',
+					'foreignKey' => 'user_course_quiz_question_id',
+					'dependent' => true,
+					'conditions' => '',
+					'fields' => '',
+					'order' => '',
+					'limit' => '',
+					'offset' => '',
+					'exclusive' => '',
+					'finderQuery' => '',
+					'counterQuery' => ''
+				)
+			);
+		$quiz = $this->UserCourseQuiz->find("first",array("conditions"=>array("id"=>$id),"recursive"=>-1));
+		$data = $this->UserCourseQuizQuestion->find("all",array("conditions"=>array("user_course_quiz_id"=>$id),"recursive"=>2));
+		$this->set(compact('data','quiz'));
+	}
 /*
  * @function name	: addquestions
  * @purpose			: to add new question 
@@ -2513,6 +2696,7 @@ public function startquiz() {
 
 /* end of function */
 
+	
 /**
  * admin_index method
  *
@@ -3805,6 +3989,7 @@ function viewquiz($quizid = NULL, $quizheading = NULL, $type='N'){
  * @description		: NA
 */	
 	function editquizquestion($questionid = NULL) {
+		
 		$this->loadModel("CourseQuizQuestion");
 		$this->loadModel("CourseQuizQuestionOption");
 		if ($this->RequestHandler->isAjax()) {

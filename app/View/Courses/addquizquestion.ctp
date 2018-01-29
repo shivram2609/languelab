@@ -219,9 +219,9 @@
      
 <?php } ?>		
 
-<!--form for true/false -->
+<!--form for match -->
 
-<?php if($questionType == 'match') { ?>
+<?php if(($questionType == 'match')||($questionType == 'MATCH')) { ?>
 	
 	  <div class="addquestionnew">
 		  

@@ -352,5 +352,4 @@ class Course extends AppModel {
 		$sql = "update course_quizzes set course_lecture_id = 0 where course_lecture_id = ".$lecid;
 		$this->query($sql);
 	}
-
 }

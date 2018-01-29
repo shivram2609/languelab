@@ -250,6 +250,10 @@ background: -o-linear-gradient(top,  #f2eeee 0%,#dedbdb 100%); /* Opera 11.10+ *
 background: -ms-linear-gradient(top,  #f2eeee 0%,#dedbdb 100%); /* IE10+ */
 background: linear-gradient(to bottom,  #f2eeee 0%,#dedbdb 100%); /* W3C */
 }
+
+div.qstnew{float:left;width:50%}
+div.qstnew p{border-bottom:1px solid;}
+div.ansnew p{border-bottom:1px solid;}
 .account_btn1 .top-arrow{width:13px; height:8px; position:absolute; background:url(../img/acc-top-arrow.png) no-repeat; top:-8px; right:15px;}
 div.acc_drpdwn a{font-family:'proxima_novaextrabold'; font-size: 16px;color:#515151; text-decoration:none;}
 div.acc_drpdwn a:hover{color:#1B9ED5;}

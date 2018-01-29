@@ -18,7 +18,7 @@
 	
 	</div>
 	
-	<a href="<?php echo $this->Html->url("/startquiz/".$coursequizs['CourseQuiz']['id']."/"); ?>"><input type="button" value="Start Quiz" id="startquiz"/></a>
+	<a href="<?php echo $this->Html->url("/takequiz/".$coursequizs['CourseQuiz']['id']."/"); ?>"><input type="button" value="Start Quiz" id="takequiz"/></a>
 </section>
 
 </div>
