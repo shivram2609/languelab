@@ -47,10 +47,9 @@
 						<div class="q-box">
 						<div class=qst><?php echo "Question"; ?></div>
 							<?php $qst = $this->Common->getquestion($currquestion['UserCourseQuizQuestion']['question']); ?>
-							<?php if ($currquestion['UserCourseQuizQuestion']['type'] == 'F'){?>
 								<input type="hidden" name='data[options][<?php echo $currquestion['UserCourseQuizQuestion']['id']; ?>][ans]' id="fanswer" value="<?php echo base64_encode(strtolower(implode('',$qst['answer']))); ?>" >
 								<?php  echo $qst['string']; ?>
-							<?php } elseif ($currquestion['UserCourseQuizQuestion']['type'] == 'A'){?>
+							<?php if ($currquestion['UserCourseQuizQuestion']['type'] == 'A'){?>
 								<h2><em>&nbsp;</em>Audio</h2>
 								<div class="box">
 									<audio id="audio" width="320" height="240" controls >	
