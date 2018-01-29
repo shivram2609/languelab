@@ -53,8 +53,8 @@
 								<h2><em>&nbsp;</em>Audio</h2>
 								<div class="box">
 									<audio id="audio" width="320" height="240" controls >	
-									<source src="<?php echo SITE_LINK.$data['UserCourseQuizQuestion']['media']; ?>" type="audio/mp3">
-									<source src="<?php echo SITE_LINK.$data['UserCourseQuizQuestion']['media'].".ogg"; ?>" type="audio/ogg">
+									<source src="<?php echo SITE_LINK.$currquestion['UserCourseQuizQuestion']['media']; ?>" type="audio/mp3">
+									<source src="<?php echo SITE_LINK.$currquestion['UserCourseQuizQuestion']['media'].".ogg"; ?>" type="audio/ogg">
 									Your browser does not support the audio tag.
 									</audio>
 								</div>
@@ -62,15 +62,15 @@
 								<h2><em>&nbsp;</em>Video</h2>
 								<div class="box">
 									<video id="vid" width="320" height="240" controls>
-									<source src="<?php echo SITE_LINK.$data['UserCourseQuizQuestion']['media'];?>" type="video/mp4">
-									<source src="<?php echo SITE_LINK.$data['UserCourseQuizQuestion']['media'].".webm";?>" type="video/webm">
+									<source src="<?php echo SITE_LINK.$currquestion['UserCourseQuizQuestion']['media'];?>" type="video/mp4">
+									<source src="<?php echo SITE_LINK.$currquestion['UserCourseQuizQuestion']['media'].".webm";?>" type="video/webm">
 									Your browser does not support the video tag.
 									</video>
 								</div>
 							<?php } elseif ($currquestion['UserCourseQuizQuestion']['type'] == 'D') { ?></br>
 								<h2><em>&nbsp;</em>Document</h2>
 								<div class="box">
-									<iframe src="http://docs.google.com/gview?url=<?php echo SITE_LINK.$data['UserCourseQuizQuestion']['media']; ?>&embedded=true" style="width:100%; height:530px;" frameborder="0" id="viewer_frame">
+									<iframe src="http://docs.google.com/gview?url=<?php echo SITE_LINK.$currquestion['UserCourseQuizQuestion']['media']; ?>&embedded=true" style="width:100%; height:530px;" frameborder="0" id="viewer_frame">
 									</iframe>
 								</div>
 							<?php } ?></br>
