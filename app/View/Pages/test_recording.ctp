@@ -18,6 +18,10 @@
 <hr>
 <video controls autoplay></video>
 
+
+<br/>
+<br/>
+<br/>
 <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script>
