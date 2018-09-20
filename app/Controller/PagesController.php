@@ -151,4 +151,7 @@ class PagesController extends AppController {
 		}
 		$this->render("contact-us");
 	}
+	
+	function test_recording() {
+	}
 }

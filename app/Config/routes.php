@@ -136,6 +136,7 @@
 	Router::connect('/site-map', array('controller' => 'pages', 'action' => 'sitemap'));
 	Router::connect('/contact-us', array('controller' => 'pages', 'action' => 'contactus'));
 	Router::connect('/support', array('controller' => 'pages', 'action' => 'support'));
+	Router::connect('/recording', array('controller' => 'pages', 'action' => 'test_recording'));
 	
 	
 	
