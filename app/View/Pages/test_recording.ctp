@@ -1,11 +1,4 @@
-<style>
-    html, body {
-        margin: 0!important;
-        padding: 0!important;
-        overflow: hidden!important;
-        width: 100%;
-    }
-</style>
+
 <div class="container">
 <title>Video Recording</title>
 <h1>Video Recording</h1>
