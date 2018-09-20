@@ -6,22 +6,20 @@
         width: 100%;
     }
 </style>
-
+<div class="container">
 <title>Video Recording</title>
 <h1>Video Recording</h1>
-
-<br>
-
-<button id="btn-start-recording">Start Recording</button>
-<button id="btn-stop-recording" disabled>Stop Recording</button>
-
+<div class="contact_bx">
 <hr>
 <video controls autoplay></video>
 
+<hr>
 
-<br/>
-<br/>
-<br/>
+<br>
+<button id="btn-start-recording">Start Recording</button>
+<button id="btn-stop-recording" disabled>Stop Recording</button>
+</div>
+</div>
 <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script>
