@@ -29,6 +29,7 @@ function captureCamera(callback) {
 function stopRecordingCallback() {
     video.src = video.srcObject = null;
     video.src = URL.createObjectURL(recorder.getBlob());
+    console.log(video.src);
     //video.play(); 
 	//var tmp = recorder;
     
