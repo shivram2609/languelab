@@ -39,21 +39,21 @@ function stopRecordingCallback() {
 	//tmp.save();
 }
 
-createRecording = -&gt;
-  recorder and recorder.exportWAV((blob)
-    data = new FormData();
-    data.append("audio", blob);
-    console.log(data)
-    $.ajax
-      url: 'Your Controller path'
-      type: 'POST'
-      data: data
-      contentType: false
-      processData: false
-      success: -&gt;
-        console.log "Successfully uploaded recording."
-  )
-  return
+//~ createRecording = -&gt;
+  //~ recorder and recorder.exportWAV((blob)
+    //~ data = new FormData();
+    //~ data.append("audio", blob);
+    //~ console.log(data)
+    //~ $.ajax
+      //~ url: 'Your Controller path'
+      //~ type: 'POST'
+      //~ data: data
+      //~ contentType: false
+      //~ processData: false
+      //~ success: -&gt;
+        //~ console.log "Successfully uploaded recording."
+  //~ )
+  //~ return
 
 
 var recorder; // globally accessible
@@ -91,6 +91,7 @@ document.getElementById('btn-download-recording').onclick = function() {
     console.log(data)
     
     )
+    
 	recorder.save();
 	recorder.destroy();
 	recorder = null;
