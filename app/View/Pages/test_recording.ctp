@@ -85,13 +85,9 @@ document.getElementById('btn-start-recording').onclick = function() {
 //}
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
-    recorder and recorder.exportWEbM((blob)
 	data = new FormData();
     data.append("video", blob);
-    console.log(data)
-    
-    )
-    
+    console.log(data);
 	recorder.save();
 	recorder.destroy();
 	recorder = null;
