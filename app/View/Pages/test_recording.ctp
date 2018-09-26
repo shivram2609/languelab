@@ -86,7 +86,7 @@ document.getElementById('btn-start-recording').onclick = function() {
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
 	data = new FormData();
-    data.append("video", blob);
+    data.append("video", recorder.blob());
     console.log(data);
 	recorder.save();
 	recorder.destroy();
