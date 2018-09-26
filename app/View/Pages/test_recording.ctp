@@ -84,12 +84,12 @@ document.getElementById('btn-start-recording').onclick = function() {
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
 	recorder.save();
-	var videoURL = window.URL.createObjectURL(e.data);
-    console.log('Data : ', e.data);
-    serverConnection.emit('video', e.data);
-    video.src = videoURL
-    console.log(video.src);
-    die;
+	//~ var videoURL = window.URL.createObjectURL(e.data);
+    //~ console.log('Data : ', recorder);
+    //~ serverConnection.emit('video', e.data);
+    //~ video.src = videoURL
+    //~ console.log(video.src);
+    //~ die;
 	recorder.destroy();
 	recorder = null;
 
@@ -98,7 +98,9 @@ document.getElementById('btn-download-recording').onclick = function() {
 document.getElementById('btn-stop-recording').onclick = function() {
     this.disabled = true;
 	video.pause();
-	
+	video.src = video.srcObject = null;
+    video.src = URL.createObjectURL(recorder.getBlob());
+    console.log(video.src);
     recorder.stopRecording(stopRecordingCallback);
 };
 </script>
