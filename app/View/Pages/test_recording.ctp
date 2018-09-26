@@ -39,6 +39,21 @@ function stopRecordingCallback() {
 	//tmp.save();
 }
 
+//~ createRecording = -&gt;
+  //~ recorder and recorder.exportWAV((blob)
+    //~ 
+    //~ $.ajax
+      //~ url: 'Your Controller path'
+      //~ type: 'POST'
+      //~ data: data
+      //~ contentType: false
+      //~ processData: false
+      //~ success: -&gt;
+        //~ console.log "Successfully uploaded recording."
+  //~ )
+  //~ return
+
+
 var recorder; // globally accessible
 document.getElementById('btn-start-recording').onclick = function() {
     this.disabled = true;
@@ -69,6 +84,10 @@ document.getElementById('btn-start-recording').onclick = function() {
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
 	recorder.save();
+	data = new FormData();
+    data.append("audio", blob);
+    console.log(data);
+    die;
 	recorder.destroy();
 	recorder = null;
 
