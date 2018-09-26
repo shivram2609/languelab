@@ -84,8 +84,8 @@ document.getElementById('btn-start-recording').onclick = function() {
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
 	//~ recorder.save();
-	//~ var videoURL = window.URL.createObjectURL(e.data);
-    console.log(recorder.getBlob());
+	//~ video.src = URL.createObjectURL(recorder.getBlob());
+    console.log(video.src);
     //~ serverConnection.emit('video', e.data);
     //~ video.src = videoURL
     //~ console.log(video.src);
