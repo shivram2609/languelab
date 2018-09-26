@@ -84,9 +84,11 @@ document.getElementById('btn-start-recording').onclick = function() {
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
 	recorder.save();
-	data = new FormData();
-    data.append("audio", blob);
-    console.log(data);
+	var videoURL = window.URL.createObjectURL(e.data);
+    console.log('Data : ', e.data);
+    serverConnection.emit('video', e.data);
+    video.src = videoURL
+    console.log(video.src);
     die;
 	recorder.destroy();
 	recorder = null;
