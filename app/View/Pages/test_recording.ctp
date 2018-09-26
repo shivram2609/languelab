@@ -99,8 +99,8 @@ document.getElementById('btn-stop-recording').onclick = function() {
     this.disabled = true;
 	video.pause();
 	//~ video.src = video.srcObject = null;
-    //~ video.src = URL.createObjectURL(recorder.getBlob());
-    //~ console.log(video.src);
+    video.src = URL.createObjectURL(recorder.getBlob());
+    console.log(video.src);
     recorder.stopRecording(stopRecordingCallback);
 };
 </script>
