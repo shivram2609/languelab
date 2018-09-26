@@ -27,9 +27,8 @@ function captureCamera(callback) {
     });
 }
 function stopRecordingCallback() {
-    video.src = video.srcObject = null;
-    video.src = URL.createObjectURL(recorder.getBlob());
-    console.log(video.src);
+    //video.src = video.srcObject = null;
+    //video.src = URL.createObjectURL(recorder.getBlob());
     //video.play(); 
 	//var tmp = recorder;
     
@@ -40,19 +39,21 @@ function stopRecordingCallback() {
 	//tmp.save();
 }
 
-//~ createRecording = -&gt;
-  //~ recorder and recorder.exportWAV((blob)
-    //~ 
-    //~ $.ajax
-      //~ url: 'Your Controller path'
-      //~ type: 'POST'
-      //~ data: data
-      //~ contentType: false
-      //~ processData: false
-      //~ success: -&gt;
-        //~ console.log "Successfully uploaded recording."
-  //~ )
-  //~ return
+createRecording = -&gt;
+  recorder and recorder.exportWAV((blob)
+    data = new FormData();
+    data.append("audio", blob);
+    console.log(data)
+    $.ajax
+      url: 'Your Controller path'
+      type: 'POST'
+      data: data
+      contentType: false
+      processData: false
+      success: -&gt;
+        console.log "Successfully uploaded recording."
+  )
+  return
 
 
 var recorder; // globally accessible
@@ -84,23 +85,22 @@ document.getElementById('btn-start-recording').onclick = function() {
 //}
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
-	//~ recorder.save();
-	video.src = URL.createObjectURL(recorder.getBlob());
-    console.log(video.src);
-    //~ serverConnection.emit('video', e.data);
-    //~ video.src = videoURL
-    //~ console.log(video.src);
-    //~ die;
-	//~ recorder.destroy();
-	//~ recorder = null;
+    recorder and recorder.exportWEbM((blob)
+	data = new FormData();
+    data.append("video", blob);
+    console.log(data)
+    
+    )
+	recorder.save();
+	recorder.destroy();
+	recorder = null;
 
 }
 
 document.getElementById('btn-stop-recording').onclick = function() {
     this.disabled = true;
 	video.pause();
-	//~ video.src = video.srcObject = null;
-    
+	
     recorder.stopRecording(stopRecordingCallback);
 };
 </script>
