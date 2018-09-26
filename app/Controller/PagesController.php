@@ -153,5 +153,7 @@ class PagesController extends AppController {
 	}
 	
 	function test_recording() {
+		pr($this->request->data);
+		die;
 	}
 }
