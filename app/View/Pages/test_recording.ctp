@@ -88,7 +88,7 @@ document.getElementById('btn-download-recording').onclick = function() {
 	//~ data = new FormData();
     //~ data.append("video", recorder.getBlob());
     //~ console.log(data);
-	recorder.upload();
+	video.upload();
 	console.log(recorder);
 	die;
 	recorder.destroy();
