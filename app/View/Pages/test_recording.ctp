@@ -12,6 +12,7 @@
 <button id="btn-start-recording">Start Recording</button>
 <button id="btn-stop-recording" disabled>Stop Recording</button>
 <button id="btn-download-recording" disabled>Download Recording</button>
+<button id="btn-upload-recording" disabled>Upload Recording</button>
 </div>
 </div>
 <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
@@ -26,6 +27,15 @@ function captureCamera(callback) {
         console.error(error);
     });
 }
+
+			function getFileName(fileExtension) {
+                var d = new Date();
+                var year = d.getUTCFullYear();
+                var month = d.getUTCMonth();
+                var date = d.getUTCDate();
+                return 'RecordRTC-' + year + month + date + '-' + '.' + fileExtension;
+            }
+
 function stopRecordingCallback() {
     //video.src = video.srcObject = null;
     //video.src = URL.createObjectURL(recorder.getBlob());
@@ -101,5 +111,17 @@ document.getElementById('btn-stop-recording').onclick = function() {
 	video.pause();
 	
     recorder.stopRecording(stopRecordingCallback);
+};
+
+document.getElementById('btn-upload-recording').onclick = function() {
+    var blob = recorder.getBlob();
+	console.log(blob);
+	// generating a random file name
+	var fileName = getFileName('webm');
+	console.log(fileName);
+	// we need to upload "File" --- not "Blob"
+	var fileObject = new File([blob], fileName, {
+		type: 'video/webm'
+	});
 };
 </script>
