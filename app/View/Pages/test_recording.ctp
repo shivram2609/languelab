@@ -135,7 +135,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 		$.ajax({
 			url: SITE_LINK+"recording/", // replace with your own server URL
-			console.log(url);
+			console.log(url),
 			data: formData,
 			cache: false,
 			contentType: false,
