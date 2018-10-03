@@ -133,7 +133,8 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		
 		// file name
 		formData.append('video-filename', fileObject.name);
-		console.log(fileObject.name);
+		var options = { content: formData };
+		console.log(options);
 		//~ die;
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 		$.ajax({
@@ -143,9 +144,8 @@ document.getElementById('btn-upload-recording').onclick = function() {
 			contentType: false,
 			processData: false,
 			type: 'POST',
-			
-			success: function(data) {
-			alert(data);	
+			success: function(response) {
+				
 				console.log(response);
 				if (response === 'success') {
 					alert('successfully uploaded recorded blob');
