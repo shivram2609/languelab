@@ -128,10 +128,10 @@ document.getElementById('btn-upload-recording').onclick = function() {
 
 		// recorded data
 		formData.append('video-blob', fileObject);
-		console.log('video-blob');
+		console.log(formData.append('video-blob', fileObject));
 		// file name
 		formData.append('video-filename', fileObject.name);
-		console.log('video-filename');
+		console.log(fileObject.name);
 		//~ die;
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 		$.ajax({
