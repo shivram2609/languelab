@@ -143,9 +143,9 @@ document.getElementById('btn-upload-recording').onclick = function() {
 			contentType: false,
 			processData: false,
 			type: 'POST',
-			alert(data);
-			success: function(response) {
-				
+			
+			success: function(data) {
+			alert(data);	
 				console.log(response);
 				if (response === 'success') {
 					alert('successfully uploaded recorded blob');
