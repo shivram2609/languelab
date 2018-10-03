@@ -127,8 +127,10 @@ document.getElementById('btn-upload-recording').onclick = function() {
 	var formData = new FormData();
 
 		// recorded data
+		formData.append('hello' , "hello world");
+		console.log(formData);
 		formData.append('video-blob', fileObject);
-		console.log(formData.append);
+		
 		// file name
 		formData.append('video-filename', fileObject.name);
 		console.log(fileObject.name);
