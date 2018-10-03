@@ -135,7 +135,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		//~ die;
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 		$.ajax({
-			url: "https://webrtcweb.com/RecordRTC/", // replace with your own server URL
+			url: SITE_LINK+"recording/", // replace with your own server URL
 			data: formData,
 			cache: false,
 			contentType: false,
@@ -146,7 +146,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 					alert('successfully uploaded recorded blob');
 
 					// file path on server
-					var fileDownloadURL = 'https://webrtcweb.com/RecordRTC/uploads/' + fileObject.name;
+					var fileDownloadURL = SITE_LINK+'recording/uploads/' + fileObject.name;
 					console.log(fileDownloadURL);
 
 					// preview the uploaded file URL

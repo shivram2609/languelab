@@ -153,6 +153,10 @@ class PagesController extends AppController {
 	}
 	
 	function test_recording() {
+		if ($this->request->is('post')) {
+			pr($this->request->data);
+		die;
+		}	
 		//~ pr($this->request->data);
 		//~ die;
 	}
