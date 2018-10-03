@@ -132,7 +132,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		// file name
 		formData.append('video-filename', fileObject.name);
 		console.log(SITE_LINK+"recording/");
-		die;
+		//~ die;
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 		$.ajax({
 			url: SITE_LINK+"recording/", // replace with your own server URL
