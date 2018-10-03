@@ -131,7 +131,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 
 		// file name
 		formData.append('video-filename', fileObject.name);
-		//~ console.log(SITE_LINK+"recording/");
+		console.log(formData);
 		//~ die;
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 		$.ajax({
