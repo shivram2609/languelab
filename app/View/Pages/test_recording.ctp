@@ -28,13 +28,13 @@ function captureCamera(callback) {
     });
 }
 
-			function getFileName(fileExtension) {
-                var d = new Date();
-                var year = d.getUTCFullYear();
-                var month = d.getUTCMonth();
-                var date = d.getUTCDate();
-                return 'RecordRTC-' + year + month + date + '-' + '.' + fileExtension;
-            }
+function getFileName(fileExtension) {
+	var d = new Date();
+	var year = d.getUTCFullYear();
+	var month = d.getUTCMonth();
+	var date = d.getUTCDate();
+	return 'RecordRTC-' + year + month + date + '.' + fileExtension;
+}
 
 function stopRecordingCallback() {
     //video.src = video.srcObject = null;
@@ -44,7 +44,8 @@ function stopRecordingCallback() {
     
 	//document.getElementById('btn-resume-recording').disabled = false;
 	document.getElementById('btn-download-recording').disabled = false;
-    //recorder.destroy();
+	document.getElementById('btn-upload-recording').disabled = false;
+    //~ //recorder.destroy();
     //recorder = null;
 	//tmp.save();
 }
@@ -64,7 +65,7 @@ function stopRecordingCallback() {
         //~ console.log "Successfully uploaded recording."
   //~ )
   //~ return
-
+//~ fvbvbvbvbvbv
 
 var recorder; // globally accessible
 document.getElementById('btn-start-recording').onclick = function() {
