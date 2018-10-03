@@ -158,7 +158,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 					// open uploaded file in a new tab
 					window.open(fileDownloadURL);
 				} else {
-					alert(response); // error/failure
+					alert("error"); // error/failure
 				}
 			}
 		});
