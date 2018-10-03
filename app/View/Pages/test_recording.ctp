@@ -116,10 +116,10 @@ document.getElementById('btn-stop-recording').onclick = function() {
 	
 document.getElementById('btn-upload-recording').onclick = function() {
     var blob = recorder.getBlob();
-	console.log(blob);
+	//~ console.log(blob);
 	// generating a random file name
 	var fileName = getFileName('webm');
-	console.log(fileName);
+	//~ console.log(fileName);
 	// we need to upload "File" --- not "Blob"
 	var fileObject = new File([blob], fileName, {
 		type: 'video/webm'
@@ -131,7 +131,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 
 		// file name
 		formData.append('video-filename', fileObject.name);
-		console.log(SITE_LINK+"recording/");
+		//~ console.log(SITE_LINK+"recording/");
 		//~ die;
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 		$.ajax({
@@ -142,6 +142,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 			processData: false,
 			type: 'POST',
 			success: function(response) {
+				console.log(response);
 				if (response === 'success') {
 					alert('successfully uploaded recorded blob');
 
@@ -158,6 +159,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 					// open uploaded file in a new tab
 					window.open(fileDownloadURL);
 				} else {
+					console.log(response);
 					alert("error"); // error/failure
 				}
 			}
