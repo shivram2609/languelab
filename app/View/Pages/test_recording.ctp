@@ -113,7 +113,7 @@ document.getElementById('btn-stop-recording').onclick = function() {
 	
     recorder.stopRecording(stopRecordingCallback);
 };
-
+	
 document.getElementById('btn-upload-recording').onclick = function() {
     var blob = recorder.getBlob();
 	console.log(blob);
@@ -133,6 +133,33 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		formData.append('video-filename', fileObject.name);
 
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
+		$.ajax({
+			url: SITE_LINK+"recording/", // replace with your own server URL
+			data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
+			type: 'POST',
+			success: function(response) {
+				if (response === 'success') {
+					alert('successfully uploaded recorded blob');
+
+					// file path on server
+					var fileDownloadURL = SITE_LINK+'recording/uploads/' + fileObject.name;
+
+					// preview the uploaded file URL
+					document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
+
+					// preview uploaded file in a VIDEO element
+					document.getElementById('your-video-id').src = fileDownloadURL;
+
+					// open uploaded file in a new tab
+					window.open(fileDownloadURL);
+				} else {
+					alert(response); // error/failure
+				}
+			}
+		});
 		console.log(fileObject);
 };
 </script>
