@@ -135,6 +135,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 		$.ajax({
 			url: SITE_LINK+"recording/", // replace with your own server URL
+			console.log(url);
 			data: formData,
 			cache: false,
 			contentType: false,
@@ -146,6 +147,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 
 					// file path on server
 					var fileDownloadURL = SITE_LINK+'recording/uploads/' + fileObject.name;
+					console.log(fileDownloadURL);
 
 					// preview the uploaded file URL
 					document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
@@ -160,6 +162,6 @@ document.getElementById('btn-upload-recording').onclick = function() {
 				}
 			}
 		});
-		console.log(fileObject);
+		//~ console.log(fileObject);
 };
 </script>
