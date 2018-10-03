@@ -1,7 +1,7 @@
 
 <div class="container">
 <title>Video Recording</title>
-<h1>Video Recording</h1>
+<h1 id="header">Video Recording</h1>
 <div class="contact_bx">
 <hr>
 <video controls autoplay></video>
@@ -124,5 +124,14 @@ document.getElementById('btn-upload-recording').onclick = function() {
 	var fileObject = new File([blob], fileName, {
 		type: 'video/webm'
 	});
+	var formData = new FormData();
+
+		// recorded data
+		formData.append('video-blob', fileObject);
+
+		// file name
+		formData.append('video-filename', fileObject.name);
+
+		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
 };
 </script>
