@@ -133,6 +133,6 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		formData.append('video-filename', fileObject.name);
 
 		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
-		console.log(formData);
+		console.log(fileObject);
 };
 </script>
