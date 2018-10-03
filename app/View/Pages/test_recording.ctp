@@ -127,8 +127,8 @@ document.getElementById('btn-upload-recording').onclick = function() {
 	var formData = new FormData();
 
 		// recorded data
-		formData.append('hello' , "hello world");
-		console.log(formData);
+		//~ formData.append('hello' , "hello world");
+		//~ console.log(formData);
 		formData.append('video-blob', fileObject);
 		
 		// file name
@@ -144,6 +144,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 			processData: false,
 			type: 'POST',
 			success: function(response) {
+				alert(data);
 				console.log(response);
 				if (response === 'success') {
 					alert('successfully uploaded recorded blob');
