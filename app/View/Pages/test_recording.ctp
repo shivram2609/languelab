@@ -128,8 +128,10 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		type: 'video/webm'
 	});
 	var video = $("#record-video").val(blob)
-	console.log(video);
-	//~ var formData = new FormData();
+	console.log(fileObject);
+	var formData = new FormData();
+	formData.append('blob', blob,"abc");
+	console.log(formData);
 //~ 
 		//~ // recorded data
 			//~ formData.append('hello' , "hello world");
