@@ -155,7 +155,7 @@ class PagesController extends AppController {
 	function test_recording() {
 		
 		if ($this->request->is('ajax')) {
-			pr("here");
+			pr($_FILES);
 		die;
 		}	
 		//~ pr($this->request->data);
