@@ -151,7 +151,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 				alert('successfully uploaded recorded blob');
 
 				// file path on server
-				var fileDownloadURL = 'https://webrtcweb.com/RecordRTC/uploads/' + fileObject.name;
+				var fileDownloadURL = 'http://languelab.org/recording/uploads/' + fileObject.name;
 
 				// preview the uploaded file URL
 				document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
