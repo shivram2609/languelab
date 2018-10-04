@@ -138,7 +138,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 	formData.append('video-filename', fileObject.name);
 	
 	$.ajax({
-		url: 'http://localhost/languelab/recording/', // replace with your own server URL
+		url: 'http://languelab.org/recording/', // replace with your own server URL
 		data: formData,
 		cache: false,
 		contentType: false,
