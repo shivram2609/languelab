@@ -139,7 +139,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 	
 	$.ajax({
 		url: 'http://languelab.org/recording/', // replace with your own server URL
-		data: formData,
+		data: {value_to_send:formData},
 		cache: false,
 		contentType: false,
 		processData: false,
