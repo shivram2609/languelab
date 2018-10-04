@@ -161,10 +161,12 @@ document.getElementById('btn-upload-recording').onclick = function() {
 
 				// open uploaded file in a new tab
 				window.open(fileDownloadURL);
+				alert(response);
 			} else {
 				alert("false"); // error/failure
 			}
 		}
 	});
+	return false;
 };
 </script>
