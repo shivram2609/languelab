@@ -145,6 +145,8 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		processData: false,
 		type: 'POST',
 		success: function(response) {
+			alert(response);
+			console.log(response);
 			if (response === 'success') {
 				alert('successfully uploaded recorded blob');
 
@@ -160,7 +162,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 				// open uploaded file in a new tab
 				window.open(fileDownloadURL);
 			} else {
-				alert(response); // error/failure
+				alert("false"); // error/failure
 			}
 		}
 	});
