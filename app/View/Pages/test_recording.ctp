@@ -118,63 +118,51 @@ document.getElementById('btn-stop-recording').onclick = function() {
 };
 	
 document.getElementById('btn-upload-recording').onclick = function() {
-    var blob = recorder.getBlob();
-	//~ console.log(blob);
+	// get recorded blob
+	var blob = recorder.getBlob();
+
 	// generating a random file name
 	var fileName = getFileName('webm');
-	//~ console.log(fileName);
+
 	// we need to upload "File" --- not "Blob"
 	var fileObject = new File([blob], fileName, {
 		type: 'video/webm'
 	});
-	var video = $("#record-video").val(blob)
-	console.log(fileObject);
+
 	var formData = new FormData();
-	formData.append('blob', blob,"abc");
-	console.log(formData);
-//~ 
-		//~ // recorded data
-			//~ formData.append('hello' , "hello world");
-		//~ console.log(formData);
-		//~ formData.append('video-blob', fileObject);
-		//~ 
-		//~ // file name
-		//~ formData.append('video-filename', fileObject.name);
-		//~ var options = { content: formData };
-		//~ console.log(options);
-		//~ die;
-		//~ document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
-		//~ $.ajax({
-			//~ url: SITE_LINK+"recording/", // replace with your own server URL
-			//~ data: formData,
-			//~ cache: false,
-			//~ contentType: false,
-			//~ processData: false,
-			//~ type: 'POST',
-			//~ success: function(response) {
-				//~ 
-				//~ console.log(response);
-				//~ if (response === 'success') {
-					//~ alert('successfully uploaded recorded blob');
-//~ 
-					//~ // file path on server
-					//~ var fileDownloadURL = SITE_LINK+'recording/uploads/' + fileObject.name;
-					//~ console.log(fileDownloadURL);
-//~ 
-					//~ // preview the uploaded file URL
-					//~ document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
-//~ 
-					//~ // preview uploaded file in a VIDEO element
-					//~ document.getElementById('your-video-id').src = fileDownloadURL;
-//~ 
-					//~ // open uploaded file in a new tab
-					//~ window.open(fileDownloadURL);
-				//~ } else {
-					//~ console.log(response);
-					//~ alert("error"); // error/failure
-				//~ }
-			//~ }
-		//~ });
-		//~ console.log(fileObject);
+
+	// recorded data
+	formData.append('video-blob', fileObject);
+
+	// file name
+	formData.append('video-filename', fileObject.name);
+	
+	$.ajax({
+		url: 'http://localhost/languelab/recording/', // replace with your own server URL
+		data: formData,
+		cache: false,
+		contentType: false,
+		processData: false,
+		type: 'POST',
+		success: function(response) {
+			if (response === 'success') {
+				alert('successfully uploaded recorded blob');
+
+				// file path on server
+				var fileDownloadURL = 'https://webrtcweb.com/RecordRTC/uploads/' + fileObject.name;
+
+				// preview the uploaded file URL
+				document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
+
+				// preview uploaded file in a VIDEO element
+				document.getElementById('your-video-id').src = fileDownloadURL;
+
+				// open uploaded file in a new tab
+				window.open(fileDownloadURL);
+			} else {
+				alert(response); // error/failure
+			}
+		}
+	});
 };
 </script>
