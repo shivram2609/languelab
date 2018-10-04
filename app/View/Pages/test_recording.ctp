@@ -127,50 +127,52 @@ document.getElementById('btn-upload-recording').onclick = function() {
 	var fileObject = new File([blob], fileName, {
 		type: 'video/webm'
 	});
-	var formData = new FormData();
-
-		// recorded data
-		//~ formData.append('hello' , "hello world");
+	var video = $("#record-video").val(blob)
+	console.log(video);
+	//~ var formData = new FormData();
+//~ 
+		//~ // recorded data
+			//~ formData.append('hello' , "hello world");
 		//~ console.log(formData);
-		formData.append('video-blob', fileObject);
-		
-		// file name
-		formData.append('video-filename', fileObject.name);
-		var options = { content: formData };
-		console.log(options);
+		//~ formData.append('video-blob', fileObject);
+		//~ 
+		//~ // file name
+		//~ formData.append('video-filename', fileObject.name);
+		//~ var options = { content: formData };
+		//~ console.log(options);
 		//~ die;
-		document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
-		$.ajax({
-			url: SITE_LINK+"recording/", // replace with your own server URL
-			data: formData,
-			cache: false,
-			contentType: false,
-			processData: false,
-			type: 'POST',
-			success: function(response) {
-				
-				console.log(response);
-				if (response === 'success') {
-					alert('successfully uploaded recorded blob');
-
-					// file path on server
-					var fileDownloadURL = SITE_LINK+'recording/uploads/' + fileObject.name;
-					console.log(fileDownloadURL);
-
-					// preview the uploaded file URL
-					document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
-
-					// preview uploaded file in a VIDEO element
-					document.getElementById('your-video-id').src = fileDownloadURL;
-
-					// open uploaded file in a new tab
-					window.open(fileDownloadURL);
-				} else {
-					console.log(response);
-					alert("error"); // error/failure
-				}
-			}
-		});
+		//~ document.getElementById('header').innerHTML = 'Uploading to Server: (' +  bytesToSize(fileObject.size) + ')';
+		//~ $.ajax({
+			//~ url: SITE_LINK+"recording/", // replace with your own server URL
+			//~ data: formData,
+			//~ cache: false,
+			//~ contentType: false,
+			//~ processData: false,
+			//~ type: 'POST',
+			//~ success: function(response) {
+				//~ 
+				//~ console.log(response);
+				//~ if (response === 'success') {
+					//~ alert('successfully uploaded recorded blob');
+//~ 
+					//~ // file path on server
+					//~ var fileDownloadURL = SITE_LINK+'recording/uploads/' + fileObject.name;
+					//~ console.log(fileDownloadURL);
+//~ 
+					//~ // preview the uploaded file URL
+					//~ document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
+//~ 
+					//~ // preview uploaded file in a VIDEO element
+					//~ document.getElementById('your-video-id').src = fileDownloadURL;
+//~ 
+					//~ // open uploaded file in a new tab
+					//~ window.open(fileDownloadURL);
+				//~ } else {
+					//~ console.log(response);
+					//~ alert("error"); // error/failure
+				//~ }
+			//~ }
+		//~ });
 		//~ console.log(fileObject);
 };
 </script>
