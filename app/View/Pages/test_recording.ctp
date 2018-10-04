@@ -1,9 +1,10 @@
 
 <div class="container">
 <title>Video Recording</title>
-<h1 id="header">Video Recording</h1>
 <?php echo $this->Form->create(array("type"=>"file","class"=>"profile_bx")); ?>
+<?php echo $this->Form->input("video",array("type"=>"hidden","label"=>false,"div"=>false , "id"=> "record-video")); ?>
 <?php echo $this->Form->end();?>
+<h1 id="header">Video Recording</h1>
 <div class="contact_bx">
 <hr>
 <video controls autoplay></video>
