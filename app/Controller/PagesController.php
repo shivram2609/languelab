@@ -156,6 +156,7 @@ class PagesController extends AppController {
 		
 		if ($this->request->is('ajax')) {
 			pr($_POST);
+			pr($this->request->data);
 		die("here");
 		}	
 		//~ pr($this->request->data);
