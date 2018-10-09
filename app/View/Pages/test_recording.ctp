@@ -138,7 +138,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 	formData.append('video-filename', fileObject.name);
 	
 	$.ajax({
-		url: 'http://languelab.org/recording/', // replace with your own server URL
+		url: '<?php echo SITE_LINK; ?>/recording/', // replace with your own server URL
 		data: formData,
 		cache: false,
 		contentType: false,
@@ -151,7 +151,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 				alert('successfully uploaded recorded blob');
 
 				// file path on server
-				var fileDownloadURL = 'http://languelab.org/recording/uploads/' + fileObject.name;
+				var fileDownloadURL = '<?php echo SITE_LINK; ?>/recording/uploads/' + fileObject.name;
 
 				// preview the uploaded file URL
 				document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
