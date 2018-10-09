@@ -156,9 +156,9 @@ class PagesController extends AppController {
 		
 		if ($this->request->is('ajax')) {
 			//~ pr($this->request->data);
-			pr($_POST['video-filename']);
+			$fileOK = $this->uploadvideos('img/files', $_POST['video-filename']);
+			pr($fileOK);
 			die("here");
-			$fileOK = $this->uploadFiles('img/files', $this->data['File']);
 			//~ $course = ($this->uploadvideos($this->data['Course']['promovideo'],NULL,"recording"."/coverimage",$this->data['Course']['promovideo']['name']))?($this->uploaddir.$this->imagename):'';
 		
 		}	
