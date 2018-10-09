@@ -138,7 +138,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 	formData.append('video-filename', fileObject.name);
 	
 	$.ajax({
-		url: '<?php echo SITE_LINK; ?>/recording/', // replace with your own server URL
+		url: '<?php echo SITE_LINK; ?>recording/', // replace with your own server URL
 		data: formData,
 		cache: false,
 		contentType: false,
