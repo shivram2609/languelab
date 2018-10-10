@@ -155,9 +155,11 @@ class PagesController extends AppController {
 	function test_recording() {
 		
 		if ($this->request->is('ajax')) {
-			pr($_FILES['video-blob']['name']);
+			//~ pr($_FILES['video-blob']['name']);
+			$file = $this->uploadvideos($_FILES['video-blob'],NULL, 12 ."/Course/",$_FILES['video-blob']['name']);
+			
 			//~ $fileOK = $this->uploadrecordedvideo('img/files', $_POST['video-filename']);
-			//~ pr($fileOK);
+			pr($file);
 			die("here");
 			//~ $course = ($this->uploadvideos($this->data['Course']['promovideo'],NULL,"recording"."/coverimage",$this->data['Course']['promovideo']['name']))?($this->uploaddir.$this->imagename):'';
 		
