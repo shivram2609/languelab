@@ -15,6 +15,8 @@
 <button id="btn-start-recording">Start Recording</button>
 <button id="btn-stop-recording" disabled>Stop Recording</button>
 <button id="btn-download-recording" disabled>Download Recording</button>
+ <a href= 'WWW_ROOT."img/"."tmp_record/"."RecordRTC-2018910.webm"'>Visit W3Schools.com!</a> 
+<button id="btn-download-recording" disabled>Play Uploaded Video</button>
 <button id="btn-upload-recording" disabled>Upload Recording</button>
 </div>
 </div>
