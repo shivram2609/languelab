@@ -99,6 +99,12 @@ document.getElementById('btn-start-recording').onclick = function() {
 //}
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
+	//~ data = new FormData();
+    //~ data.append("video", recorder.getBlob());
+    //~ console.log(data);
+	video.save();
+	//~ console.log(recorder);
+	//~ die;
 	recorder.destroy();
 	recorder = null;
 
