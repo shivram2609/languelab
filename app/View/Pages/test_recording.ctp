@@ -166,6 +166,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 				alert(response);
 			} else {
 				document.getElementById('btn-play-recording').disabled = false;
+				document.getElementById('btn-upload-recording').disabled = true;
 			}
 		}
 	});
