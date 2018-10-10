@@ -10,7 +10,7 @@
 <video controls autoplay></video>
 
 <hr>
-<?php pr($url); die; ?>
+
 <br>
 <button id="btn-start-recording">Start Recording</button>
 <button id="btn-stop-recording" disabled>Stop Recording</button>
