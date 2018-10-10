@@ -156,17 +156,17 @@ class PagesController extends AppController {
 		
 		if ($this->request->is('ajax')) {
 			//~ pr($_FILES['video-blob']['name']);
-			 pr($this->request->data);
+			 //~ pr($this->request->data);
 			$file_name = $_FILES['video-blob']['name'];
 			$file_size = $_FILES['video-blob']['size'];
 			$file_tmp = $_FILES['video-blob']['tmp_name'];
 			$file_type= $_FILES['video-blob']['type'];
-			$file = move_uploaded_file($file_tmp,WWW_ROOT."img/"."record/".$file_name);
+			$file = move_uploaded_file($file_tmp,WWW_ROOT."img/".$file_name);
 			//~ $file = $this->uploadvideos($_FILES['video-blob'],NULL, "" ."/Course/",$_FILES['video-blob']['name']);
 			
 			//~ $fileOK = $this->uploadrecordedvideo('img/files', $_POST['video-filename']);
-			return true;
-			die("here");
+			//~ return true;
+			//~ die("here");
 			//~ $course = ($this->uploadvideos($this->data['Course']['promovideo'],NULL,"recording"."/coverimage",$this->data['Course']['promovideo']['name']))?($this->uploaddir.$this->imagename):'';
 		
 		}	
