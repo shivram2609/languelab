@@ -102,9 +102,9 @@ document.getElementById('btn-download-recording').onclick = function() {
 	//~ data = new FormData();
     //~ data.append("video", recorder.getBlob());
     //~ console.log(data);
-	video.upload();
-	console.log(recorder);
-	die;
+	//~ video.upload();
+	//~ console.log(recorder);
+	//~ die;
 	recorder.destroy();
 	recorder = null;
 
@@ -145,8 +145,8 @@ document.getElementById('btn-upload-recording').onclick = function() {
 		processData: false,
 		type: 'POST',
 		success: function(response) {
-			alert(response);
-			console.log(response);
+			//~ alert(response);
+			//~ console.log(response);
 			if (response === 'success') {
 				alert('successfully uploaded recorded blob');
 
