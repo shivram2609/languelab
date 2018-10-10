@@ -169,6 +169,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 			}
 		}
 	});
+	document.getElementById('btn-download-recording').disabled = false;
 	return false;
 };
 </script>
