@@ -102,7 +102,7 @@ document.getElementById('btn-download-recording').onclick = function() {
 	//~ data = new FormData();
     //~ data.append("video", recorder.getBlob());
     //~ console.log(data);
-	video.save();
+	recorder.save();
 	//~ console.log(recorder);
 	//~ die;
 	recorder.destroy();
