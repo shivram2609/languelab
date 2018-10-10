@@ -121,6 +121,7 @@ document.getElementById('btn-stop-recording').onclick = function() {
 	
 document.getElementById('btn-upload-recording').onclick = function() {
 	// get recorded blob
+	document.getElementById('btn-download-recording').disabled = false;
 	var blob = recorder.getBlob();
 
 	// generating a random file name
@@ -169,7 +170,7 @@ document.getElementById('btn-upload-recording').onclick = function() {
 			}
 		}
 	});
-	document.getElementById('btn-download-recording').disabled = false;
+	
 	return false;
 };
 </script>
