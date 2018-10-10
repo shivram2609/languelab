@@ -77,7 +77,6 @@ document.getElementById('btn-resume-recording').onclick = function() {
    
 	this.disabled = true;
         recorder.resumeRecording();
-		setSrcObject(camera, video);
 		video.play();
         document.getElementById('btn-stop-recording').disabled = false;
 };
