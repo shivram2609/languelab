@@ -1533,6 +1533,8 @@ function uploadrecordedvideo($folder, $formdata, $itemId = null) {
 	// list of permitted file types, this is only images but documents can be added
 	$permitted = array('video/x-flv','video/3gp','video/quicktime','video/mov','video/avi','video/mp4','video/swf','video/mpeg','video/mpeg','video/mp4','video/flv', 'video/x-ms-wmv', 'video/3gpp', 'video/x-flv', 'video/webm');
 	
+	// loop through and deal with the files
+	foreach($formdata as $file) {
 		// replace spaces with underscores
 		$filename = str_replace(' ', '_', $file['name']);
 		// assume filetype is false
@@ -1589,7 +1591,7 @@ function uploadrecordedvideo($folder, $formdata, $itemId = null) {
 			// unacceptable file type
 			$result['errors'][] = "$filename cannot be uploaded.";
 		}
-	
+	}
 return $result;
 }
 	
