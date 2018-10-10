@@ -165,7 +165,7 @@ class PagesController extends AppController {
 			
 			//~ $fileOK = $this->uploadrecordedvideo('img/files', $_POST['video-filename']);
 			echo $file;
-			die("here");
+			//~ die("here");
 			//~ $course = ($this->uploadvideos($this->data['Course']['promovideo'],NULL,"recording"."/coverimage",$this->data['Course']['promovideo']['name']))?($this->uploaddir.$this->imagename):'';
 		
 		}	
