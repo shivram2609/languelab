@@ -15,8 +15,8 @@
 <button id="btn-start-recording">Start Recording</button>
 <button id="btn-stop-recording" disabled>Stop Recording</button>
 <button id="btn-download-recording" disabled>Download Recording</button>
- <a href= '<?php echo SITE_LINK; ?>app/webroot/img/tmp_record/RecordRTC-2018910.webm' id= "btn-play" disabled>Play Video</a> 
-
+<button onclick="location.href='<?php echo SITE_LINK; ?>app/webroot/img/tmp_record/RecordRTC-2018910.webm'" id="btn-play-recording" disabled>Play Video</button>
+ 
 <button id="btn-upload-recording" disabled>Upload Recording</button>
 </div>
 </div>
