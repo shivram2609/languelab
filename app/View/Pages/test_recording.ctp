@@ -165,11 +165,11 @@ document.getElementById('btn-upload-recording').onclick = function() {
 				window.open(fileDownloadURL);
 				alert(response);
 			} else {
-				alert("false"); // error/failure
+				document.getElementById('btn-play-recording').disabled = false;
 			}
 		}
 	});
-	document.getElementById('btn-play-recording').disabled = false;
+	
 	return false;
 };
 </script>
