@@ -165,12 +165,12 @@ class PagesController extends AppController {
 			$file = move_uploaded_file($file_tmp,$url);
 			
 			$result = $url;
-			pr($result);
-			die;
+			//~ pr($result);
+			//~ die;
 			//~ $file = $this->uploadvideos($_FILES['video-blob'],NULL, "" ."/Course/",$_FILES['video-blob']['name']);
 			
 			//~ $fileOK = $this->uploadrecordedvideo('img/files', $_POST['video-filename']);
-			return true;
+			return $url;
 			//~ die("here");
 			//~ $course = ($this->uploadvideos($this->data['Course']['promovideo'],NULL,"recording"."/coverimage",$this->data['Course']['promovideo']['name']))?($this->uploaddir.$this->imagename):'';
 		
