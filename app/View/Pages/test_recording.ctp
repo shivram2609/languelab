@@ -14,6 +14,7 @@
 <br>
 <button id="btn-start-recording">Start Recording</button>
 <button id="btn-stop-recording" disabled>Stop Recording</button>
+<button id="btn-resume-recording" disabled>Resume Recording</button>
 <button id="btn-download-recording" disabled>Download Recording</button>
 <button onclick="location.href='<?php echo SITE_LINK; ?>app/webroot/img/tmp_record/RecordRTC-2018910.webm'" id="btn-play-recording" disabled>Play Video</button>
  
@@ -50,27 +51,11 @@ function stopRecordingCallback() {
 	//document.getElementById('btn-resume-recording').disabled = false;
 	document.getElementById('btn-download-recording').disabled = false;
 	document.getElementById('btn-upload-recording').disabled = false;
+	document.getElementById('btn-resume-recording').disabled = false;
     //~ //recorder.destroy();
     //recorder = null;
 	//tmp.save();
 }
-
-//~ createRecording = -&gt;
-  //~ recorder and recorder.exportWAV((blob)
-    //~ data = new FormData();
-    //~ data.append("audio", blob);
-    //~ console.log(data)
-    //~ $.ajax
-      //~ url: 'Your Controller path'
-      //~ type: 'POST'
-      //~ data: data
-      //~ contentType: false
-      //~ processData: false
-      //~ success: -&gt;
-        //~ console.log "Successfully uploaded recording."
-  //~ )
-  //~ return
-//~ fvbvbvbvbvbv
 
 var recorder; // globally accessible
 document.getElementById('btn-start-recording').onclick = function() {
@@ -88,17 +73,15 @@ document.getElementById('btn-start-recording').onclick = function() {
     });
 };
 
-//document.getElementById('btn-resume-recording').onclick = function() {
+document.getElementById('btn-resume-recording').onclick = function() {
    
-	//this.disabled = true;
-      //  recorder.resumeRecording();
-		//setSrcObject(camera, video);
-		//video.play();
-        // document.getElementById('btn-stop-recording').disabled = false;
-    //recorder.destroy();
-    //recorder = null;
-	//tmp.save();
-//}
+	this.disabled = true;
+        recorder.resumeRecording();
+		setSrcObject(camera, video);
+		video.play();
+        document.getElementById('btn-stop-recording').disabled = false;
+};
+
 document.getElementById('btn-download-recording').onclick = function() {
     this.disabled = true;
 	//~ data = new FormData();
@@ -110,7 +93,7 @@ document.getElementById('btn-download-recording').onclick = function() {
 	recorder.destroy();
 	recorder = null;
 
-}
+};
 
 document.getElementById('btn-stop-recording').onclick = function() {
     this.disabled = true;
