@@ -109,7 +109,7 @@ document.getElementById('btn-download-recording').onclick = function() {
 document.getElementById('btn-stop-recording').onclick = function() {
     this.disabled = true;
 	
-	recorder.stop();
+	//~ recorder.stop();
     recorder.stopRecording(stopRecordingCallback);
 };
 	
