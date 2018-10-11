@@ -80,7 +80,7 @@ document.getElementById('btn-start-recording').onclick = function() {
 document.getElementById('btn-pause-recording').onclick = function() {
    
 	this.disabled = true;
-        recorder.pause();
+        recorder.pauseRecording();
 		//~ video.play();
         document.getElementById('btn-resume-recording').disabled = false;
 };
