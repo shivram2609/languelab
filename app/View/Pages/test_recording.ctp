@@ -81,7 +81,7 @@ document.getElementById('btn-pause-recording').onclick = function() {
    
 	this.disabled = true;
         recorder.pauseRecording();
-		//~ video.play();
+		video.pause();
         document.getElementById('btn-resume-recording').disabled = false;
 };
 
@@ -109,7 +109,7 @@ document.getElementById('btn-download-recording').onclick = function() {
 
 document.getElementById('btn-stop-recording').onclick = function() {
     this.disabled = true;
-	
+	video.pause();
 	//~ recorder.stop();
     recorder.stopRecording(stopRecordingCallback);
 };
