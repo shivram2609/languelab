@@ -14,7 +14,7 @@
 <br>
 <button id="btn-start-recording">Start Recording</button>
 <button id="btn-stop-recording" disabled>Stop Recording</button>
-<button id="btn-pause-recording" disabled>Stop Recording</button>
+<button id="btn-pause-recording" disabled>Pause Recording</button>
 <button id="btn-resume-recording" disabled>Resume Recording</button>
 <button id="btn-download-recording" disabled>Download Recording</button>
 <button onclick="location.href='<?php echo SITE_LINK; ?>app/webroot/img/tmp_record/RecordRTC-2018910.webm'" id="btn-play-recording" disabled>Play Video</button>
@@ -74,27 +74,6 @@ document.getElementById('btn-start-recording').onclick = function() {
         document.getElementById('btn-stop-recording').disabled = false;
     });
 };
-
-
- document.querySelector('#stop-recording').onclick = function() {
-                this.disabled = true;
-                console.warn('Just stopped the recording');
-                mediaRecorder.stop();
-                // mediaRecorder.stream.stop();
-                document.querySelector('#pause-recording').disabled = true;
-                document.querySelector('#start-recording').disabled = false;
-            };
-            document.querySelector('#pause-recording').onclick = function() {
-                this.disabled = true;
-                mediaRecorder.pause();
-                document.querySelector('#resume-recording').disabled = false;
-            };
-            document.querySelector('#resume-recording').onclick = function() {
-                this.disabled = true;
-                mediaRecorder.resume();
-                document.querySelector('#pause-recording').disabled = false;
-            };
-
 
 
 document.getElementById('btn-pause-recording').onclick = function() {
