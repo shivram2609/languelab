@@ -17,7 +17,7 @@
 <button id="btn-pause-recording" disabled>Pause Recording</button>
 <button id="btn-resume-recording" disabled>Resume Recording</button>
 <button id="btn-download-recording" disabled>Download Recording</button>
-<button onclick="location.href='<?php echo SITE_LINK; ?>app/webroot/img/tmp_record/RecordRTC-2018910.webm'" id="btn-play-recording" disabled>Play Video</button>
+<button onclick="location.href='<?php echo SITE_LINK; ?>app/webroot/img/tmp_record/RecordRTC-2018911.webm'" id="btn-play-recording" disabled>Play Video</button>
  
 <button id="btn-upload-recording" disabled>Upload Recording</button>
 </div>
