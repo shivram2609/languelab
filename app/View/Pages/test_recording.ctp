@@ -72,6 +72,7 @@ document.getElementById('btn-start-recording').onclick = function() {
         // release camera on stopRecording
         recorder.camera = camera;
         document.getElementById('btn-stop-recording').disabled = false;
+        document.getElementById('btn-pause-recording').disabled = false;
     });
 };
 
